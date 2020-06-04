@@ -1,1 +1,1 @@
-python .\src\server.py
+web: gunicorn src.serve:app
