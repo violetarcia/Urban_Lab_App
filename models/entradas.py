@@ -6,3 +6,6 @@
 # .. Licencia: Todos los derechos reservados                                             .. #
 # .. Repositorio: https://github.com/IFFranciscoME/Urban_Lab.git                         .. #
 # .. ................................................................................... .. #
+
+path = 'Base_de_datos.xlsx'
+sheet = 'IIEG_E_1'
