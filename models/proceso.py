@@ -10,7 +10,9 @@
 # Importing and initializing main Python libraries
 import pandas as pd
 import numpy as np
+import math
 import datos as dat
+import entradas as ent
 
 # DataFrame with Data
 df_data = dat.df
@@ -20,7 +22,7 @@ df_data = dat.df
 # -- Function: Calculate stress metric
 # -- ------------------------------------------------------------------------------------ -- #
 def metric_stress(df_data):
-    """
+	"""
     Parameters
     ---------
     :param:
@@ -34,8 +36,106 @@ def metric_stress(df_data):
     Debuggin
     ---------
         df_data = read_file(ent.path, ent.sheet)
+	"""
+	# Columns names
+	list_columns = list(ent.conditions_stress.keys())
+	# Conditions (dicts)
+	list_dict_conditions = list(ent.conditions_stress.values())
+	# List with answers
+	answer = [[f_condition(
+							list_dict_conditions[k], 
+							   df_data[list_columns[k]][i]
+							   ) 
+							for i in range(len(df_data))
+							] 
+					for k in range(len(list_columns))
+					]
 
-    """
+	return answer
 
-    pass
+metric_s = metric_stress(df_data)
+
+
+# -- ------------------------------------------------------------------------------------ -- #
+# -- Function: According with condition in dict
+# -- ------------------------------------------------------------------------------------ -- #
+def f_condition(dict_condition, data):
+	"""
+    Parameters
+    ---------
+    :param:
+        dict_condition: dict : diccionario con condiciones
+
+    Returns
+    ---------
+    :return:
+        df: DataFrame : Datos del archivo
+
+    Debuggin
+    ---------
+        df_data = read_file(ent.path, ent.sheet)
+	"""
+	# valores que se necesitan poner
+	posible_results = list(dict_condition.keys())
+	# lista de condiciones
+	list_conditions = list(dict_condition.values())
+	# Utilizando la funcion para cada condicion
+	answer = [type_verification(list_conditions[i], posible_results[i], 
+							data) for i in range(len(list_conditions ))]
+	
+	if answer == [0]*len(answer):
+		return 0
+	else:
+		lista = list(filter(None.__ne__, answer))
+		if len(lista) == 0:
+			return['error']
+		else:
+			return lista[0]
+		
+
+
+# -- ------------------------------------------------------------------------------------ -- #
+# -- Function: Check what kind of condition is needed
+# -- ------------------------------------------------------------------------------------ -- #	
+def type_verification(condition, result, data):
+	"""
+    Parameters
+    ---------
+    :param:
+        condition: tuple or list : contiene las condiciones
+		result: int : numero que si se cumple la condicion es el resultado
+		data: int or str: dato que se esta comparando para cuantificar
+		
+    Returns
+    ---------
+    :return:
+        answer: int : numero de la metrica
+
+    Debuggin
+    ---------
+        condition = (0, 25)
+		result = 
+		data: int or str: dato que se esta comparando para cuantificar
+	"""
+	# Si es lista tiene que estar en tal
+	if type(condition) == list:
+		if data in condition:
+			return result
+	
+	# Si es numerico
+	if type(data) != str:
+		if math.isnan(data):
+			return 0
+		# Si es tuple, tiene que estar entre ambos numeros
+		if type(condition) == tuple:
+			if condition[0] < data and data <= condition[1]:
+				return result
+
+		
+#%%
+
+
+
+
+
 

@@ -35,18 +35,19 @@ def read_file(file_path, sheet):
 		sheet = 'IIEG_E_1'
 
     """
-    # Leer archivo xls
+    # Read xls
     df_data = pd.read_excel('archivos/' + file_path, sheet_name=sheet)
     return df_data
 
+# Using function: read_file
 df_data = read_file(ent.path, ent.sheet)
 
-
+#%%
 # -- ------------------------------------------------------------------------------------ -- #
 # -- Function: Cleaning Database that is in a DataFrame
 # -- ------------------------------------------------------------------------------------ -- #
 def clear_data(df_data):
-    """
+	"""
     Parameters
     ---------
     :param:
@@ -61,10 +62,26 @@ def clear_data(df_data):
     ---------
         df_data = read_file(ent.path, ent.sheet)
 
-    """
-    df = df_data.copy()
-    df.replace([998, 999, 'No contesto', 'No sé'], np.nan, inplace=True)
+	"""
+	# Make a copy
+	df = df_data.copy()
+	# Replace
+	df.replace([998, 999, 'No contesto', 'No sé'], np.nan, inplace=True)	
+	df.replace(
+				{
+				"Más de 52": 52, 
+				"De 26 a 52": 26, 
+				"No aplica": 100, 
+				"No contesto": 101, 
+				"No sé":102, 
+				"Más de un año":12}, inplace=True)
+	
+	# Specific columns
+	df['aumento_precios'].replace(100, np.nan, inplace=True)
 
-    return df
+	return df
 
+# Using function: clear_data
 df = clear_data(df_data)
+
+#%%
