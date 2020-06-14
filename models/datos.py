@@ -11,7 +11,6 @@
 # Importing and initializing main Python libraries
 import pandas as pd
 import numpy as np
-import entradas as ent
 
 
 # -- ------------------------------------------------------------------------------------ -- #
@@ -39,14 +38,11 @@ def read_file(file_path, sheet):
     df_data = pd.read_excel('archivos/' + file_path, sheet_name=sheet)
     return df_data
 
-# Using function: read_file
-df_data = read_file(ent.path, ent.sheet)
 
-#%%
 # -- ------------------------------------------------------------------------------------ -- #
 # -- Function: Cleaning Database that is in a DataFrame
 # -- ------------------------------------------------------------------------------------ -- #
-def clear_data(df_data):
+def clean_data(df_data):
 	"""
     Parameters
     ---------
@@ -80,8 +76,3 @@ def clear_data(df_data):
 	df['aumento_precios'].replace(100, np.nan, inplace=True)
 
 	return df
-
-# Using function: clear_data
-df = clear_data(df_data)
-
-#%%

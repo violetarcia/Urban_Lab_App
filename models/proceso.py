@@ -8,14 +8,12 @@
 # .. ................................................................................... .. #
 
 # Importing and initializing main Python libraries
-import pandas as pd
-import numpy as np
 import math
 import datos as dat
 import entradas as ent
 
 # DataFrame with Data
-df_data = dat.df
+df_data = dat.clean_data(dat.read_file(ent.path, ent.sheet))
 
 
 # -- ------------------------------------------------------------------------------------ -- #
@@ -65,15 +63,16 @@ def f_condition(dict_condition, data):
     ---------
     :param:
         dict_condition: dict : diccionario con condiciones
-
+		data: int or str: dato a comparar
     Returns
     ---------
     :return:
-        df: DataFrame : Datos del archivo
+        int: valor de acuerdo a la condicion
 
     Debuggin
     ---------
-        df_data = read_file(ent.path, ent.sheet)
+        dict_condition = list(ent.conditions_stress.values())[0]
+		data = df_data['ventas_porcentaje'][0]
 	"""
 	# valores que se necesitan poner
 	posible_results = list(dict_condition.keys())
@@ -93,7 +92,6 @@ def f_condition(dict_condition, data):
 			return lista[0]
 		
 
-
 # -- ------------------------------------------------------------------------------------ -- #
 # -- Function: Check what kind of condition is needed
 # -- ------------------------------------------------------------------------------------ -- #	
@@ -103,7 +101,7 @@ def type_verification(condition, result, data):
     ---------
     :param:
         condition: tuple or list : contiene las condiciones
-		result: int : numero que si se cumple la condicion es el resultado
+		result: int : numero si se cumple la condicion es el resultado
 		data: int or str: dato que se esta comparando para cuantificar
 		
     Returns
@@ -114,8 +112,9 @@ def type_verification(condition, result, data):
     Debuggin
     ---------
         condition = (0, 25)
-		result = 
-		data: int or str: dato que se esta comparando para cuantificar
+		result = 1
+		data = 10
+		
 	"""
 	# Si es lista tiene que estar en tal
 	if type(condition) == list:
@@ -130,12 +129,3 @@ def type_verification(condition, result, data):
 		if type(condition) == tuple:
 			if condition[0] < data and data <= condition[1]:
 				return result
-
-		
-#%%
-
-
-
-
-
-
