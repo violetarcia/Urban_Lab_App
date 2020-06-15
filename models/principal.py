@@ -28,9 +28,12 @@ if __name__ == "__main__":
 	# Using function: clean_data
 	df_data = dat.clean_data(df_data_or)
 	
-	# Using metric_stress
-	metric_s = pr.metric_stress(df_data)
+	# Using metric_quantification with stress conditions
+	metric_s = pr.metric_quantification(df_data, ent.conditions_stress)
+	
+	# Using metric_quantification with adaptability conditions
+	metric_a = pr.metric_quantification(df_data, ent.conditions_adaptability)
 	
 	# End time
 	t1 = time()
-	print('el tiempo transcurrido fue: ' + str(t1-t0))
+	#print('el tiempo transcurrido fue: ' + str(t1-t0))

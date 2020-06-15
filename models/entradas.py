@@ -10,6 +10,9 @@
 path = 'Base_de_datos.xlsx'
 sheet = 'IIEG_E_1'
 
+# -- ------------------------------------------------------------------------------------ -- #
+# -- Entrada para metrica de estres
+# -- ------------------------------------------------------------------------------------ -- #
 conditions_stress = {
 				'ventas_porcentaje': {
 							1: (-1, 25),
@@ -125,5 +128,64 @@ conditions_stress = {
 				'aumento_tipocambio': {
 							0: ['No'],
 							4: ['Sí']
+						}
+				}
+				
+				
+# -- ------------------------------------------------------------------------------------ -- #
+# -- Entrada para metrica de adaptabilidad
+# -- ------------------------------------------------------------------------------------ -- #				
+conditions_adaptability = {
+				'capacidad': {
+							1: (-1, 50),
+							2: (50, 100)
+						},
+				'cerrar_razon': {
+							1: ['Falta de fondos o liquidez', 'Gastos elevados', 
+								   'Problemas con importaciones o exportaciones', 
+								   'Problemas de cobranza'],
+							0: [100, 'Incertidumbre sobre la duración de la caída en ventas',
+								   'Otro (Por favor especifique)', 
+								      'Multas del gobierno de la emergencia sanitaria', 
+									  'Depende del turismo'] ### else
+						},
+				'despidos': {
+							0: ['Sí', 'No cuenta con personal', 
+								   'No, pero lo va a hacer en los próximos días'],
+							2: ['No'],
+							1: ['No, pero lo está considerando']
+						},
+				'pago_salarios': {
+							0: [100, 101, 102],
+							1: (-1, 12),
+							2: (12, 52)
+						},
+				'capacidad_pago': {
+							2: ['No'],
+							1: ['Sí'],
+							0: ['No sé']
+						},
+				'acuerdo_laboral': {
+							0: ['No'],
+							1: ['No, pero lo está considerando', 
+								   'No, pero lo va a hacer en los próximos días'],
+							2: ['Sí']
+						},
+				'trabajo_casa': {
+							0: ['No', 100],
+							1: ['No, pero lo está considerando', 
+								   'No, pero lo va a hacer en los próximos días'],
+							2: ['Sí']
+						},
+				'trabajo_casa_motivo': {
+							1: ['La naturaleza de mi negocio no lo permite', 
+							      'Porque se considera una actividad esencial para la emergencia'],
+					        0: ['Otro (Por favor especifique)', 
+								 'No me convence la modalidad de trabajar desde casa', 100]
+						},
+				'aumento_precios': {
+							0: ['No'],
+							1: ['No, pero lo estoy considerando'],
+							3: ['Sí']
 						}
 				}

@@ -21,12 +21,12 @@ def read_file(file_path, sheet):
     Parameters
     ---------
     :param:
-        file: str : nombre de archivo leer
-		sheet: str : nombre de la pestana
+        file: str : name of file xlsx
+		sheet: str : name of sheet
     Returns
     ---------
     :return:
-        df_data: DataFrame : Datos del archivo
+        df_data: DataFrame : file's data
 
     Debuggin
     ---------
@@ -47,12 +47,12 @@ def clean_data(df_data):
     Parameters
     ---------
     :param:
-        df_data: DataFrame : datos en DF
+        df_data: DataFrame : data in a DF
 
     Returns
     ---------
     :return:
-        df: DataFrame : Datos del archivo
+        df: DataFrame : clean data in DF
 
     Debuggin
     ---------

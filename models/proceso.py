@@ -7,19 +7,16 @@
 # .. Repositorio: https://github.com/IFFranciscoME/Urban_Lab.git                         .. #
 # .. ................................................................................... .. #
 
+
 # Importing and initializing main Python libraries
 import math
-import datos as dat
-import entradas as ent
-
-# DataFrame with Data
-df_data = dat.clean_data(dat.read_file(ent.path, ent.sheet))
+import pandas as pd
 
 
 # -- ------------------------------------------------------------------------------------ -- #
-# -- Function: Calculate stress metric
+# -- Function: Calculate metric
 # -- ------------------------------------------------------------------------------------ -- #
-def metric_stress(df_data):
+def metric_quantification(df_data, conditions):
 	"""
     Parameters
     ---------
@@ -36,9 +33,9 @@ def metric_stress(df_data):
         df_data = read_file(ent.path, ent.sheet)
 	"""
 	# Columns names
-	list_columns = list(ent.conditions_stress.keys())
+	list_columns = list(conditions.keys())
 	# Conditions (dicts)
-	list_dict_conditions = list(ent.conditions_stress.values())
+	list_dict_conditions = list(conditions.values())
 	# List with answers
 	answer = [[f_condition(
 							list_dict_conditions[k], 
@@ -48,10 +45,9 @@ def metric_stress(df_data):
 							] 
 					for k in range(len(list_columns))
 					]
-
-	return answer
-
-metric_s = metric_stress(df_data)
+	# sum all
+	metric = pd.DataFrame(answer).sum()
+	return metric
 
 
 # -- ------------------------------------------------------------------------------------ -- #
