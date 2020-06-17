@@ -1,7 +1,7 @@
-from app import dash
+from app.dash import app
+
 from config import config
 
-app = dash.app
 
 def main():
     app.run_server(debug=config.debug, host=config.host, port=config.port)
