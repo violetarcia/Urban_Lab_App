@@ -8,16 +8,21 @@ from config import config, about
 from model.data import Data
 from model.model import Model
 from model.result import Result  # Read data
+from api.server import server
 
 data = Data()
 data.get_data()  # App Instance
-print(config.root+'\\app\\assets')
-app = dash.Dash(name=config.name, assets_folder=config.root+'\\app\\assets',
+
+print(config.root+'/app/assets')
+app = dash.Dash(name=config.name,
+                server=server,
+                routes_pathname_prefix='/',
+                assets_folder=config.root+'/app/assets',
                 external_stylesheets=[dbc.themes.LUX, config.fontawesome])
 app.title = config.name  # Navbar
 navbar = dbc.Nav(className="nav nav-pills", children=[
     # logo/home
-    dbc.NavItem(html.Img(src=app.get_asset_url("logo.PNG"), height="40px")),
+    dbc.NavItem(html.Img(src=app.get_asset_url("logo.png"), height="40px")),
     # about
     dbc.NavItem(html.Div([
         dbc.NavLink("About", href="/", id="about-popover", active=False),
