@@ -1,9 +1,9 @@
-from app import dash
+from app.dash import app
 from config import config
 
 
 def main():
-    dash.app.run_server(debug=config.debug, host=config.host, port=config.port)
+    app.run_server(debug=config.debug, host=config.host, port=config.port)
 
 
 if __name__ == "__main__":
