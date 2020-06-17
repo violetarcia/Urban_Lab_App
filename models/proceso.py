@@ -16,7 +16,7 @@ import pandas as pd
 # -- ------------------------------------------------------------------------------------ -- #
 # -- Function: Calculate metric
 # -- ------------------------------------------------------------------------------------ -- #
-def metric_quantification(df_data, conditions):
+def metric_quantification(df_data, conditions, metric_column):
 	"""
     Parameters
     ---------
@@ -36,7 +36,7 @@ def metric_quantification(df_data, conditions):
 	list_columns = list(conditions.keys())
 	# Conditions (dicts)
 	list_dict_conditions = list(conditions.values())
-	# List with answers
+	# List of lists with answers
 	answer = [[f_condition(
 							list_dict_conditions[k], 
 							   df_data[list_columns[k]][i]
@@ -47,7 +47,9 @@ def metric_quantification(df_data, conditions):
 					]
 	# sum all
 	metric = pd.DataFrame(answer).sum()
-	return metric
+	df = df_data.copy()
+	df[metric_column] = metric
+	return df
 
 
 # -- ------------------------------------------------------------------------------------ -- #
@@ -125,3 +127,4 @@ def type_verification(condition, result, data):
 		if type(condition) == tuple:
 			if condition[0] < data and data <= condition[1]:
 				return result
+			

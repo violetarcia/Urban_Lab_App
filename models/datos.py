@@ -11,7 +11,8 @@
 # Importing and initializing main Python libraries
 import pandas as pd
 import numpy as np
-
+import geopandas as gpd
+import json
 
 # -- ------------------------------------------------------------------------------------ -- #
 # -- Function: Read data file and storing it in to a DataFrame
@@ -76,3 +77,64 @@ def clean_data(df_data):
 	df['aumento_precios'].replace(100, np.nan, inplace=True)
 
 	return df
+
+
+# -- ------------------------------------------------------------------------------------ -- #
+# -- Function: Read shape file and storing it in to a DataFrame
+# -- ------------------------------------------------------------------------------------ -- #
+def read_map_file(path):
+	"""
+    Parameters
+    ---------
+    :param:
+        path: str : path of shape file
+
+    Returns
+    ---------
+    :return:
+        geodf: DataFrame : clean data in DF
+
+    Debuggin
+    ---------
+        path = ent.map_path
+
+	"""
+	geodf = gpd.read_file('archivos/' + path)
+	return geodf
+
+
+# -- ------------------------------------------------------------------------------------ -- #
+# -- Function: Merge Shape file with Data
+# -- ------------------------------------------------------------------------------------ -- #
+def merge_data(df_data, geodf, metric):
+	"""
+    Parameters
+    ---------
+    :param:
+        df_data: DataFrame : data in a DF
+		geodf: DataFrame : shape file in DF
+		metric: str : name of column of metric
+
+    Returns
+    ---------
+    :return:
+        json_data: JSON : geojson
+
+    Debuggin
+    ---------
+        df_data = metric_quantification(df_data, ent.conditions_stress, 'Estres')
+		geodf = read_map_file(ent.map_path)
+		metric = 'Estres'
+
+	"""
+	# Tabla Pivote
+	pivot = pd.pivot_table(df_data, index = 'CP', values = metric, aggfunc=np.median)
+	# Change type of cp
+	geodf['d_cp'] = geodf['d_cp'].astype(int)
+	# Merge data with shape file
+	geodf = geodf.merge(pivot, left_on='d_cp', right_on='CP', how='left')
+	#Read data to json.
+	merged_json = json.loads(geodf.to_json())
+	#Convert to String like object.
+	json_data = json.dumps(merged_json)
+	return json_data

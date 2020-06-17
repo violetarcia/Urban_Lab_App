@@ -23,17 +23,19 @@ t0 = time()
 if __name__ == "__main__":
 	
 	# Using function: read_file (original)
-	df_data_or = dat.read_file(ent.path, ent.sheet)
+	df_data_or = dat.read_file(ent.data_path, ent.data_sheet)
 	
 	# Using function: clean_data
 	df_data = dat.clean_data(df_data_or)
 	
 	# Using metric_quantification with stress conditions
-	metric_s = pr.metric_quantification(df_data, ent.conditions_stress)
+	metric_s = pr.metric_quantification(df_data, ent.conditions_stress, 'Estres')
 	
 	# Using metric_quantification with adaptability conditions
-	metric_a = pr.metric_quantification(df_data, ent.conditions_adaptability)
+	metric_a = pr.metric_quantification(df_data, ent.conditions_adaptability, 'Adaptabilidad')
 	
 	# End time
 	t1 = time()
+	
+	vs.map_metric(metric_s, 'Estres', ent.map_path)
 	#print('el tiempo transcurrido fue: ' + str(t1-t0))
