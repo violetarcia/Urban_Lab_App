@@ -1,4 +1,4 @@
-from app.dash import app
+from app.dash.app import app as application
 from config import config
 
 
