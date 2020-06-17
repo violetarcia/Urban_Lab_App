@@ -13,13 +13,15 @@ from api.server import server
 data = Data()
 data.get_data()  # App Instance
 
-print(config.root+'/app/assets')
 app = dash.Dash(name=config.name,
                 server=server,
                 routes_pathname_prefix='/',
                 assets_folder=config.root+'/app/assets',
                 external_stylesheets=[dbc.themes.LUX, config.fontawesome])
-app.title = config.name  # Navbar
+
+app.title = config.name  
+
+# Navbar
 navbar = dbc.Nav(className="nav nav-pills", children=[
     # logo/home
     dbc.NavItem(html.Img(src=app.get_asset_url("logo.png"), height="40px")),
@@ -37,7 +39,10 @@ navbar = dbc.Nav(className="nav nav-pills", children=[
         dbc.DropdownMenuItem(
             [html.I(className="fa fa-github"), "  Code"], href=config.code, target="_blank")
     ])
-])  # Input
+])  
+
+
+# Input
 inputs = dbc.FormGroup([
     html.H4("Select Country"),
     dcc.Dropdown(id="country", options=[
@@ -65,9 +70,9 @@ app.layout = dbc.Container(fluid=True, children=[
             ])
         ])
     ])
-])  # Python functions for about navitem-popover
+])  
 
-
+# Python functions for about navitem-popover
 @app.callback(output=Output("about", "is_open"), inputs=[Input("about-popover", "n_clicks")], state=[State("about", "is_open")])
 def about_popover(n, is_open):
     if n:
