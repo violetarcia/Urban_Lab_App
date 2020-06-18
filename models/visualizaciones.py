@@ -56,7 +56,7 @@ def map_metric(df_data, metric, path):
 	color_mapper = LinearColorMapper(palette = palette, low = 0, high = 40, nan_color = '#d9d9d9')
 	
 	# Add hover tool
-	hover = HoverTool(tooltips = [ ('CP:','@d_cp'),('Estres:', '@Estres')])
+	hover = HoverTool(tooltips = [ ('CP:','@d_cp'),(metric + ':', '@'+metric)])
 	
 	# Define custom tick labels for color bar.
 	tick_labels = {'0': '0', '5': '5', '10':'10', '15':'15', '20':'20',
@@ -65,7 +65,7 @@ def map_metric(df_data, metric, path):
 	color_bar = ColorBar(color_mapper=color_mapper, label_standoff=8,width = 500, height = 20,
 	border_line_color=None,location = (0,0), orientation = 'horizontal', major_label_overrides = tick_labels)
 	# Create figure object.
-	p = figure(title = 'Estrés Económico', plot_height = 600 ,
+	p = figure(title = metric, plot_height = 600 ,
 	           plot_width = 950, toolbar_location = 'below',
 	           tools = [hover, "zoom_in", "zoom_out", "reset", "pan"],
 	           x_range = (2330000, 2380000), y_range = (940000, 980000))
@@ -73,7 +73,7 @@ def map_metric(df_data, metric, path):
 	p.ygrid.grid_line_color = None
 	
 	# Add patch renderer to figure. 
-	p.patches('xs','ys', source = geosource,fill_color = {'field' :'Estres', 'transform' : color_mapper},
+	p.patches('xs','ys', source = geosource,fill_color = {'field' :metric, 'transform' : color_mapper},
 	          line_color = 'black', line_width = 0.25, fill_alpha = 1)
 	# Specify figure layout.
 	

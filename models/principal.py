@@ -39,4 +39,6 @@ if __name__ == "__main__":
 	
 	# Visualizations
 	vs.map_metric(metric_s, 'Estres', ent.map_path)
+	vs.map_metric(metric_a, 'Adaptabilidad', ent.map_path)
+
 	#print('el tiempo transcurrido fue: ' + str(t1-t0))
