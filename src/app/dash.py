@@ -10,6 +10,26 @@ from model.model import Model
 from model.result import Result  # Read data
 from api.server import server
 
+# - - - - - - - - - - -
+from model.datos import read_file, clean_data
+from model.proceso import metric_quantification
+from model.visualizaciones import map_metric
+import model.entradas as ent
+
+# Using function: read_file (original)
+df_data_or = read_file(ent.data_path, ent.data_sheet)
+
+# Using function: clean_data
+df_data = clean_data(df_data_or)
+
+# Using metric_quantification with stress conditions
+metric_s = metric_quantification(df_data, ent.conditions_stress, 'Estres')
+
+# Visualizations
+fig = map_metric(metric_s, 'Estres', ent.shp_path, ent.kml_path)
+
+# - - - - - - - - - - -
+
 data = Data()
 data.get_data()  # App Instance
 
@@ -18,6 +38,7 @@ app = dash.Dash(name=config.name,
                 routes_pathname_prefix='/',
                 assets_folder=config.root+'/app/assets',
                 external_stylesheets=[dbc.themes.LUX, config.fontawesome])
+
 
 app.title = config.name  
 
