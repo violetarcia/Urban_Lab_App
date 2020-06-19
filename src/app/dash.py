@@ -16,17 +16,7 @@ from model.proceso import metric_quantification
 from model.visualizaciones import map_metric
 import model.entradas as ent
 
-# Using function: read_file (original)
-df_data_or = read_file(ent.data_path, ent.data_sheet)
 
-# Using function: clean_data
-df_data = clean_data(df_data_or)
-
-# Using metric_quantification with stress conditions
-metric_s = metric_quantification(df_data, ent.conditions_stress, 'Estres')
-
-# Visualizations
-fig = map_metric(metric_s, 'Estres', ent.shp_path, ent.kml_path)
 
 # - - - - - - - - - - -
 
@@ -110,13 +100,20 @@ def about_active(n, active):
 
 @app.callback(output=Output("plot-total", "figure"), inputs=[Input("country", "value")])
 def plot_total_cases(country):
-    data.process_data(country)
-    model = Model(data.dtf)
-    model.forecast()
-    model.add_deaths(data.mortality)
-    result = Result(model.dtf)
+    # Using function: read_file (original)
+    df_data_or = read_file(ent.data_path, ent.data_sheet)
+
+    # Using function: clean_data
+    df_data = clean_data(df_data_or)
+
+    # Using metric_quantification with stress conditions
+    metric_s = metric_quantification(df_data, ent.conditions_stress, 'Estres')
+
+    # Visualizations
+    fig = map_metric(metric_s, 'Estres', ent.shp_path, ent.kml_path)
+
     # Python function to plot active cases
-    return result.plot_total(model.today)
+    return fig
 
 
 @app.callback(output=Output("plot-active", "figure"), inputs=[Input("country", "value")])
