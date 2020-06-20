@@ -9,17 +9,13 @@
 
 
 # Importing and initializing main Python libraries
-from bokeh.io import output_notebook, show, output_file
-from bokeh.plotting import figure
-from bokeh.models import GeoJSONDataSource, LinearColorMapper, ColorBar, HoverTool
-from bokeh.palettes import brewer
 import datos as dat
-
+import plotly.express as px
 
 # -- ------------------------------------------------------------------------------------ -- #
 # -- Function: Map
 # -- ------------------------------------------------------------------------------------ -- #
-def map_metric(df_data, metric, path):
+def map_metric(df_data, metric, path_shape, path_kml):
 	"""
     Parameters
     ---------
@@ -38,7 +34,6 @@ def map_metric(df_data, metric, path):
         df_data = metric_quantification(df_data, ent.conditions_stress, 'Estres')
 		metric = 'estres'
 		path: str : "cp_jal_2/CP_14_Jal_v6.shp"
-
 	"""
 	# Shape file data
 	geodf = dat.read_map_file(path)
@@ -86,6 +81,7 @@ def map_metric(df_data, metric, path):
 	show(p)
 	
 # map_metric(pr.metric_s, 'estres', ent.map_path)
+
 
 
 

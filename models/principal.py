@@ -13,12 +13,10 @@ import proceso as pr
 import datos as dat
 import entradas as ent
 import visualizaciones as vs
-import numpy as np
-import pandas as pd
 from time import time
 
 # Start time
-t0 = time()
+#t0 = time()
 
 if __name__ == "__main__":
 	
@@ -35,7 +33,7 @@ if __name__ == "__main__":
 	metric_a = pr.metric_quantification(df_data, ent.conditions_adaptability, 'Adaptabilidad')
 	
 	# End time
-	t1 = time()
+	#t1 = time()
 	
 	# Visualizations
 	vs.map_metric(metric_s, 'Estres', ent.map_path)
