@@ -10,6 +10,16 @@ from model.model import Model
 from model.result import Result  # Read data
 from api.server import server
 
+# - - - - - - - - - - -
+from model.datos import read_file, clean_data
+from model.proceso import metric_quantification
+from model.visualizaciones import map_metric
+import model.entradas as ent
+
+
+
+# - - - - - - - - - - -
+
 data = Data()
 data.get_data()  # App Instance
 
@@ -18,6 +28,7 @@ app = dash.Dash(name=config.name,
                 routes_pathname_prefix='/',
                 assets_folder=config.root+'/app/assets',
                 external_stylesheets=[dbc.themes.LUX, config.fontawesome])
+
 
 app.title = config.name  
 
@@ -89,13 +100,20 @@ def about_active(n, active):
 
 @app.callback(output=Output("plot-total", "figure"), inputs=[Input("country", "value")])
 def plot_total_cases(country):
-    data.process_data(country)
-    model = Model(data.dtf)
-    model.forecast()
-    model.add_deaths(data.mortality)
-    result = Result(model.dtf)
+    # Using function: read_file (original)
+    df_data_or = read_file(ent.data_path, ent.data_sheet)
+
+    # Using function: clean_data
+    df_data = clean_data(df_data_or)
+
+    # Using metric_quantification with stress conditions
+    metric_s = metric_quantification(df_data, ent.conditions_stress, 'Estres')
+
+    # Visualizations
+    fig = map_metric(metric_s, 'Estres', ent.shp_path, ent.kml_path)
+
     # Python function to plot active cases
-    return result.plot_total(model.today)
+    return fig
 
 
 @app.callback(output=Output("plot-active", "figure"), inputs=[Input("country", "value")])
