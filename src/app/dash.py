@@ -25,7 +25,6 @@ from model.visualizaciones import map_metric
 import model.entradas as ent
 
 
-
 # - - - - - - - - - - -
 
 data = Data()
