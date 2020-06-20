@@ -1,4 +1,12 @@
-# Setup
+
+# -- --------------------------------------------------------------------------------------------------- -- #
+# -- project: Urban Lab / Laboratorio de econometría espacial urbana - PAP4J05                           -- #
+# -- script: dash.py : script con el codigo funcional del dashboard                                      -- #
+# -- author: FranciscoME / PAP4J05                                                                       -- #
+# -- license: MIT                                                                                        -- #
+# -- repository: https://github.com/IFFranciscoME/Urban_Lab_App                                          -- #
+# -- --------------------------------------------------------------------------------------------------- -- #
+
 import dash
 from dash.dependencies import Input, Output, State
 import dash_core_components as dcc
