@@ -84,3 +84,11 @@ def map_metric(df_data, metric, path_shape, path_kml):
     fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 
     return fig
+
+
+def bar_chart(df_data, metric):
+    data = df_data.groupby('Sector')[metric].sum()
+    data = data.reset_index()
+
+    fig = px.bar(data, x='Sector', y=metric)
+    return fig
