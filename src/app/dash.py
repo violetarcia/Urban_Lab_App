@@ -101,6 +101,7 @@ def update_graph(option_map):
     metric_s = metric_quantification(df_data, ent.dict_conditions[option_map], option_map)
     # Visualizations
     fig = map_metric(metric_s, 'Estres', ent.shp_path, ent.kml_path)
+
     #fig = bar_chart(metric_s, option_map)
     return container, fig
 	
