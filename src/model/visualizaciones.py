@@ -7,7 +7,7 @@
 # .. ................................................................................... .. #
 
 # Importing and initializing main Python libraries
-import models.datos as dat
+import model.datos as dat
 import plotly.express as px
 
 
