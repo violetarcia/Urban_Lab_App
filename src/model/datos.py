@@ -107,7 +107,7 @@ def read_map_files(path_shape, path_kml):
     geodf_shp = gpd.read_file(root+'/app/assets/files/' + path_shape)
 
     geodf_kml.to_file(root+'/app/assets/files/' + path_kml, driver="GeoJSON") #aqui falla
-
+    ''' 
     with open(root+'/app/assets/files/' + path_kml) as geofile:
         j_file = json.load(geofile)
     # Asignar el id al kml
@@ -115,4 +115,5 @@ def read_map_files(path_shape, path_kml):
     for feature in j_file["features"]:
         feature['id'] = geodf_shp['d_cp'][i]
         i += 1
-    return j_file
+    '''
+    return geodf_kml
