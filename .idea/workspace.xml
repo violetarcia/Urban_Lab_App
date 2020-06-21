@@ -2,9 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81ff63a4-781c-40f6-8410-4a8d11331e26" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/borrador.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/assets/files/cp_jal_2/CP_14Jal_v2.kml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/assets/files/cp_jal_2/CP_14Jal_v2.shp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/assets/files/cp_jal_2/CP_14Jal_v2.shx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/borrador.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/dash.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/dash.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/data.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/datos.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/datos.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/entradas.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/entradas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/result.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/visualizaciones.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/visualizaciones.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/wsgi.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,15 +73,15 @@
       <method v="2" />
     </configuration>
     <configuration name="dash" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Urban_Lab" />
+      <module name="Urban_Lab_App" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\sally\Anaconda3\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/app" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
@@ -107,20 +116,42 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="principal" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Urban_Lab" />
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Urban_Lab_App" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/model" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/principal.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/model/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="wsgi" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Urban_Lab_App" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/wsgi.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -131,10 +162,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.datos" />
         <item itemvalue="Python.borrador" />
-        <item itemvalue="Python.principal" />
+        <item itemvalue="Python.wsgi" />
         <item itemvalue="Python.dash" />
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.datos" />
       </list>
     </recent_temporary>
   </component>
@@ -151,6 +183,10 @@
       <workItem from="1591842850807" duration="1478000" />
       <workItem from="1592355318023" duration="10610000" />
       <workItem from="1592697062138" duration="4581000" />
+      <workItem from="1592702933112" duration="464000" />
+      <workItem from="1592704716121" duration="10404000" />
+      <workItem from="1592721587928" duration="1145000" />
+      <workItem from="1592722784115" duration="6069000" />
     </task>
     <servers />
   </component>
@@ -158,26 +194,50 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="463" y="122" key="FileChooserDialogImpl" timestamp="1592522713921">
+    <state x="275" y="25" key="#Inspections" timestamp="1592722898316">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="122" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1592522713921" />
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1592701647788">
+    <state x="275" y="25" key="#Inspections/0.0.1366.728@0.0.1366.728" timestamp="1592722898316" />
+    <state x="409" y="17" key="#dash" timestamp="1592721961603">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1592701647788" />
-    <state width="1323" height="179" key="GridCell.Tab.0.center" timestamp="1592701647788">
+    <state x="409" y="17" key="#dash/0.0.1366.728@0.0.1366.728" timestamp="1592721961603" />
+    <state x="463" y="122" key="FileChooserDialogImpl" timestamp="1592710208183">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1592701647788" />
-    <state width="1323" height="179" key="GridCell.Tab.0.left" timestamp="1592701647788">
+    <state x="463" y="122" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1592710208183" />
+    <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1592752802423">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1592701647788" />
-    <state width="1323" height="179" key="GridCell.Tab.0.right" timestamp="1592701647788">
+    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1592752802423" />
+    <state width="1323" height="179" key="GridCell.Tab.0.center" timestamp="1592752802423">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1592701647788" />
+    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1592752802423" />
+    <state width="1323" height="179" key="GridCell.Tab.0.left" timestamp="1592752802422">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1592752802422" />
+    <state width="1323" height="179" key="GridCell.Tab.0.right" timestamp="1592752802423">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1592752802423" />
+    <state width="1323" height="223" key="GridCell.Tab.1.bottom" timestamp="1592715625096">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1592715625096" />
+    <state width="1323" height="223" key="GridCell.Tab.1.center" timestamp="1592715625095">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1592715625095" />
+    <state width="1323" height="223" key="GridCell.Tab.1.left" timestamp="1592715625095">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1592715625095" />
+    <state width="1323" height="223" key="GridCell.Tab.1.right" timestamp="1592715625096">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1592715625096" />
     <state x="0" y="15" width="916" height="709" key="SettingsEditor" timestamp="1592522634916">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -186,6 +246,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="691" height="372" key="XDebugger.FullValuePopup/0.0.1366.728@0.0.1366.728" timestamp="1592701351123" />
+    <state x="391" y="191" key="com.intellij.ide.util.TipDialog" timestamp="1592704744601">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="391" y="191" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1592704744601" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -195,13 +259,21 @@
           <line>9</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/model/model.py</url>
+          <line>1</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Urban_Lab_App$borrador.coverage" NAME="borrador Coverage Results" MODIFIED="1592700145661" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/app" />
     <SUITE FILE_PATH="coverage/Urban_Lab_App$datos.coverage" NAME="datos Coverage Results" MODIFIED="1592700170150" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/model" />
+    <SUITE FILE_PATH="coverage/Urban_Lab_App$borrador.coverage" NAME="borrador Coverage Results" MODIFIED="1592752789691" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/app" />
     <SUITE FILE_PATH="coverage/Urban_Lab$principal.coverage" NAME="principal Coverage Results" MODIFIED="1592521033111" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
+    <SUITE FILE_PATH="coverage/Urban_Lab_App$dash.coverage" NAME="dash Coverage Results" MODIFIED="1592749422844" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/app" />
     <SUITE FILE_PATH="coverage/Urban_Lab$dash.coverage" NAME="dash Coverage Results" MODIFIED="1592449471997" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/app" />
+    <SUITE FILE_PATH="coverage/Urban_Lab_App$wsgi.coverage" NAME="wsgi Coverage Results" MODIFIED="1592752071764" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/Urban_Lab_App$main.coverage" NAME="main Coverage Results" MODIFIED="1592714326347" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/model" />
   </component>
 </project>

@@ -9,111 +9,36 @@
 
 import pandas as pd
 import numpy as np
-import geopandas as gpd
-import json
 from config.config import root
 
-# -- ------------------------------------------------------------------------------------ -- #
-# -- Function: Read data file and storing it in to a DataFrame
-# -- ------------------------------------------------------------------------------------ -- #
+class Data():
+	
+	# -- -------------------------------------------------------------------------------- -- #
+	# -- Read data file and storing it in df_data
+	# -- -------------------------------------------------------------------------------- -- #
+	def get_data(self):
+		self.df_data = pd.read_excel(root +'\\app\\assets\\files\\' +
+                                     'Base_de_datos.xlsx', sheet_name='IIEG_E_1')
+		
+	# -- -------------------------------------------------------------------------------- -- #
+	# -- Cleaning Database that is in a DataFrame
+	# -- -------------------------------------------------------------------------------- -- #
+	@staticmethod
+	def clean_data(df_data):
+        # Replace
+		df = df_data.copy()
+		df.replace([998, 999, 'No contesto', 'No sé'], np.nan, inplace=True)
+		df.replace(
+            {
+                "Más de 52": 52,
+                "De 26 a 52": 26,
+                "No aplica": 100,
+                "No contesto": 101,
+                "No sé": 102,
+                "Más de un año": 12}, inplace=True)
 
-def read_file(file_path, sheet):
-    """
-    Parameters
-    ---------
-    file_path: str : name of file xlsx
-    sheet: str : name of sheet
-
-    Returns
-    ---------
-    df_data: DataFrame : file's data
-
-    Debuggin
-    ---------
-    file_path = 'Base_de_datos.xlsx'
-    sheet = 'IIEG_E_1'
-
-    """
-
-    # Read xls
-    df_data = pd.read_excel(root+'/app/assets/files/' + file_path, sheet_name=sheet)
-
-    return df_data
-
-
-# -- ------------------------------------------------------------------------------------ -- #
-# -- Function: Cleaning Database that is in a DataFrame
-# -- ------------------------------------------------------------------------------------ -- #
-
-def clean_data(df_data):
-    """
-    Parameters
-    ---------
-    :param:
-        df_data: DataFrame : data in a DF
-
-    Returns
-    ---------
-    :return:
-        df: DataFrame : clean data in DF
-
-    Debuggin
-    ---------
-        df_data = read_file(ent.path, ent.sheet)
-
-    """
-
-    # Make a copy
-    df = df_data.copy()
-    # Replace
-    df.replace([998, 999, 'No contesto', 'No sé'], np.nan, inplace=True)
-    df.replace(
-        {
-            "Más de 52": 52,
-            "De 26 a 52": 26,
-            "No aplica": 100,
-            "No contesto": 101,
-            "No sé": 102,
-            "Más de un año": 12}, inplace=True)
-
-    # Specific columns
-    df['aumento_precios'].replace(100, np.nan, inplace=True)
-
-    return df
+        # Specific columns
+		df['aumento_precios'].replace(100, np.nan, inplace=True)
+		return df
 
 
-# -- ------------------------------------------------------------------------------------ -- #
-# -- Function: Read shape file and storing it in to a DataFrame
-# -- ------------------------------------------------------------------------------------ -- #
-def read_map_files(path_shape, path_kml):
-    """
-    Parameters
-    ---------
-    :param:
-        path: str : path of shape file
-
-    Returns
-    ---------
-    :return:
-        geodf: DataFrame : clean data in DF
-
-    Debuggin
-    ---------
-        path = ent.map_path
-
-	"""
-    gpd.io.file.fiona.drvsupport.supported_drivers['KML'] = 'rw'
-    geodf_kml = gpd.read_file(root+'/app/assets/files/'+ path_kml)
-    geodf_shp = gpd.read_file(root+'/app/assets/files/' + path_shape)
-
-    geodf_kml.to_file(root+'/app/assets/files/' + path_kml, driver="GeoJSON") #aqui falla
-    ''' 
-    with open(root+'/app/assets/files/' + path_kml) as geofile:
-        j_file = json.load(geofile)
-    # Asignar el id al kml
-    i = 0
-    for feature in j_file["features"]:
-        feature['id'] = geodf_shp['d_cp'][i]
-        i += 1
-    '''
-    return geodf_kml

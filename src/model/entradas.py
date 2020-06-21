@@ -10,8 +10,8 @@
 data_path = 'Base_de_datos.xlsx'
 data_sheet = 'IIEG_E_1'
 
-shp_path = "cp_jal_2/CP_14_Jal_v2.shp"
-kml_path = "cp_jal_2/CP_14_Jal_v2.kml"
+shp_path = "cp_jal_2\\CP_14_Jal_v2.shp"
+kml_path = "cp_jal_2\\CP_14_Jal_v2.kml"
 # -- ------------------------------------------------------------------------------------ -- #
 # -- Entrada para metrica de estres
 # -- ------------------------------------------------------------------------------------ -- #
