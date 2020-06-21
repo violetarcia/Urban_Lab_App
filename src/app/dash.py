@@ -17,7 +17,7 @@ from api.server import server
 
 from model.datos import Data
 from model.proceso import metric_quantification
-from model.visualizaciones import map_metric
+from model.visualizaciones import map_metric, bar_chart
 import model.entradas as ent
 
 # Datos que se utilizaran
@@ -32,6 +32,7 @@ metric_s = metric_quantification(df_data, ent.conditions_stress, 'Estres')
 
 # Visualizacion
 fig = map_metric(metric_s, 'Estres', ent.shp_path, ent.kml_path)
+
 '''
 app = dash.Dash(name=config.name,
                 server=server,
@@ -73,8 +74,8 @@ app.layout = html.Div([
 
     dcc.Dropdown(id="slct_map",
                  options=[
-                     {"label": "Estrés Economico", "value": "Estres"}#,
-                     #{"label": "Adaptabilidad", "value": "Adaptabilidad}"
+                     {"label": "Estrés Economico", "value": "Estres"},
+                     {"label": "Adaptabilidad", "value": "Adaptabilidad"}
                       ],
                  multi=False,
                  value="Estres",
@@ -97,9 +98,10 @@ app.layout = html.Div([
 def update_graph(option_map):
     container = "The map chosen by user was: {}".format(option_map)
     # Using metric_quantification with stress conditions
-    metric_s = metric_quantification(df_data, ent.conditions_stress, option_map)
+    metric_s = metric_quantification(df_data, ent.dict_conditions[option_map], option_map)
     # Visualizations
-    fig = map_metric(metric_s, option_map, ent.shp_path, ent.kml_path)
+    fig = map_metric(metric_s, 'Estres', ent.shp_path, ent.kml_path)
+    #fig = bar_chart(metric_s, option_map)
     return container, fig
 	
 
