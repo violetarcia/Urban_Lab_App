@@ -1,20 +1,47 @@
-# Setup
+
+# -- --------------------------------------------------------------------------------------------------- -- #
+# -- project: Urban Lab / Laboratorio de econometría espacial urbana - PAP4J05                           -- #
+# -- script: dash.py : script con el codigo funcional del dashboard                                      -- #
+# -- author: FranciscoME / PAP4J05                                                                       -- #
+# -- license: MIT                                                                                        -- #
+# -- repository: https://github.com/IFFranciscoME/Urban_Lab_App                                          -- #
+# -- --------------------------------------------------------------------------------------------------- -- #
+
 import dash
 from dash.dependencies import Input, Output, State
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 from config import config, about
-from model.data import Data
-from model.model import Model
-from model.result import Result  # Read data
+from api.server import server
 
+from model.datos import Data
+from model.proceso import metric_quantification
+from model.visualizaciones import map_metric
+import model.entradas as ent
+
+# Datos que se utilizaran
 data = Data()
-data.get_data()  # App Instance
-print(config.root+'\\app\\assets')
-app = dash.Dash(name=config.name, assets_folder=config.root+'\\app\\assets',
+data.get_data()
+
+# limpiar base de datos
+df_data = data.clean_data(data.df_data)
+
+# Metrica
+metric_s = metric_quantification(df_data, ent.conditions_stress, 'Estres')
+
+# Visualizacion
+fig = map_metric(metric_s, 'Estres', ent.shp_path, ent.kml_path)
+'''
+app = dash.Dash(name=config.name,
+                server=server,
+                routes_pathname_prefix='/',
+                assets_folder=config.root+'/app/assets',
                 external_stylesheets=[dbc.themes.LUX, config.fontawesome])
-app.title = config.name  # Navbar
+
+
+app.title = config.name
+
 navbar = dbc.Nav(className="nav nav-pills", children=[
     # logo/home
     dbc.NavItem(html.Img(src=app.get_asset_url("logo.PNG"), height="40px")),
@@ -32,62 +59,65 @@ navbar = dbc.Nav(className="nav nav-pills", children=[
         dbc.DropdownMenuItem(
             [html.I(className="fa fa-github"), "  Code"], href=config.code, target="_blank")
     ])
-])  # Input
-inputs = dbc.FormGroup([
-    html.H4("Select Country"),
-    dcc.Dropdown(id="country", options=[
-                 {"label": x, "value": x} for x in data.countrylist], value="World")
-])  # App Layout
-app.layout = dbc.Container(fluid=True, children=[
-    # Top
-    html.H1(config.name, id="nav-pills"),
-    navbar,
-    html.Br(), html.Br(), html.Br(),  # Body
-    dbc.Row([
-        ### input + panel
-        dbc.Col(md=3, children=[
-            inputs,
-            html.Br(), html.Br(), html.Br(),
-            html.Div(id="output-panel")
-        ]),
-        # plots
-        dbc.Col(md=9, children=[
-            dbc.Col(html.H4("Forecast 30 days from today"),
-                    width={"size": 6, "offset": 3}),
-            dbc.Tabs(className="nav nav-pills", children=[
-                dbc.Tab(dcc.Graph(id="plot-total"), label="Total cases"),
-                dbc.Tab(dcc.Graph(id="plot-active"), label="Active cases")
-            ])
-        ])
-    ])
-])  # Python functions for about navitem-popover
+])
+'''
 
 
-@app.callback(output=Output("about", "is_open"), inputs=[Input("about-popover", "n_clicks")], state=[State("about", "is_open")])
-def about_popover(n, is_open):
-    if n:
-        return not is_open
-    return is_open
+app = dash.Dash(__name__)
 
+# ------------------------------------------------------------------------------
+# App layout
+app.layout = html.Div([
 
-@app.callback(output=Output("about-popover", "active"), inputs=[Input("about-popover", "n_clicks")], state=[State("about-popover", "active")])
-def about_active(n, active):
-    if n:
-        return not active
-    return active  # Python function to plot total cases
+    html.H1("Urban Lab: Datos de ZMG", style={'text-align': 'center'}),
 
+    dcc.Dropdown(id="slct_map",
+                 options=[
+                     {"label": "Estrés Economico", "value": "Estres"}#,
+                     #{"label": "Adaptabilidad", "value": "Adaptabilidad}"
+                      ],
+                 multi=False,
+                 value="Estres",
+                 style={'width': "40%"}
+                 ),
 
-@app.callback(output=Output("plot-total", "figure"), inputs=[Input("country", "value")])
-def plot_total_cases(country):
-    data.process_data(country)
-    model = Model(data.dtf)
-    model.forecast()
-    model.add_deaths(data.mortality)
-    result = Result(model.dtf)
+    html.Div(id='output_container', children=[]),
+    html.Br(),
+
+    dcc.Graph(id='map', figure={})
+
+])
+
+# Connect the Plotly graphs with Dash Components
+@app.callback(
+    [Output(component_id='output_container', component_property='children'),
+     Output(component_id='map', component_property='figure')],
+    [Input(component_id='slct_map', component_property='value')]
+)
+def update_graph(option_map):
+    container = "The map chosen by user was: {}".format(option_map)
+    # Using metric_quantification with stress conditions
+    metric_s = metric_quantification(df_data, ent.conditions_stress, option_map)
+    # Visualizations
+    fig = map_metric(metric_s, option_map, ent.shp_path, ent.kml_path)
+    return container, fig
+	
+
+#-----------------------------------------------------------------------------
+
+'''
+@app.callback(output=Output("plot-total", "figure"), inputs=[Input("df_data_or", "value")])
+def plot_total_cases(df_data_or):
+
+    # Using metric_quantification with stress conditions
+    metric_s = metric_quantification(df_data, ent.conditions_stress, 'Estres')
+    # Visualizations
+    figure = map_metric(metric_s, 'Estres', ent.shp_path, ent.kml_path)
+    #fig.show()
     # Python function to plot active cases
-    return result.plot_total(model.today)
-
-
+    return figure
+'''
+'''
 @app.callback(output=Output("plot-active", "figure"), inputs=[Input("country", "value")])
 def plot_active_cases(country):
     data.process_data(country)
@@ -136,3 +166,6 @@ def render_output_panel(country):
         ])
     ])
     return panel
+    
+'''
+

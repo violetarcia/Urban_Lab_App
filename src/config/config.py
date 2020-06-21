@@ -1,9 +1,18 @@
 import os
 
-
+def env(variable,default):
+    try: 
+        ENV = os.environ[variable] 
+        return ENV
+    except KeyError:
+        ENV  = default
+        return ENV
 
 ## App settings
 name = "Urban_Lab"
+# Method 2 
+
+URL = env('URL','http://localhost:5000')
 
 host ='0.0.0.0'
 
@@ -21,3 +30,4 @@ fontawesome = 'https://use.fontawesome.com/releases/v5.10.1/css/all.css'
 root = os.path.dirname(os.path.dirname(__file__))
 
 ##port= 5001
+
