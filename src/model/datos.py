@@ -11,7 +11,7 @@ import pandas as pd
 import numpy as np
 import geopandas as gpd
 import json
-
+from config.config import root
 
 # -- ------------------------------------------------------------------------------------ -- #
 # -- Function: Read data file and storing it in to a DataFrame
@@ -36,7 +36,7 @@ def read_file(file_path, sheet):
     """
 
     # Read xls
-    df_data = pd.read_excel('app/assets/files/' + file_path, sheet_name=sheet)
+    df_data = pd.read_excel(root+'/app/assets/files/' + file_path, sheet_name=sheet)
 
     return df_data
 
@@ -103,12 +103,12 @@ def read_map_files(path_shape, path_kml):
 
 	"""
     gpd.io.file.fiona.drvsupport.supported_drivers['KML'] = 'rw'
-    geodf_kml = gpd.read_file('assets/files/' + path_kml)
-    geodf_shp = gpd.read_file('assets/files/' + path_shape)
+    geodf_kml = gpd.read_file(root+'/app/assets/files/'+ path_kml)
+    geodf_shp = gpd.read_file(root+'/app/assets/files/' + path_shape)
 
-    geodf_kml.to_file('assets/files/' + path_kml, driver="GeoJSON")
+    geodf_kml.to_file(root+'/app/assets/files/' + path_kml, driver="GeoJSON") #aqui falla
 
-    with open('assets/files/' + path_kml) as geofile:
+    with open(root+'/app/assets/files/' + path_kml) as geofile:
         j_file = json.load(geofile)
     # Asignar el id al kml
     i = 0
