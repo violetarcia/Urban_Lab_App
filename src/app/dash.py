@@ -28,10 +28,10 @@ data.get_data()
 df_data = data.clean_data(data.df_data)
 
 # Metrica
-#metric_s = metric_quantification(df_data, ent.conditions_stress, 'Estres')
+metric_s = metric_quantification(df_data, ent.conditions_stress, 'Estres')
 
 # Visualizacion
-#fig = map_metric(metric_s, 'Estres', ent.shp_path, ent.kml_path)
+fig = map_metric(metric_s, 'Estres', ent.shp_path, ent.kml_path)
 
 '''
 app = dash.Dash(name=config.name,
@@ -100,7 +100,8 @@ def update_graph(option_map):
     # Using metric_quantification with stress conditions
     metric_s = metric_quantification(df_data, ent.dict_conditions[option_map], option_map)
     # Visualizations
-    fig = bar_chart(metric_s, option_map)
+    fig = map_metric(metric_s, 'Estres', ent.shp_path, ent.kml_path)
+    #fig = bar_chart(metric_s, option_map)
     return container, fig
 	
 

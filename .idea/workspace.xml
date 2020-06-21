@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81ff63a4-781c-40f6-8410-4a8d11331e26" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/assets/files/cp_jal_2/CP_14_Jal_v2.kml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/assets/files/cp_jal_2/CP_14_Jal_v2.shp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/assets/files/cp_jal_2/CP_14_Jal_v2.shx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/borrador.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/assets/files/cp_jal_2/CP_14_Jal_v2.kml" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/assets/files/cp_jal_2/CP_14_Jal_v2.kml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/dash.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/dash.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/entradas.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/entradas.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/visualizaciones.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/visualizaciones.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,7 +177,7 @@
       <workItem from="1592702933112" duration="464000" />
       <workItem from="1592704716121" duration="10404000" />
       <workItem from="1592721587928" duration="1145000" />
-      <workItem from="1592722784115" duration="8435000" />
+      <workItem from="1592722784115" duration="9789000" />
     </task>
     <servers />
   </component>
