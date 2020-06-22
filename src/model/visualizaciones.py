@@ -18,7 +18,7 @@ import geojson
 # -- Function: Map
 # -- ------------------------------------------------------------------------------------ -- #
 
-def map_metric(df_data, metric, path_shape, path_kml):
+def map_metric(df_data, metric):
     """
     Parameters
     ---------

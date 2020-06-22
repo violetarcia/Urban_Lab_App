@@ -115,7 +115,7 @@ def plot_total_cases(df_data_or):
     # Using metric_quantification with stress conditions
     metric_s = metric_quantification(df_data, ent.conditions_stress, 'Estres')
     # Visualizations
-    figure = map_metric(metric_s, 'Estres', ent.shp_path, ent.kml_path)
+    figure = map_metric(metric_s, 'Estres')
     #fig.show()
     # Python function to plot active cases
     return figure
