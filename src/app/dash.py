@@ -27,12 +27,6 @@ data.get_data()
 # limpiar base de datos
 df_data = data.clean_data(data.df_data)
 
-# Metrica
-metric_s = metric_quantification(df_data, ent.conditions_stress, 'Estres')
-
-# Visualizacion
-fig = map_metric(metric_s, 'Estres', ent.shp_path, ent.kml_path)
-
 '''
 app = dash.Dash(name=config.name,
                 server=server,
@@ -100,7 +94,7 @@ def update_graph(option_map):
     # Using metric_quantification with stress conditions
     metric_s = metric_quantification(df_data, ent.dict_conditions[option_map], option_map)
     # Visualizations
-    fig = map_metric(metric_s, 'Estres', ent.shp_path, ent.kml_path)
+    fig = map_metric(metric_s, option_map, ent.dict_colors[option_map])
 
     #fig = bar_chart(metric_s, option_map)
     return container, fig

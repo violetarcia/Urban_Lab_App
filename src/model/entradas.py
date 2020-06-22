@@ -191,11 +191,8 @@ conditions_adaptability = {
 							3: ['Sí']
 						}
 				}
-				
 
-tick_labels_stress = {'0': '0', '5': '5', '10':'10', '15':'15', '20':'20',
-					              '25':'25', '30':'30','35':'35', '40': '>40'}
-
-tick_labels_adaptability = {'0': '0', '5': '5', '10':'10', '15':'15', '20':'>20'}
 
 dict_conditions = { 'Estres': conditions_stress, 'Adaptabilidad': conditions_adaptability}
+dict_colors = { 'Estres': "Reds", 'Adaptabilidad': "Purp"}
+
