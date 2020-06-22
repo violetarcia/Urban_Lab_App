@@ -18,7 +18,7 @@ import geojson
 # -- Function: Map
 # -- ------------------------------------------------------------------------------------ -- #
 
-def map_metric(df_data, metric, path_shape, path_kml):
+def map_metric(df_data, metric, color):
     """
     Parameters
     ---------
@@ -39,10 +39,10 @@ def map_metric(df_data, metric, path_shape, path_kml):
 		path: str : "cp_jal_2/CP_14_Jal_v6.shp"
 	"""
     #j_file = read_map_files(path_shape, path_kml)
-    with open(root + "\\app\\assets\\files\\cp.json") as f:
-	    gj = geojson.load(f)
-    fig = px.choropleth_mapbox(df_data, geojson=gj, locations='CP', color=metric,
-                               color_continuous_scale="Viridis",
+    with open(root + "\\app\\assets\\files\\CP.json") as f:
+	    j_file = geojson.load(f)
+    fig = px.choropleth_mapbox(df_data, geojson=j_file, locations='CP', color=metric,
+                               color_continuous_scale=color,
                                range_color=(0, max(df_data[metric])),
                                mapbox_style="carto-positron",
                                zoom=10, center={"lat": 20.666820, "lon": -103.3918228},
