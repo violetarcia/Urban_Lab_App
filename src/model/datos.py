@@ -9,12 +9,8 @@
 
 import pandas as pd
 import numpy as np
-from config.config import root
+from config.config import db
 
-#para linux
-path = root +'/app/assets/files/'
-#para windows
-#path = root +'\\app\\assets\\files\\'
 
 class Data():
 	
@@ -22,7 +18,7 @@ class Data():
 	# -- Read data file and storing it in df_data
 	# -- -------------------------------------------------------------------------------- -- #
 	def get_data(self):
-		self.df_data = pd.read_excel(path + 'Base_de_datos.xlsx', sheet_name='IIEG_E_1')
+		self.df_data = pd.read_excel(db + 'Base_de_datos.xlsx', sheet_name='IIEG_E_1')
 		
 	# -- -------------------------------------------------------------------------------- -- #
 	# -- Cleaning Database that is in a DataFrame

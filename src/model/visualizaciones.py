@@ -9,14 +9,9 @@
 # Importing and initializing main Python libraries
 import plotly.express as px
 import geopandas as gpd
-from config.config import root
+from config.config import db
 import json
 import geojson
-
-#para linux
-path = root +'/app/assets/files/'
-#para windows
-#path = root +'\\app\\assets\\files\\'
 
 # -- ------------------------------------------------------------------------------------ -- #
 # -- Function: Map
@@ -43,7 +38,7 @@ def map_metric(df_data, metric, color):
 		path: str : "cp_jal_2/CP_14_Jal_v6.shp"
 	"""
     #j_file = read_map_files(path_shape, path_kml)
-    with open(path+"CP.json") as f:
+    with open(db+"CP.json") as f:
 	    j_file = geojson.load(f)
     fig = px.choropleth_mapbox(df_data, geojson=j_file, locations='CP', color=metric,
                                color_continuous_scale=color,
