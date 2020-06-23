@@ -9,7 +9,7 @@ def env(variable,default):
         return ENV
 
 ## App settings
-name = "Urban_Lab"
+name = "Urban Lab: Datos de ZMG"
 # Method 2 
 
 URL = env('URL','http://localhost:5000')
