@@ -19,7 +19,7 @@ app = dash.Dash(name=config.name,
                 server=server,
                 routes_pathname_prefix='/',
                 assets_folder=config.assets,
-                external_stylesheets=[dbc.themes.LUX, config.fontawesome])
+                external_stylesheets=[dbc.themes.BOOTSTRAP, config.fontawesome])
 
 from app.client.layouts.layout import layout
 
