@@ -15,15 +15,17 @@ import numpy as np
 import warnings
 
 warnings.filterwarnings('ignore')
+'''
 import statistics
 import statsmodels.api as sm
 from scipy.stats import shapiro
 from statsmodels.stats.diagnostic import het_arch
 from statsmodels.stats.diagnostic import acorr_ljungbox
+
 from sklearn.metrics import r2_score
 from sklearn import linear_model
 from itertools import chain
-
+'''
 
 # -- ------------------------------------------------------------------------------------ -- #
 # -- Function: Calcular metrica con diccionario
@@ -187,7 +189,7 @@ def f_type_verification(p_condition, p_result, p_data):
             if p_condition[0] < p_data and p_data <= p_condition[1]:
                 return p_result
 
-
+'''
 # -- ------------------------------------------------------------------------------------ -- #
 # -- Function: Predecir serie de tiempo
 # -- ------------------------------------------------------------------------------------ -- #
@@ -413,7 +415,7 @@ def f_predict_clase(df_prices, clase):
 
     return df_predict
 
-'''
+
 # -- ------------------------------------------------------------------------------------ -- #
 # -- Function: Predecir todas las clases de todos los grupos y generar el semaforo
 # -- ------------------------------------------------------------------------------------ -- #

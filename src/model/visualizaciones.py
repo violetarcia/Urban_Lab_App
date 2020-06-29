@@ -14,6 +14,7 @@ import geojson
 import pandas as pd
 import numpy as np
 from plotly.subplots import make_subplots
+from config.config  import db
 
 def bar_chart(df_data, metric):
     data = df_data.groupby('Sector')[metric].sum()
@@ -47,7 +48,7 @@ def map_metric(p_df_data, metric, color):
     color = "Reds"
 
     """
-    with open('archivos/CP.json') as f:
+    with open(db + 'CP.json') as f:
         j_file = geojson.load(f)
     fig = px.choropleth_mapbox(p_df_data, geojson=j_file, locations='CP', color=metric,
                                color_continuous_scale=color,
