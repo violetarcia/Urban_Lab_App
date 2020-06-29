@@ -27,6 +27,7 @@ class Data():
 	@staticmethod
 	def clean_data(df_data):
         # Replace
+		
 		df = df_data.copy()
 		df.replace([998, 999, 'No contesto', 'No sé'], np.nan, inplace=True)
 		df.replace(
@@ -40,7 +41,11 @@ class Data():
 
         # Specific columns
 		df['aumento_precios'].replace(100, np.nan, inplace=True)
-		return df
+		# Tomar solo la ZMG
+		df_final = df.loc[df['Municipio'].isin(['Zapopan','Tonalá','Tlaquepaque','Tlajomulco de Zúñiga','El Salto','Guadalajara'])]	
+		# Reiniciar el index
+		df_final.reset_index(drop=True, inplace=True)
+		return df_final
 
 # Datos que se utilizaran
 data = Data()
@@ -66,7 +71,7 @@ df_adapt = metric_a['df_prices']
 metric_a_table = metric_a['metric_table']
 
 dict_metrics_df = {'Estres': df_stress, 'Adaptabilidad': df_adapt}
-dict_metrics_table = {'Estres': metric_s_table, 'Adaptabilidad': metric_s_table}
+dict_metrics_table = {'Estres': metric_s_table, 'Adaptabilidad': metric_a_table}
 
 
 

@@ -4,8 +4,8 @@ import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
 from app.dash import app
 
-from model.datos import dict_metrics_df
-from model.visualizaciones import map_metric
+from model.datos import dict_metrics_df, dict_metrics_table, df_pymes
+from model.visualizaciones import map_metric, bars_city
 from model.entradas import dict_colors
 output_container = html.Div(id='output_container', children=[], className='text-center')
 
@@ -17,11 +17,9 @@ map_graph = dcc.Graph(id='map', figure={})
      Output(component_id='map', component_property='figure')],
     [Input(component_id='slct_map', component_property='value')]
 )
-def update_graph(option_map):
+def update_graph_bar(option_map):
     container = 'La variable escogida por el usuario es: {}'.format(option_map)
     metric = dict_metrics_df[option_map]
     # Visualizations
     fig = map_metric(metric, option_map, dict_colors[option_map])
-
-    #fig = bar_chart(metric_s, option_map)
     return container, fig
