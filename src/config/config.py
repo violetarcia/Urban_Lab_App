@@ -15,11 +15,11 @@ fontawesome = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/al
 root = os.path.dirname(os.path.dirname(__file__))
 
 #para linux
-#db = root +'/db/'
+db = root +'/db/'
 #para windows
-db = root +'\\db\\'
+#db = root +'\\db\\'
 
 #para linux
-#assets  = root+'/app/assets'
+assets  = root+'/app/assets'
 #para windows
-assets  = root+'\\app\\assets'
+#assets  = root+'\\app\\assets'
