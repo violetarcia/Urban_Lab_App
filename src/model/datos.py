@@ -9,11 +9,12 @@
 
 import pandas as pd
 import numpy as np
+import model.entradas as ent
+from model.proceso import metric_quantification
 from config.config import db
 
-
 class Data():
-	
+
 	# -- -------------------------------------------------------------------------------- -- #
 	# -- Read data file and storing it in df_data
 	# -- -------------------------------------------------------------------------------- -- #
@@ -40,5 +41,32 @@ class Data():
         # Specific columns
 		df['aumento_precios'].replace(100, np.nan, inplace=True)
 		return df
+
+# Datos que se utilizaran
+data = Data()
+data.get_data()
+
+# limpiar base de datos
+df_pymes = data.clean_data(data.df_data)
+
+# -- Estres --
+metric_s = metric_quantification(df_pymes, ent.conditions_stress, 'Estres')
+
+# Dataframe de metrica de estres
+df_stress = metric_s['df_prices']
+# tabla de metrica
+metric_s_table = metric_s['metric_table']
+
+# -- Adaptabilidad
+metric_a = metric_quantification(df_pymes, ent.conditions_adaptability, 'Adaptabilidad')
+
+# Dataframe de metrica de estres
+df_adapt = metric_a['df_prices']
+# tabla de metrica
+metric_a_table = metric_a['metric_table']
+
+dict_metrics_df = {'Estres': df_stress, 'Adaptabilidad': df_adapt}
+dict_metrics_table = {'Estres': metric_s_table, 'Adaptabilidad': metric_s_table}
+
 
 
