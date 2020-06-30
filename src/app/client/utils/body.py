@@ -17,7 +17,7 @@ body = html.Div([
                     map_graph
                 ], 
                 className='card',
-                style={'background-color':'#F2F2F2'})
+                style={'background-color':'#F9F9F9'})
             ],
             className='col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 m-auto ', 
         ),
@@ -36,7 +36,7 @@ body = html.Div([
                     barchart2
                 ], 
                 className='card',
-                style={'background-color':'#F2F2F2'})
+                style={'background-color':'#F9F9F9'})
         ], className='col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 m-auto')
     ], className='row mt-3 mb-3'),
     html.Div([
@@ -45,7 +45,7 @@ body = html.Div([
                     barchart3
                 ], 
                 className='card',
-                style={'background-color':'#F2F2F2'})
+                style={'background-color':'#F9F9F9'})
         ], className='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12')
     ], className='row mb-3')
-], className='container-fluid mr-1 ml-1 mb-auto', style={'background-color':'#F9F9F9'})
+], className='container-fluid mr-1 ml-1 mb-auto', style={'background-color':'#F2F2F2'})

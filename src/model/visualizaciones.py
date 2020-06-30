@@ -77,8 +77,8 @@ def map_metric(p_df_data, metric, color):
     )
     fig.update_layout(
         margin={"r": 0, "t": 0, "l": 0, "b": 0},
-        plot_bgcolor="#F2F2F2",
-        paper_bgcolor="#F2F2F2"
+        plot_bgcolor="#F9F9F9",
+        paper_bgcolor="#F9F9F9"
     )
 
     return fig
@@ -191,8 +191,8 @@ def velocimeter_size(p_df_data, p_metric, p_metric_table):
                 ]
             }
         },
-        plot_bgcolor="#F2F2F2",
-        paper_bgcolor="#F2F2F2"
+        plot_bgcolor="#F9F9F9",
+        paper_bgcolor="#F9F9F9"
     )
 
     return fig
@@ -253,8 +253,8 @@ def bars_city(p_df_data, p_metric, p_metric_table):
         title=p_metric + " en los Municipios de la ZMG",
         xaxis_title="Municipios",
         yaxis_title=p_metric,
-        plot_bgcolor="#F2F2F2",
-        paper_bgcolor="#F2F2F2",
+        plot_bgcolor="#F9F9F9",
+        paper_bgcolor="#F9F9F9",
         hovermode='closest'
     )
 
@@ -338,8 +338,8 @@ def table_giro(p_df_data, p_metric, p_metric_table):
         )
     ])
     fig.update_layout(
-        plot_bgcolor="#F2F2F2",
-        paper_bgcolor="#F2F2F2"
+        plot_bgcolor="#F9F9F9",
+        paper_bgcolor="#F9F9F9"
     )
     
     return fig
@@ -407,8 +407,8 @@ def table_prices(p_df_semaforo):
     fig.update_layout(
         height=400,
         margin=dict(r=7, l=4, t=6, b=6),
-        plot_bgcolor="#F2F2F2",
-        paper_bgcolor="#F2F2F2"
+        plot_bgcolor="#F9F9F9",
+        paper_bgcolor="#F9F9F9"
     )
 
     return fig
@@ -497,8 +497,8 @@ def dif_prices(p_df_predicciones, p_grupo):
                 'family': "Arial",
                 'size': 14
             },
-            plot_bgcolor="#F2F2F2",
-            paper_bgcolor="#F2F2F2"
+            plot_bgcolor="#F9F9F9",
+            paper_bgcolor="#F9F9F9"
         )
 
     else:
@@ -559,8 +559,8 @@ def dif_prices(p_df_predicciones, p_grupo):
             height=450,
             margin=marg,
             font={'color': "darkblue", 'family': "Arial", 'size': 14},
-            plot_bgcolor="#F2F2F2",
-            paper_bgcolor="#F2F2F2"
+            plot_bgcolor="#F9F9F9",
+            paper_bgcolor="#F9F9F9"
         )
 
     return fig
