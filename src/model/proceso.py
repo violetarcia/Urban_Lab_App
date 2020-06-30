@@ -11,11 +11,10 @@
 import math
 import pandas as pd
 import numpy as np
-#from datos import f_time_series
 import warnings
 
 warnings.filterwarnings('ignore')
-'''
+
 import statistics
 import statsmodels.api as sm
 from scipy.stats import shapiro
@@ -25,7 +24,7 @@ from statsmodels.stats.diagnostic import acorr_ljungbox
 from sklearn.metrics import r2_score
 from sklearn import linear_model
 from itertools import chain
-'''
+
 
 # -- ------------------------------------------------------------------------------------ -- #
 # -- Function: Calcular metrica con diccionario
@@ -189,7 +188,76 @@ def f_type_verification(p_condition, p_result, p_data):
             if p_condition[0] < p_data and p_data <= p_condition[1]:
                 return p_result
 
-'''
+
+# -- ------------------------------------------------------------------------------------ -- #
+# -- Function: Separar series de tiempo del data frame de precios
+# -- ------------------------------------------------------------------------------------ -- #
+def f_time_series(p_df_prices, p_clase):
+    """
+    Funcion que separa las serie de tiempo de acuerdo a la clase que se le pida
+
+    Parameters
+    ---------
+    p_df_prices: DataFrame : data en un DF
+    p_clase: str : clase que se requieren los productos
+
+    Returns
+    ---------
+    series_tiempo: list : todas las series de tiempo
+
+    Debuggin
+    ---------
+    p_df_prices = read_file('Precios_INEGI.xlsx', 'Datos_acomodados')
+    p_clase = 'Accesorios y utensilios'
+
+    """
+    # Agrupar por clase
+    clases = list(p_df_prices.groupby('Clase'))
+
+    # Busqueda de dataframe para la clase que se necesita
+    search = [clases[i][1] for i in range(len(clases)) if clases[i][0] == p_clase][0]
+    search.reset_index(inplace=True, drop=True)
+
+    # Agrupar por generico
+    generico = list(search.groupby('Generico'))
+
+    # Series de tiempo por Generico
+    series_tiempo = [generico[i][1].median().rename(generico[i][0],
+                                                    inplace=True) for i in range(len(generico))]
+
+    return series_tiempo
+
+
+# -- ------------------------------------------------------------------------------------ -- #
+# -- Function: lista de grupos con cada clase de productos
+# -- ------------------------------------------------------------------------------------ -- #
+def f_clases(p_df_prices):
+    """
+    Funcion que regresa una lista con el nombre de todos los grupos y dentro de la misma
+    otra lista con el nombre de todas las clases por grupo
+
+    Parameters
+    ---------
+    p_df_data: DataFrame : data en un DataFrame
+
+    Returns
+    ---------
+    list_clases: list : todas las clases por grupo
+
+    Debuggin
+    ---------
+    p_df_prices = read_file('Precios_INEGI.xlsx', 'Datos_acomodados')
+
+    """
+    # Separar por grupo
+    group_by_group = list(p_df_prices.groupby('Grupo'))
+
+    # lista por grupo y clases por grupo
+    list_clases = [[grupo[0], grupo[1]['Clase'].unique().tolist()] for grupo in group_by_group]
+
+    return list_clases
+
+
 # -- ------------------------------------------------------------------------------------ -- #
 # -- Function: Predecir serie de tiempo
 # -- ------------------------------------------------------------------------------------ -- #
@@ -438,7 +506,7 @@ def semaforo_precios(df_prices):
 
 	"""
     # Clases del dataframe por grupo
-    grupo_clases = dat.f_clases(df_prices)
+    grupo_clases = f_clases(df_prices)
 
     # Solo nombres de clases
     clases_all = [
@@ -501,4 +569,3 @@ def semaforo_precios(df_prices):
         semaforo[grupo_clases[i][0]] = [result, round(mean_group * 100, 3)]
 
     return {'semaforo': semaforo.T, 'predicciones': df}
-'''

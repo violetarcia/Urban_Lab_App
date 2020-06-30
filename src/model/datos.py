@@ -10,7 +10,7 @@
 import pandas as pd
 import numpy as np
 import model.entradas as ent
-from model.proceso import metric_quantification
+from model.proceso import metric_quantification, semaforo_precios
 from config.config import db
 
 class Data():
@@ -20,7 +20,7 @@ class Data():
 	# -- -------------------------------------------------------------------------------- -- #
 	def get_data(self):
 		self.df_pymes = pd.read_excel(db + 'Base_de_datos.xlsx', sheet_name='IIEG_E_1')
-		self.df_prices = pd.read_excel(db + 'Base_de_datos.xlsx', sheet_name='IIEG_E_1')
+		self.df_prices = pd.read_excel(db + 'Precios_INEGI.xlsx', sheet_name='Datos_acomodados')
 		
 	# -- -------------------------------------------------------------------------------- -- #
 	# -- Limpiar base de datos de las PyMEs
@@ -132,7 +132,14 @@ dict_metrics_table = {'Estres': metric_s_table, 'Adaptabilidad': metric_a_table}
 # -- ----------------------------------------------------------------------------------- -- #
 
 # limpiar base de datos
-df_pymes = data.clean_data_pymes(data.df_prices)
+df_prices = data.clean_data_prices(data.df_prices)
 
+# Semaforo
+dict_semaforo = semaforo_precios(df_prices)
 
+# Dataframe multi index (grupos | clases)
+predicciones = dict_semaforo['predicciones']
+
+# Dalaframe con semaforo
+semaforo = dict_semaforo['semaforo']
 
