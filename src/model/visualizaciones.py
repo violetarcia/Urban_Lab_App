@@ -14,18 +14,22 @@ import geojson
 import pandas as pd
 import numpy as np
 from plotly.subplots import make_subplots
-from config.config  import db
+from config.config import db
+
 
 def bar_chart(df_data, metric):
     data = df_data.groupby('Sector')[metric].sum()
     data = data.reset_index()
 
     fig = px.bar(data, x='Sector', y=metric)
+
     return fig
 
 # -- ------------------------------------------------------------------------------------ -- #
 # -- Function: Mapa
 # -- ------------------------------------------------------------------------------------ -- #
+
+
 def map_metric(p_df_data, metric, color):
     """
     Visualizacion de mapa por metrica
@@ -50,15 +54,33 @@ def map_metric(p_df_data, metric, color):
     """
     with open(db + 'CP.json') as f:
         j_file = geojson.load(f)
-    fig = px.choropleth_mapbox(p_df_data, geojson=j_file, locations='CP', color=metric,
-                               color_continuous_scale=color,
-                               range_color=(min(p_df_data[metric]), max(p_df_data[metric])),
-                               mapbox_style="carto-positron",
-                               zoom=10, center={"lat": 20.666820, "lon": -103.3918228},
-                               opacity=0.5,
-                               labels={metric: 'Nivel de ' + metric}
-                               )
-    fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+    fig = px.choropleth_mapbox(
+        p_df_data,
+        geojson=j_file,
+        locations='CP',
+        color=metric,
+        color_continuous_scale=color,
+        range_color=(
+            min(p_df_data[metric]),
+            max(p_df_data[metric])
+        ),
+        mapbox_style="carto-positron",
+        zoom=10,
+        center={
+            "lat": 20.666820,
+            "lon": -103.3918228
+        },
+        opacity=0.5,
+        labels={
+            metric: 'Nivel de ' + metric
+        }
+    )
+    fig.update_layout(
+        margin={"r": 0, "t": 0, "l": 0, "b": 0},
+        plot_bgcolor="#F2F2F2",
+        paper_bgcolor="#F2F2F2"
+    )
+
     return fig
 
 
@@ -88,8 +110,12 @@ def velocimeter_size(p_df_data, p_metric, p_metric_table):
     # Añadir columna necesaria
     p_metric_table['Tamaño'] = p_df_data['Tamaño']
     # Creación de tabla resumen
-    pivot_size = pd.pivot_table(p_metric_table, index=['Tamaño'],
-                                values=list(p_metric_table.columns), aggfunc=np.mean)
+    pivot_size = pd.pivot_table(
+        p_metric_table,
+        index=['Tamaño'],
+        values=list(p_metric_table.columns),
+        aggfunc=np.mean
+    )
     # Creacion de figura
     fig = go.Figure()
 
@@ -102,38 +128,73 @@ def velocimeter_size(p_df_data, p_metric, p_metric_table):
         title={'text': "Micro"},
         gauge={
             'bar': {'color': color},
-            'axis': {'range': [None, lim], 'visible': False}},
-        domain={'row': 0, 'column': 0}))
+            'axis': {
+                'range': [None, lim],
+                'visible': False
+            }
+        },
+        domain={'row': 0, 'column': 0}
+    ))
 
     fig.add_trace(go.Indicator(
         value=pivot_size.loc['Pequeña', 'Total'],
         title={'text': "Pequeña"},
         gauge={
             'bar': {'color': color},
-            'axis': {'range': [None, lim], 'visible': False}},
-        domain={'row': 0, 'column': 1}))
+            'axis': {'range': [None, lim], 'visible': False}
+        },
+        domain={'row': 0, 'column': 1}
+    ))
 
     fig.add_trace(go.Indicator(
         value=pivot_size.loc['Mediana', 'Total'],
         title={'text': "Mediana"},
         gauge={
-            'bar': {'color': color},
-            'axis': {'range': [None, lim], 'visible': False}},
-        domain={'row': 1, 'column': 0}))
+            'bar': {
+                'color': color
+            },
+            'axis': {
+                'range': [None, lim],
+                'visible': False
+            }
+        },
+        domain={'row': 1, 'column': 0}
+    ))
 
     fig.add_trace(go.Indicator(
         value=pivot_size.loc['Grande', 'Total'],
         title={'text': "Grande"},
         gauge={
-            'bar': {'color': color},
-            'axis': {'range': [None, lim], 'visible': False}},
-        domain={'row': 1, 'column': 1}))
+            'bar': {
+                'color': color
+            },
+            'axis': {
+                'range': [None, lim],
+                'visible': False}
+        },
+        domain={
+            'row': 1,
+            'column': 1
+        }
+    ))
 
-    fig.update_layout(title=p_metric + " en los Tamaños de las empresas",
-                      grid={'rows': 2, 'columns': 2, 'pattern': "independent"},
-                      template={'data': {'indicator': [{
-                          'title': {'text': "Tamaño"},
-                          'mode': "number+gauge"}]}})
+    fig.update_layout(
+        title=p_metric + " en los Tamaños de las empresas",
+        grid={'rows': 2, 'columns': 2, 'pattern': "independent"},
+        template={
+            'data': {
+                'indicator': [
+                    {
+                        'title': {'text': "Tamaño"},
+                        'mode': "number+gauge"
+                    }
+                ]
+            }
+        },
+        plot_bgcolor="#F2F2F2",
+        paper_bgcolor="#F2F2F2"
+    )
+
     return fig
 
 
@@ -163,8 +224,12 @@ def bars_city(p_df_data, p_metric, p_metric_table):
     # Añadir columna necesaria
     p_metric_table['Municipio'] = p_df_data['Municipio']
     # Creación de tabla resumen
-    pivot_mun = pd.pivot_table(p_metric_table, index=['Municipio'],
-                               values=list(p_metric_table.columns), aggfunc=np.mean)
+    pivot_mun = pd.pivot_table(
+        p_metric_table,
+        index=['Municipio'],
+        values=list(p_metric_table.columns),
+        aggfunc=np.mean
+    )
     # Creacion de figura
     fig = go.Figure()
     # Colores
@@ -172,12 +237,26 @@ def bars_city(p_df_data, p_metric, p_metric_table):
     # limites
     lim = p_metric_table['Total'].max()
     # figura
-    fig = go.Figure(data=[go.Bar(x=pivot_mun.index, y=pivot_mun['Total'], marker_color=colors)],
-                    layout={'yaxis': {'range': [0, lim]}})
-    fig.update_layout(title=p_metric + " en los Municipios de la ZMG",
-                      xaxis_title="Municipios",
-                      yaxis_title=p_metric,
-                      plot_bgcolor='white', hovermode='closest')
+    fig = go.Figure(
+        data=[go.Bar(
+            x=pivot_mun.index,
+            y=pivot_mun['Total'],
+            marker_color=colors
+        )],
+        layout={
+            'yaxis': {
+                'range': [0, lim]
+            }
+        }
+    )
+    fig.update_layout(
+        title=p_metric + " en los Municipios de la ZMG",
+        xaxis_title="Municipios",
+        yaxis_title=p_metric,
+        plot_bgcolor="#F2F2F2",
+        paper_bgcolor="#F2F2F2",
+        hovermode='closest'
+    )
 
     return fig
 
@@ -209,10 +288,14 @@ def table_giro(p_df_data, p_metric, p_metric_table):
     # Agregar columna de giro
     p_metric_table['Giro'] = p_df_data['Giro']
     # Creación de tabla resumen
-    pivot_giro = pd.pivot_table(p_metric_table, index=['Giro'],
-                                values=list(p_metric_table.columns), aggfunc=np.median)
+    pivot_giro = pd.pivot_table(
+        p_metric_table,
+        index=['Giro'],
+        values=list(p_metric_table.columns),
+        aggfunc=np.median
+    )
     # Cambiar nombre de columnas
-    change_name_columns = lambda x: x.replace('_', ' ').title()
+    def change_name_columns(x): return x.replace('_', ' ').title()
     # Nuevas columnas
     new_col = list(map(change_name_columns, list(pivot_giro.columns)))[1:]
 
@@ -235,14 +318,30 @@ def table_giro(p_df_data, p_metric, p_metric_table):
     color_h = 'rgb(160, 85, 70)' if p_metric == 'Estres' else 'rgb(80, 10, 90)'
     color_b = 'rgb(230, 190, 180)' if p_metric == 'Estres' else 'rgb(220, 180, 200)'
 
-    fig = go.Figure(data=[go.Table(name=p_metric,
-                                   header=dict(values=["Giro"] + pivot_giro.columns.tolist(),
-                                               fill_color=color_h,
-                                               align='center', font_color='White', font_size=11),
-                                   cells=dict(values=list_col,
-                                              fill_color=color_b,
-                                              align='center', height=40, font_size=11))])
-
+    fig = go.Figure(data=[
+        go.Table(
+            name=p_metric,
+            header=dict(
+                values=["Giro"] + pivot_giro.columns.tolist(),
+                fill_color=color_h,
+                align='center',
+                font_color='White',
+                font_size=11
+            ),
+            cells=dict(
+                values=list_col,
+                fill_color=color_b,
+                align='center',
+                height=40,
+                font_size=11
+            )
+        )
+    ])
+    fig.update_layout(
+        plot_bgcolor="#F2F2F2",
+        paper_bgcolor="#F2F2F2"
+    )
+    
     return fig
 
 
@@ -271,17 +370,31 @@ def table_prices(p_df_semaforo):
     # resultados
     values = list(p_df_semaforo[0])
     # colores verde | amarillo | rojo
-    colores = ['rgb(230, 120, 100)', 'rgb(245, 220, 130)', 'rgb(200, 230, 150)']
+    colores = [
+        'rgb(230, 120, 100)',
+        'rgb(245, 220, 130)',
+        'rgb(200, 230, 150)'
+    ]
     # asignar colores
-    asig_colors = lambda x: colores[2] if x == 'rojo' else (colores[0] if x == 'verde' else colores[1])
+    def asig_colors(x): return colores[2] if x == 'rojo' else (
+        colores[0] if x == 'verde' else colores[1])
     # colores de tabla
     colors_t = list(map(asig_colors, values))
 
     fig = go.Figure(data=[go.Table(
         header=dict(
-            values=['<b>Productos - grupo</b>', '<b>Resultado de predicción %</b>'],
-            line_color='white', fill_color='rgb(240, 225, 230)',
-            align='center', font=dict(family="Old Standard TT", color='rgb(110, 90, 100)', size=18)
+            values=[
+                '<b>Productos - grupo</b>',
+                '<b>Resultado de predicción %</b>'
+            ],
+            line_color='white',
+            fill_color='rgb(240, 225, 230)',
+            align='center',
+            font=dict(
+                family="Old Standard TT",
+                color='rgb(110, 90, 100)',
+                size=18
+            )
         ),
         cells=dict(
             values=[list(p_df_semaforo.index), list(p_df_semaforo[1])],
@@ -291,7 +404,12 @@ def table_prices(p_df_semaforo):
         ))
     ])
 
-    fig.update_layout(height=400, margin=dict(r=7, l=4, t=6, b=6))
+    fig.update_layout(
+        height=400,
+        margin=dict(r=7, l=4, t=6, b=6),
+        plot_bgcolor="#F2F2F2",
+        paper_bgcolor="#F2F2F2"
+    )
 
     return fig
 
@@ -333,7 +451,8 @@ def dif_prices(p_df_predicciones, p_grupo):
 
     if len(grupo.T) == 8:
         # Tipo de fig que se añadiran al subplot
-        tipos = [[{"type": "indicator"}, {"type": "indicator"}] for i in range(4)]
+        tipos = [[{"type": "indicator"}, {"type": "indicator"}]
+                 for i in range(4)]
         fig = make_subplots(rows=4, cols=2, specs=tipos,
                             vertical_spacing=0.2, horizontal_spacing=0.25)
         rows = [1, 2, 3, 4, 1, 2, 3, 4]
@@ -353,26 +472,42 @@ def dif_prices(p_df_predicciones, p_grupo):
                 title={'text': titulo, 'font': {'size': 9}},
                 gauge={
                     'shape': "bullet",
-                    'axis': {'range': [ultimo_precio * .85, futuro_precio * 1.1]},
+                    'axis': {
+                        'range': [ultimo_precio * .85, futuro_precio * 1.1]
+                    },
                     'threshold': {
                         'line': {'color': "black", 'width': 2},
                         'thickness': 0.75,
                         'value': ultimo_precio},
-                    'steps': [
-                        {'range': [ultimo_precio * .85, ultimo_precio], 'color': "lightgray"}],
-                    'bar': {'color': "black"}}), row=rows[i], col=cols[i])
+                    'steps': [{
+                        'range': [ultimo_precio * .85, ultimo_precio],
+                        'color': "lightgray"
+                    }],
+                    'bar': {'color': "black"}
+                }
+            ), row=rows[i], col=cols[i])
         # Layout de fig
-        fig.update_layout(title=p_grupo, title_x=0.5,
-                          height=450, margin={'t': 100, 'b': 10, 'l': 150},
-                          font={'color': "darkblue", 'family': "Arial", 'size': 14}
-                          )
+        fig.update_layout(
+            title=p_grupo,
+            title_x=0.5,
+            height=450,
+            margin={'t': 100, 'b': 10, 'l': 150},
+            font={
+                'color': "darkblue",
+                'family': "Arial",
+                'size': 14
+            },
+            plot_bgcolor="#F2F2F2",
+            paper_bgcolor="#F2F2F2"
+        )
 
     else:
         # Los tipos de graficas
         tipos = [[{"type": "indicator"}] for i in range(len(grupo.T))]
 
         # Hacer subplots
-        fig = make_subplots(rows=len(grupo.T), cols=1, specs=tipos, vertical_spacing=v_s)
+        fig = make_subplots(rows=len(grupo.T), cols=1,
+                            specs=tipos, vertical_spacing=v_s)
 
         for i in range(len(grupo.T)):
             # Datos que se necesitan de cada clase del grupo
@@ -382,24 +517,50 @@ def dif_prices(p_df_predicciones, p_grupo):
 
             # Añadir plots
             fig.append_trace(go.Indicator(
-                mode="number+gauge+delta", value=futuro_precio,
-                delta={'reference': ultimo_precio},
-                domain={'x': [0.25, 1], 'y': [0.7, 0.9]},
-                title={'text': titulo, 'font': {'size': 11}},
+                mode="number+gauge+delta",
+                value=futuro_precio,
+                delta={
+                    'reference': ultimo_precio
+                },
+                domain={
+                    'x': [0.25, 1],
+                    'y': [0.7, 0.9]
+                },
+                title={
+                    'text': titulo,
+                    'font': {'size': 11}
+                },
                 gauge={
                     'shape': "bullet",
-                    'axis': {'range': [ultimo_precio * .85, futuro_precio * 1.1]},
+                    'axis': {
+                        'range': [ultimo_precio * .85, futuro_precio * 1.1]
+                    },
                     'threshold': {
-                        'line': {'color': "black", 'width': 2},
+                        'line': {
+                            'color': "black",
+                            'width': 2
+                        },
                         'thickness': 0.75,
-                        'value': ultimo_precio},
-                    'steps': [
-                        {'range': [ultimo_precio * .85, ultimo_precio], 'color': "lightgray"}],
-                    'bar': {'color': "black"}}), row=i + 1, col=1)
+                        'value': ultimo_precio
+                    },
+                    'steps': [{
+                        'range': [ultimo_precio * .85, ultimo_precio],
+                        'color': "lightgray"
+                    }],
+                    'bar': {
+                        'color': "black"
+                    }
+                }), row=i + 1, col=1)
 
         # Layout general
-        fig.update_layout(title=p_grupo, title_x=0.5,
-                          height=450, margin=marg,
-                          font={'color': "darkblue", 'family': "Arial", 'size': 14})
+        fig.update_layout(
+            title=p_grupo,
+            title_x=0.5,
+            height=450,
+            margin=marg,
+            font={'color': "darkblue", 'family': "Arial", 'size': 14},
+            plot_bgcolor="#F2F2F2",
+            paper_bgcolor="#F2F2F2"
+        )
 
     return fig
