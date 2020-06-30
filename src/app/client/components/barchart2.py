@@ -18,9 +18,12 @@ barchart2 = dcc.Graph(id='barchart2', figure={})
 def update_graph(option_map, figura_n):
 
     # Visualizations
-    if figura_n == "1":
-        fig = bars_city(df_pymes, option_map, dict_metrics_table[option_map])
+    if option_map == 'Precios':
+        fig = {}
     else:
-        fig = velocimeter_size(df_pymes, option_map, dict_metrics_table[option_map])
+        if figura_n == "1":
+            fig = bars_city(df_pymes, option_map, dict_metrics_table[option_map])
+        else:
+            fig = velocimeter_size(df_pymes, option_map, dict_metrics_table[option_map])
 
     return fig

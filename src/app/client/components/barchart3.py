@@ -14,7 +14,10 @@ barchart3 = dcc.Graph(id='barchart3', figure={})
 def update_graph(option_map):
 
     # Visualizations
-    fig = table_giro(df_pymes, option_map, dict_metrics_table[option_map])
+    if option_map == 'Precios':
+        fig = {}
+    else:
+        fig = table_giro(df_pymes, option_map, dict_metrics_table[option_map])
     
     return fig
 

@@ -472,7 +472,7 @@ def f_predict_clase(df_prices, clase):
 
 	"""
     # Fragmentar por series de tiemo
-    time_series = dat.f_time_series(df_prices, clase)
+    time_series = f_time_series(df_prices, clase)
 
     # Predicciones de la clase (por producto)
     predictions = [f_predict_time_series(time_series[s]) for s in range(len(time_series))]
