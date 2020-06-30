@@ -35,7 +35,8 @@ header = html.Header(
                             options=[
                                 {'label': 'Estrés Economico', 'value': 'Estres'},
                                 {'label': 'Adaptabilidad',
-                                    'value': 'Adaptabilidad'}
+                                    'value': 'Adaptabilidad',
+                                 'label': 'Predicción de Precios', 'value': 'Precios'}
                             ],
                             multi=False,
                             clearable=False,

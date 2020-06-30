@@ -14,17 +14,21 @@ body = html.Div([
         html.Div([
                 output_container,
                 map_graph
-                ], 
+                ],
                 className='col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 m-auto',
                 style = {'height':'100%'}
             ),
         html.Div([
             html.Div([
-                html.Div(
-                    [barchart1],
-                    className='col-12 col-sm-12 col-md-6 col-lg-12 col-xl-12 m-0 p-0',
-                    style={'height': 'auto'}
-                    ),
+                dcc.Dropdown(id="slct_fig",
+                 options=[
+                     {"label": "Barras", "value": "1"},
+                     {"label": "Velocimetro", "value": "2"}
+                      ],
+                 multi=False,
+                 value="1",
+                 style={'width': "40%"}
+                 ),
                 html.Div(
                     [barchart2],
                     className='col-12 col-sm-12 col-md-6 col-lg-12 col-xl-12 m-0 p-0',
@@ -36,12 +40,7 @@ body = html.Div([
     html.Div([
         html.Div([
             barchart3
-        ], className='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12'),
-        html.Div([
-            piechart1
-        ], className='col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4'),
-        html.Div([
-            piechart2
-        ], className='col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4')
+        ], className='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12')
     ], className='row')
 ], className='container-fluid mr-1 ml-1 mb-auto')
+
