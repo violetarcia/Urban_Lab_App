@@ -95,12 +95,13 @@ def velocimeter_size(p_df_data, p_metric, p_metric_table):
 
     # limites
     lim = p_metric_table['Total'].max()
-
+    # color
+    color = "darkred" if p_metric == 'Estres' else "mediumpurple"
     fig.add_trace(go.Indicator(
         value=pivot_size.loc['Micro', 'Total'],
         title={'text': "Micro"},
         gauge={
-            'bar': {'color': "mediumpurple"},
+            'bar': {'color': color},
             'axis': {'range': [None, lim], 'visible': False}},
         domain={'row': 0, 'column': 0}))
 
@@ -108,7 +109,7 @@ def velocimeter_size(p_df_data, p_metric, p_metric_table):
         value=pivot_size.loc['Pequeña', 'Total'],
         title={'text': "Pequeña"},
         gauge={
-            'bar': {'color': "purple"},
+            'bar': {'color': color},
             'axis': {'range': [None, lim], 'visible': False}},
         domain={'row': 0, 'column': 1}))
 
@@ -116,7 +117,7 @@ def velocimeter_size(p_df_data, p_metric, p_metric_table):
         value=pivot_size.loc['Mediana', 'Total'],
         title={'text': "Mediana"},
         gauge={
-            'bar': {'color': "purple"},
+            'bar': {'color': color},
             'axis': {'range': [None, lim], 'visible': False}},
         domain={'row': 1, 'column': 0}))
 
@@ -124,7 +125,7 @@ def velocimeter_size(p_df_data, p_metric, p_metric_table):
         value=pivot_size.loc['Grande', 'Total'],
         title={'text': "Grande"},
         gauge={
-            'bar': {'color': "purple"},
+            'bar': {'color': color},
             'axis': {'range': [None, lim], 'visible': False}},
         domain={'row': 1, 'column': 1}))
 
@@ -167,7 +168,7 @@ def bars_city(p_df_data, p_metric, p_metric_table):
     # Creacion de figura
     fig = go.Figure()
     # Colores
-    colors = ['darkviolet', 'mediumpurple', 'mediumpurple', 'thistle', 'thistle', 'mediumpurple']
+    colors = px.colors.sequential.Reds[3:9] if p_metric == 'Estres' else px.colors.sequential.Purp[1:7]
     # limites
     lim = p_metric_table['Total'].max()
     # figura
@@ -230,12 +231,16 @@ def table_giro(p_df_data, p_metric, p_metric_table):
     # Agregar el indice
     list_col.insert(0, list(pivot_giro.index))
 
+    # Colores
+    color_h = 'rgb(160, 85, 70)' if p_metric == 'Estres' else 'rgb(80, 10, 90)'
+    color_b = 'rgb(230, 190, 180)' if p_metric == 'Estres' else 'rgb(220, 180, 200)'
+
     fig = go.Figure(data=[go.Table(name=p_metric,
                                    header=dict(values=["Giro"] + pivot_giro.columns.tolist(),
-                                               fill_color='mediumpurple',
+                                               fill_color=color_h,
                                                align='center', font_color='White', font_size=11),
                                    cells=dict(values=list_col,
-                                              fill_color='thistle',
+                                              fill_color=color_b,
                                               align='center', height=40, font_size=11))])
 
     return fig
@@ -319,6 +324,13 @@ def dif_prices(p_df_predicciones, p_grupo):
     # Tomar datos del grupo
     grupo = predicciones[p_grupo]
 
+    # Margenes de acuerdo al tamaño
+    marg = {'t': 200, 'b': 200, 'l': 250, 'r': 20} if len(grupo.T) == 1 else (
+        {'t': 100, 'b': 100, 'l': 250, 'r': 20} if len(grupo.T) == 4 else (
+            {'t': 150, 'b': 150, 'l': 250, 'r': 20}))
+    # Espacio vertical
+    v_s = 0.2 if len(grupo.T) == 4 else 0.45
+
     if len(grupo.T) == 8:
         # Tipo de fig que se añadiran al subplot
         tipos = [[{"type": "indicator"}, {"type": "indicator"}] for i in range(4)]
@@ -360,7 +372,7 @@ def dif_prices(p_df_predicciones, p_grupo):
         tipos = [[{"type": "indicator"}] for i in range(len(grupo.T))]
 
         # Hacer subplots
-        fig = make_subplots(rows=len(grupo.T), cols=1, specs=tipos, vertical_spacing=0.2)
+        fig = make_subplots(rows=len(grupo.T), cols=1, specs=tipos, vertical_spacing=v_s)
 
         for i in range(len(grupo.T)):
             # Datos que se necesitan de cada clase del grupo
@@ -387,7 +399,7 @@ def dif_prices(p_df_predicciones, p_grupo):
 
         # Layout general
         fig.update_layout(title=p_grupo, title_x=0.5,
-                          height=450, margin={'t': 100, 'b': 10, 'l': 250, 'r': 10},
+                          height=450, margin=marg,
                           font={'color': "darkblue", 'family': "Arial", 'size': 14})
 
     return fig

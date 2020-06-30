@@ -3,10 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="81ff63a4-781c-40f6-8410-4a8d11331e26" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/client/components/map.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/client/components/map.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/client/components/barchart2.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/client/components/barchart2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/client/utils/body.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/client/utils/body.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/dash.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/dash.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/config/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/datos.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/datos.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/proceso.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/proceso.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/entradas.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/entradas.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/visualizaciones.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/visualizaciones.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -182,7 +184,7 @@
       <workItem from="1592721587928" duration="1145000" />
       <workItem from="1592722784115" duration="20513000" />
       <workItem from="1593309740276" duration="713000" />
-      <workItem from="1593410526836" duration="5028000" />
+      <workItem from="1593410526836" duration="26384000" />
     </task>
     <servers />
   </component>
@@ -250,11 +252,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/model/datos.py</url>
-          <line>9</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/model/model.py</url>
           <line>1</line>
