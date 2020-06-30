@@ -288,13 +288,17 @@ def f_predict_time_series(p_serie_tiempo):
     # Ultimo precio
     ultimo_precio = p_serie_tiempo[len(p_serie_tiempo) - 1]
 
+    # Reiniciar indice
+    serie_tiempo = p_serie_tiempo.copy()
+    serie_tiempo.reset_index(drop=True, inplace=True)
+
     # ------------------------------------------ #
     # Primero: intentar con una regresión lineal
     # ------------------------------------------ #
 
     # Separar la informacion que se tiene de la serie de tiempo en y
-    y_o = np.array(p_serie_tiempo)
-    x_o = np.arange(len(p_serie_tiempo))
+    y_o = np.array(serie_tiempo)
+    x_o = np.arange(len(serie_tiempo))
 
     # Acomodarla de la forma que el modelo necesita
     x = x_o.reshape((len(x_o), 1))
@@ -357,7 +361,7 @@ def f_predict_time_series(p_serie_tiempo):
             return lags
 
         # Checar estacionariedad
-        d = check_stationarity(p_serie_tiempo)
+        d = check_stationarity(serie_tiempo)
 
         if np.isnan(d):
             return 0
@@ -386,7 +390,7 @@ def f_predict_time_series(p_serie_tiempo):
                     return 1
 
             # Calcular coeficientes de fac parcial
-            facp = sm.tsa.stattools.pacf(p_serie_tiempo)
+            facp = sm.tsa.stattools.pacf(serie_tiempo)
 
             # Pasar lambda y quitar los que no son significativos
             p_s = pd.DataFrame(all_significant_coef(facp[i]) for i in range(len(facp))).dropna()
@@ -397,7 +401,7 @@ def f_predict_time_series(p_serie_tiempo):
             # --- #
 
             # Calcular coeficientes de fac
-            fac = sm.tsa.stattools.acf(p_serie_tiempo, fft=False)
+            fac = sm.tsa.stattools.acf(serie_tiempo, fft=False)
 
             # Pasar lambda y quitar los que no son significativos
             q_s = pd.DataFrame(all_significant_coef(fac[i]) for i in range(len(fac))).dropna()
@@ -406,7 +410,7 @@ def f_predict_time_series(p_serie_tiempo):
             q = significat_lag(q_s)
 
             # Modelo
-            arima = sm.tsa.statespace.SARIMAX(p_serie_tiempo,
+            arima = sm.tsa.statespace.SARIMAX(serie_tiempo,
                                               order=(p, d, q),
                                               trend='c',
                                               enforce_stationarity=True,
@@ -438,7 +442,7 @@ def f_predict_time_series(p_serie_tiempo):
             future_prices = arima_fitted.forecast(meses, alpha=0.05)
 
             # Prediccion
-            prediction = future_prices[len(p_serie_tiempo) + meses - 1]
+            prediction = future_prices[len(serie_tiempo) + meses - 1]
 
             cambio_porc = (ultimo_precio - prediction) / ultimo_precio
 

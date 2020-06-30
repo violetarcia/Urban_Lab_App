@@ -135,11 +135,14 @@ dict_metrics_table = {'Estres': metric_s_table, 'Adaptabilidad': metric_a_table}
 df_prices = data.clean_data_prices(data.df_prices)
 
 # Semaforo
-dict_semaforo = semaforo_precios(df_prices)
+#dict_semaforo = semaforo_precios(df_prices)
 
 # Dataframe multi index (grupos | clases)
-predicciones = dict_semaforo['predicciones']
+#predicciones = dict_semaforo['predicciones']
+#predicciones.to_pickle("predicciones.pkl")
+predicciones = pd.read_pickle(db + "predicciones.pkl")
 
 # Dalaframe con semaforo
-semaforo = dict_semaforo['semaforo']
-
+#semaforo = dict_semaforo['semaforo']
+#semaforo.to_pickle("semaforo.pkl")
+semaforo = pd.read_pickle(db + "semaforo.pkl")
