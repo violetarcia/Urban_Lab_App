@@ -8,7 +8,7 @@ from config.config import name
 header = html.Header(
     children=[
         dbc.Nav(
-            className='navbar navbar-expand-lg navbar-light bg-light  d-flex',
+            className='navbar navbar-expand-lg navbar-light bg-light  d-flex ',
             children=[
                 # logo/home
                 dbc.NavItem([
@@ -49,4 +49,4 @@ header = html.Header(
                 ], className='row ml-auto mr-2')
             ]
         )
-    ], className='sticky-top bg-light w-100')
+    ], className='sticky-top bg-light w-100 border-bottom')
