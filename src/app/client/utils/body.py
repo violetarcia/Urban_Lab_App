@@ -23,15 +23,7 @@ body = html.Div([
         ),
         html.Div([
             html.Div([
-                    dcc.Dropdown(id='slct_fig',
-                        options=[
-                            {'label': 'Barras', 'value': '1'},
-                            {'label': 'Velocimetro', 'value': '2'}
-                        ],
-                        multi=False,
-                        clearable=False,
-                        value='1',
-                        className='float-right ml-auto w-25'
+                    dcc.Dropdown(id='slct_fig', value='1'
                     ),
                     barchart2
                 ], 
@@ -49,3 +41,15 @@ body = html.Div([
         ], className='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12')
     ], className='row mb-3')
 ], className='container-fluid mr-1 ml-1 mb-auto', style={'background-color':'#F2F2F2'})
+
+"""
+
+                        options=[
+                            {'label': 'Barras', 'value': '1'},
+                            {'label': 'Velocimetro', 'value': '2'}
+                        ],
+                        multi=False,
+                        clearable=False,
+                        value='1',
+                        className='float-right ml-auto w-25'
+"""
