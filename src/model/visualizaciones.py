@@ -114,7 +114,7 @@ def velocimeter_size(p_df_data, p_metric, p_metric_table):
         p_metric_table,
         index=['Tamaño'],
         values=list(p_metric_table.columns),
-        aggfunc=np.mean
+        aggfunc=np.median
     )
     # Creacion de figura
     fig = go.Figure()
@@ -228,7 +228,7 @@ def bars_city(p_df_data, p_metric, p_metric_table):
         p_metric_table,
         index=['Municipio'],
         values=list(p_metric_table.columns),
-        aggfunc=np.mean
+        aggfunc=np.median
     )
     # Creacion de figura
     fig = go.Figure()
