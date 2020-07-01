@@ -36,6 +36,18 @@ body = html.Div([
     html.Div([
         html.Div([
             dbc.Card([
+                dcc.Dropdown(
+                    id='slct_data',
+                            options=[
+                                {'label': 'Treemap', 'value': 'Treemap'},
+                                {'label': 'Datos',
+                                            'value': 'Datos'}
+                            ],
+                            multi=False,
+                            clearable=False,
+                            value='Treemap',
+                            style={'width': '200px'}
+                        ),
                 barchart3
             ],
             body=True,
