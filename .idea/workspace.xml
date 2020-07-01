@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81ff63a4-781c-40f6-8410-4a8d11331e26" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/config/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/client/components/barchart2.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/client/components/barchart2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/client/components/barchart3.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/client/components/barchart3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/visualizaciones.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/visualizaciones.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,6 +181,7 @@
       <workItem from="1592722784115" duration="20513000" />
       <workItem from="1593309740276" duration="713000" />
       <workItem from="1593410526836" duration="34773000" />
+      <workItem from="1593560331189" duration="2481000" />
     </task>
     <servers />
   </component>
@@ -241,12 +245,16 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="391" y="191" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1593546659228" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1593561109882">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1593561109882" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file:$PROJECT_DIR$/../../../../..//$PROJECT_DIR$/src/model/model.py</url>
+          <url>file:C:/..//C:/Users/sally/Downloads/Urban_Lab_App/src/model/model.py</url>
           <line>1</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>

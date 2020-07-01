@@ -3,8 +3,8 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
 from app.dash import app
-from model.visualizaciones import table_giro
-from model.datos import dict_metrics_table, df_pymes
+from model.visualizaciones import table_giro, treemap_prices
+from model.datos import dict_metrics_table, df_pymes, predicciones
 
 barchart3 = dcc.Graph(id='barchart3', figure={})
 @app.callback(
@@ -15,7 +15,7 @@ def update_graph(option_map):
 
     # Visualizations
     if option_map == 'Precios':
-        fig = {}
+        fig = treemap_prices(predicciones)
     else:
         fig = table_giro(df_pymes, option_map, dict_metrics_table[option_map])
     
