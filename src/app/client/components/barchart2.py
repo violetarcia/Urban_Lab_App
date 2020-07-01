@@ -6,7 +6,7 @@ from app.dash import app
 from model.visualizaciones import bars_city, velocimeter_size, dif_prices
 from model.datos import dict_metrics_table, df_pymes, predicciones
 
-groups = ['Alimentos', 'Ropa']
+groups = ['Alimentos', 'Ropa', 'Cuidado personal', 'Salud', 'Transporte público']
 options = {
     'noPrecios': [
         {'label': 'Barras', 'value': 1},
@@ -14,7 +14,10 @@ options = {
     ],
     'Precios': [
         {'label': 'Alimentos', 'value': 1},
-        {'label': 'Ropa', 'value': 2}
+        {'label': 'Ropa', 'value': 2},
+        {'label': 'Cuidado personal', 'value': 3},
+        {'label': 'Salud', 'value': 4},
+        {'label': 'Transporte público', 'value': 5}
     ]
 }
 
@@ -69,3 +72,4 @@ def update_graph(option_map):
         return options['Precios']
 
     return options['noPrecios']
+
