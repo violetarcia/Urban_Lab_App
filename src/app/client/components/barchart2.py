@@ -6,7 +6,29 @@ from app.dash import app
 from model.visualizaciones import bars_city, velocimeter_size, dif_prices
 from model.datos import dict_metrics_table, df_pymes, predicciones
 
-barchart2 = dcc.Graph(id='barchart2', figure={},className='pt-1 pb-1')
+groups = ['Alimentos', 'Ropa']
+options = {
+    'noPrecios': [
+        {'label': 'Barras', 'value': 1},
+        {'label': 'Velocimetro', 'value': 2}
+    ],
+    'Precios': [
+        {'label': 'Alimentos', 'value': 1},
+        {'label': 'Ropa', 'value': 2}
+    ]
+}
+
+dropdown = dcc.Dropdown(id='slct_fig',
+                        options=[
+                            {'label': 'Barras', 'value': 1},
+                            {'label': 'Velocimetro', 'value': 2}
+                        ],
+                        multi=False,
+                        clearable=False,
+                        value='1',
+                        className='float-right ml-auto w-25'
+                        )
+barchart2 = dcc.Graph(id='barchart2', figure={}, className='')
 
 
 # Connect the Plotly graphs with Dash Components
@@ -16,18 +38,34 @@ barchart2 = dcc.Graph(id='barchart2', figure={},className='pt-1 pb-1')
      Input(component_id='slct_fig', component_property='value')]
 )
 def update_graph(option_map, figura_n):
-
     # Visualizations
     if option_map == 'Precios':
-        grupos = ['Alimentos', 'Ropa']
-        if figura_n == "1":
-            fig = dif_prices(predicciones, grupos[0])
-        else:
-            fig = dif_prices(predicciones, grupos[1])
+        fig = dif_prices(predicciones, groups[int(figura_n)-1])
     else:
-        if figura_n == "1":
-            fig = bars_city(df_pymes, option_map, dict_metrics_table[option_map])
+        if int(figura_n) == 1:
+            fig = bars_city(
+                df_pymes,
+                option_map,
+                dict_metrics_table[option_map]
+            )
         else:
-            fig = velocimeter_size(df_pymes, option_map, dict_metrics_table[option_map])
-
+            fig = velocimeter_size(
+                df_pymes,
+                option_map,
+                dict_metrics_table[option_map]
+            )
     return fig
+
+# Connect the Plotly graphs with Dash Components
+
+
+@ app.callback(
+    Output(component_id='slct_fig', component_property='options'),
+    [Input(component_id='slct_map', component_property='value')]
+)
+def update_graph(option_map):
+    # Visualizations
+    if option_map == 'Precios':
+        return options['Precios']
+
+    return options['noPrecios']

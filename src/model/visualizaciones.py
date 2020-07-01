@@ -341,7 +341,7 @@ def table_giro(p_df_data, p_metric, p_metric_table):
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
     )
-    
+
     return fig
 
 
@@ -405,8 +405,8 @@ def table_prices(p_df_semaforo):
     ])
 
     fig.update_layout(
-        height=400,
-        margin=dict(r=7, l=4, t=6, b=6),
+        height=450,
+        margin={"r": 0, "t": 60, "l": 0, "b": 0},
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
     )
@@ -590,7 +590,8 @@ def add_porcentual(p_df_predicciones):
     p_df = p_df_predicciones.copy()
 
     # Agregar columna de cambio porcentual
-    p_df['C_Porcentual'] = round(p_df['Precio para Nov 2020'] / p_df['Ultimo precio'] - 1, 4)
+    p_df['C_Porcentual'] = round(
+        p_df['Precio para Nov 2020'] / p_df['Ultimo precio'] - 1, 4)
 
     # Reiniciar indices, sin multi-index
     p_df.reset_index(level=1, inplace=True)
@@ -604,7 +605,7 @@ def add_porcentual(p_df_predicciones):
         'Precios que se mantendrán con una variación menor a 1%' if p_df[
             'C_Porcentual'][i] <= .01 and p_df[
                 'C_Porcentual'][i] > -.01 else 'Precios que aumentarán más de 1%'
-                                                            ) for i in range(len(p_df))]
+    ) for i in range(len(p_df))]
 
     # Añadir columna de colores
     p_df['Color'] = color
@@ -640,7 +641,11 @@ def treemap_chart(p_df, path, color=[]):
     # Etiquetas
     fig.update_traces(hovertemplate='<b>%{label}')
     # Titulo
-    fig.update_layout(title_text='Cambios Porcentuales en los precios por Grupo')
+    fig.update_layout(
+        title_text='Cambios Porcentuales en los precios por Grupo',
+        plot_bgcolor="#F9F9F9",
+        paper_bgcolor="#F9F9F9"
+    )
 
     return fig
 
@@ -672,5 +677,8 @@ def treemap_prices(p_df_predicciones):
         lambda x: ' Cambio Porcentual: ' + str(x))
     # Generar figura
     fig = treemap_chart(df_porc, path, color)
-
+    fig.update_layout(
+        plot_bgcolor="#F9F9F9",
+        paper_bgcolor="#F9F9F9"
+    )
     return fig
