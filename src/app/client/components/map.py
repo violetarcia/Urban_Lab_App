@@ -65,8 +65,8 @@ def update_graph_bar(option_map):
         metric = dict_metrics_df[option_map]
         # Visualizations
         fig = map_metric(metric, option_map, dict_colors[option_map])
-        header =variables[option_map]['modal-header']
-        body=variables[option_map]['modal-body']
+    header =variables[option_map]['modal-header']
+    body=variables[option_map]['modal-body']
     return header, body ,container, fig
 
 @app.callback(
