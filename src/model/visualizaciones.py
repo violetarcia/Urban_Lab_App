@@ -564,3 +564,113 @@ def dif_prices(p_df_predicciones, p_grupo):
         )
 
     return fig
+
+
+def add_porcentual(p_df_predicciones):
+    """
+    Función que hace el cálculo del cambio porcentual en precios y
+	que adecua el df para la realización de las tablas.
+
+    Parameters
+    ---------
+    p_df: DataFrame : df que contiene el último precio y
+						el precio estimado a 6 meses por grupos y clases.
+
+    Returns
+    ---------
+    df:  DataFrame : df que contiene lo que el anterior y
+						el cambio porcentual de los precios.
+
+    Debuggin
+    ---------
+    p_df = add_procentual(df)
+
+    """
+    # Copia de Dataframe de predicciones
+    p_df = p_df_predicciones.copy()
+
+    # Agregar columna de cambio porcentual
+    p_df['C_Porcentual'] = round(p_df['Precio para Nov 2020'] / p_df['Ultimo precio'] - 1, 4)
+
+    # Reiniciar indices, sin multi-index
+    p_df.reset_index(level=1, inplace=True)
+    p_df.reset_index(level=0, inplace=True)
+
+    # Renombrar columnas
+    p_df = p_df.rename(columns={'index': 'Grupo', 'level_1': 'Clase'})
+
+    # Calcular para colorear
+    color = ['Precios que bajaran más de 1%' if p_df['C_Porcentual'][i] <= -.01 else (
+        'Precios que se mantendrán con una variación menor a 1%' if p_df[
+            'C_Porcentual'][i] <= .01 and p_df[
+                'C_Porcentual'][i] > -.01 else 'Precios que aumentarán más de 1%'
+                                                            ) for i in range(len(p_df))]
+
+    # Añadir columna de colores
+    p_df['Color'] = color
+
+    return p_df
+
+
+def treemap_chart(p_df, path, color=[]):
+    """
+    Función que crea la tabla treemap
+
+    Parameters
+    ---------
+    p_df: DataFrame : df que contiene los precios, su cambio y el color asignado.
+    path: list : lista que contiene los labels a mostrar en la tabla.
+    color: list : lista que contiene los colores a mostrar.
+
+    Returns
+    ---------
+    fig: chart: Tabla que se solicita.
+
+    Debuggin
+    ---------
+    path = ['Grupo','Clase', 'C_Porcentual']
+    color = ["yellow", "red", "green"]
+    p_df = treemap_chart(p_df, path, color)
+
+    """
+    # Crear pigura de treemap
+    fig = px.treemap(p_df, path=path)
+    # Poner color
+    fig.update_layout(treemapcolorway=color)
+    # Etiquetas
+    fig.update_traces(hovertemplate='<b>%{label}')
+    # Titulo
+    fig.update_layout(title_text='Cambios Porcentuales en los precios por Grupo')
+
+    return fig
+
+
+def treemap_prices(p_df_predicciones):
+    """
+    Función que crea la tabla treemap
+
+    Parameters
+    ---------
+    p_df: DataFrame : df que contiene los precios, su cambio y el color asignado.
+
+    Returns
+    ---------
+    fig: chart: Tabla que se solicita.
+
+    Debuggin
+    ---------
+    path = df_predicciones
+    """
+    # Añadir columna de cambio porcentual y quitar multi-index
+    df_porc = add_porcentual(p_df_predicciones)
+    # Columnas
+    path = ['Color', 'Grupo', 'Clase', 'C_Porcentual']
+    # Colores
+    color = ['rgb(245, 220, 130)', 'rgb(230, 120, 100)', 'rgb(200, 230, 150)']
+    # label = df_porc['Clase']
+    df_porc['C_Porcentual'] = df_porc['C_Porcentual'].apply(
+        lambda x: ' Cambio Porcentual: ' + str(x))
+    # Generar figura
+    fig = treemap_chart(df_porc, path, color)
+
+    return fig
