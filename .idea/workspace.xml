@@ -4,8 +4,6 @@
     <list default="true" id="81ff63a4-781c-40f6-8410-4a8d11331e26" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/client/components/barchart2.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/client/components/barchart2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/client/utils/body.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/client/utils/body.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/visualizaciones.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/visualizaciones.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,7 +179,7 @@
       <workItem from="1592722784115" duration="20513000" />
       <workItem from="1593309740276" duration="713000" />
       <workItem from="1593410526836" duration="34773000" />
-      <workItem from="1593560331189" duration="7343000" />
+      <workItem from="1593560331189" duration="8817000" />
     </task>
     <servers />
   </component>
