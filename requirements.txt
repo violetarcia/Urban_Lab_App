@@ -10,3 +10,4 @@ geojson
 xlrd
 statistics
 sklearn
+statsmodels
