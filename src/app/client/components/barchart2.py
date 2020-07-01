@@ -69,3 +69,4 @@ def update_graph(option_map):
         return options['Precios']
 
     return options['noPrecios']
+

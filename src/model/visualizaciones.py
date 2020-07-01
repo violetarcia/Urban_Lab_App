@@ -454,7 +454,7 @@ def dif_prices(p_df_predicciones, p_grupo):
         tipos = [[{"type": "indicator"}, {"type": "indicator"}]
                  for i in range(4)]
         fig = make_subplots(rows=4, cols=2, specs=tipos,
-                            vertical_spacing=0.2, horizontal_spacing=0.25)
+                            vertical_spacing=0.2, horizontal_spacing=0.3)
         rows = [1, 2, 3, 4, 1, 2, 3, 4]
         cols = [1, 1, 1, 1, 2, 2, 2, 2]
 
@@ -491,7 +491,7 @@ def dif_prices(p_df_predicciones, p_grupo):
             title=p_grupo,
             title_x=0.5,
             height=450,
-            margin={'t': 100, 'b': 10, 'l': 150},
+            margin={'t': 100, 'b': 100, 'l': 150, 'r': 10},
             font={
                 'color': "darkblue",
                 'family': "Arial",
