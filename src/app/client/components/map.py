@@ -9,7 +9,7 @@ from model.visualizaciones import map_metric, table_prices
 from model.entradas import dict_colors
 output_container = html.H5(id='output_container', children=[], className='text-center')
 
-map_graph = dcc.Graph(id='map', figure={},className='pb-3 pr-3 pl-3')
+map_graph = dcc.Graph(id='map', figure={},className='pb-3 pr-3 pl-3 ')
 
 # Connect the Plotly graphs with Dash Components
 @app.callback(

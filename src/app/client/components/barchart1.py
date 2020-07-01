@@ -6,7 +6,7 @@ from app.dash import app
 from model.visualizaciones import velocimeter_size
 from model.datos import dict_metrics_table, df_pymes
 
-barchart1 = dcc.Graph(id='barchar1', figure={})
+barchart1 = dcc.Graph(id='barchar1', figure={}, className='')
 
 
 # Connect the Plotly graphs with Dash Components

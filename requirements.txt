@@ -8,3 +8,5 @@ geopandas
 pandas
 geojson
 xlrd
+statistics
+sklearn
