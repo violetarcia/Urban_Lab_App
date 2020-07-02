@@ -31,12 +31,12 @@ dropdown2 = dcc.Dropdown(id='slct_fig',
                         value='1',
                         className='float-right ml-auto w-25',
                         )
-barchart2 = dcc.Graph(id='barchart2', figure={}, className='')
+barchart = dcc.Graph(id='barchart', figure={}, className='')
 
 
 # Connect the Plotly graphs with Dash Components
 @app.callback(
-    Output(component_id='barchart2', component_property='figure'),
+    Output(component_id='barchart', component_property='figure'),
     [Input(component_id='slct_map', component_property='value'),
      Input(component_id='slct_fig', component_property='value')]
 )

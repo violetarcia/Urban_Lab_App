@@ -24,13 +24,8 @@ variables = {
 }
 
 output_container = html.Div([
-    html.H5(
-        id='output_container',
-        children=[],
-        className='text-center text-justify m-auto'
-    ),
     dbc.Button(["Descripción", ], id="open-centered")
-], className='row dflex justify-content-center align-items-center')
+], className='row d-flex flex-row-reverse')
 
 map_graph = dcc.Graph(id='map', figure={}, className='pb-3 pr-3 pl-3 ')
 
