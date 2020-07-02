@@ -855,7 +855,6 @@ def treemap_giro(p_df_data, p_metric, p_metric_table):
     fig.update_layout(
         margin={"r": 0, "t": 0, "l": 0, "b": 0},
         plot_bgcolor="#F9F9F9",
-        paper_bgcolor="#F9F9F9",
-        color_discrete_map='#F9F9F9'
+        paper_bgcolor="#F9F9F9"
     )
     return fig
