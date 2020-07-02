@@ -6,7 +6,27 @@ from app.dash import app
 from model.visualizaciones import table_giro, treemap_prices, treemap_giro, table_prices_data
 from model.datos import dict_metrics_table, df_pymes, predicciones, df_prices
 
+dropdown3 = dcc.Dropdown(
+    id='slct_data',
+    options=[
+        {
+            'label': 'Treemap',
+            'value': 'Treemap'
+        },
+        {
+            'label': 'Datos',
+            'value': 'Datos'
+        }
+    ],
+    multi=False,
+    clearable=False,
+    value='Treemap',
+    className='float-right ml-auto w-25'
+)
+
 barchart3 = dcc.Graph(id='barchart3', figure={}, className='')
+
+
 @app.callback(
     Output(component_id='barchart3', component_property='figure'),
     [Input(component_id='slct_map', component_property='value'),
@@ -22,9 +42,11 @@ def update_graph(option_map, option_data):
             fig = table_prices_data(df_prices)
     else:
         if option_data == "Treemap":
-            fig = treemap_giro(df_pymes, option_map, dict_metrics_table[option_map])
+            fig = treemap_giro(df_pymes, option_map,
+                               dict_metrics_table[option_map])
         else:
-            fig = table_giro(df_pymes, option_map, dict_metrics_table[option_map])
-    
+            fig = table_giro(df_pymes, option_map,
+                             dict_metrics_table[option_map])
+
     return fig
 #'slct_data'

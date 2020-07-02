@@ -642,6 +642,7 @@ def treemap_chart(p_df, path, color=[]):
     fig.update_traces(hovertemplate='<b>%{label}')
     # Titulo
     fig.update_layout(
+        margin={"r": 0, "t": 0, "l": 0, "b": 0},
         title_text='Cambios Porcentuales en los precios por Grupo',
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
@@ -678,6 +679,7 @@ def treemap_prices(p_df_predicciones):
     # Generar figura
     fig = treemap_chart(df_porc, path, color)
     fig.update_layout(
+        margin={"r": 0, "t": 0, "l": 0, "b": 0},
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
     )
@@ -705,7 +707,8 @@ def table_prices_data(p_df_prices):
 
     """
     # Tomar sólo columnas que se necesitan mostrar
-    df = p_df_prices.iloc[:, 1:4].merge(p_df_prices.iloc[:, -5:], left_index=True, right_index=True)
+    df = p_df_prices.iloc[:, 1:4].merge(
+        p_df_prices.iloc[:, -5:], left_index=True, right_index=True)
 
     # Sacar la mediana por producto generico
     df_med = df.groupby('Generico').median().reset_index().round(2)
@@ -714,7 +717,8 @@ def table_prices_data(p_df_prices):
     list_groups = list(df.groupby('Generico'))
 
     # Tomar las columnas de grupo y clase que hacen falta en el df de mediana
-    grup_clas = pd.DataFrame([list_groups[i][1].iloc[0, 0:2].T for i in range(len(list_groups))])
+    grup_clas = pd.DataFrame(
+        [list_groups[i][1].iloc[0, 0:2].T for i in range(len(list_groups))])
     # Reiniciar indice para hacer merge
     grup_clas.reset_index(drop=True, inplace=True)
 
@@ -739,13 +743,19 @@ def table_prices_data(p_df_prices):
                                               fill_color='rgb(245, 245, 180)',
                                               align='center', height=40, font_size=11))])
 
-    fig.update_layout(title_text='Datos de precios historicos')
-
+    fig.update_layout(
+        margin={"r": 0, "t": 0, "l": 0, "b": 0},
+        title_text='Datos de precios historicos',
+        plot_bgcolor="#F9F9F9",
+        paper_bgcolor="#F9F9F9"
+    )
     return fig
 
 # -- ------------------------------------------------------------------------------------ -- #
 # -- Function: treemap de estres y adaptabilidad
 # -- ------------------------------------------------------------------------------------ -- #
+
+
 def treemap_giro(p_df_data, p_metric, p_metric_table):
     """
     Parameters
@@ -768,7 +778,7 @@ def treemap_giro(p_df_data, p_metric, p_metric_table):
 
     """
     # Cambiar nombre de columnas
-    change_name_columns = lambda x: x.replace('_', ' ').title()
+    def change_name_columns(x): return x.replace('_', ' ').title()
 
     # Agregar columna de giro
     p_metric_table['Sector'] = p_df_data['Sector']
@@ -796,7 +806,8 @@ def treemap_giro(p_df_data, p_metric, p_metric_table):
                                        values=list(p_metric_table.columns), aggfunc=np.median)
 
     # Nuevas columnas
-    new_col_sg = list(map(change_name_columns, list(pivot_sector_giro.columns)))[1:]
+    new_col_sg = list(
+        map(change_name_columns, list(pivot_sector_giro.columns)))[1:]
 
     # En vez de total, nombre de metrica
     new_col_sg.insert(0, p_metric)
@@ -812,13 +823,18 @@ def treemap_giro(p_df_data, p_metric, p_metric_table):
 
     # Crear DF concatenado
     concatenado = pd.concat([pivot_sec.loc[pivot_sec['Giro'] == "Comercio"],
-                             pivot_sector_giro.loc[pivot_sector_giro['Sector'] == 'Comercio'],
-                             pivot_sec.loc[pivot_sec['Giro'] == "Construcción"],
-                             pivot_sector_giro.loc[pivot_sector_giro['Sector'] == 'Construcción'],
+                             pivot_sector_giro.loc[pivot_sector_giro['Sector']
+                                                   == 'Comercio'],
+                             pivot_sec.loc[pivot_sec['Giro']
+                                           == "Construcción"],
+                             pivot_sector_giro.loc[pivot_sector_giro['Sector']
+                                                   == 'Construcción'],
                              pivot_sec.loc[pivot_sec['Giro'] == "Manufactura"],
-                             pivot_sector_giro.loc[pivot_sector_giro['Sector'] == 'Manufactura'],
+                             pivot_sector_giro.loc[pivot_sector_giro['Sector']
+                                                   == 'Manufactura'],
                              pivot_sec.loc[pivot_sec['Giro'] == "Servicios"],
-                             pivot_sector_giro.loc[pivot_sector_giro['Sector'] == 'Servicios'],
+                             pivot_sector_giro.loc[pivot_sector_giro['Sector']
+                                                   == 'Servicios'],
                              ], ignore_index=False, sort=False)
 
     # Colores
@@ -835,5 +851,10 @@ def treemap_giro(p_df_data, p_metric, p_metric_table):
         parents=parents,
         marker_colorscale=color,
         textinfo="label+value"))
-
+        
+    fig.update_layout(
+        margin={"r": 0, "t": 0, "l": 0, "b": 0},
+        plot_bgcolor="#F9F9F9",
+        paper_bgcolor="#F9F9F9"
+    )
     return fig
