@@ -456,6 +456,9 @@ def dif_prices(p_df_predicciones, p_grupo):
     # Espacio vertical
     v_s = 0.2 if len(grupo.T) == 4 else 0.45
 
+    # colores: verde | amarillo | rojo
+    colores = ['rgb(200, 230, 150)', 'rgb(245, 220, 130)', 'rgb(230, 120, 100)']
+
     if len(grupo.T) == 8:
         # Tipo de fig que se añadiran al subplot
         tipos = [[{"type": "indicator"}, {"type": "indicator"}]
@@ -471,6 +474,10 @@ def dif_prices(p_df_predicciones, p_grupo):
             titulo = list(grupo.columns)[i]
             ultimo_precio = grupo.iloc[0, i]
             futuro_precio = grupo.iloc[1, i]
+
+            # Color de barra
+            color = colores[0] if futuro_precio > ultimo_precio else (
+                            colores[2] if ultimo_precio > futuro_precio else colores[1])
 
             # Añadir fig
             fig.append_trace(go.Indicator(
@@ -490,12 +497,12 @@ def dif_prices(p_df_predicciones, p_grupo):
                         'range': [ultimo_precio * .85, ultimo_precio],
                         'color': "white"
                     }],
-                    'bar': {'color': "black"}
+                    'bar': {'color': color}
                 }
             ), row=rows[i], col=cols[i])
         # Layout de fig
         fig.update_layout(
-            title="Variación en pesos de la clasificación de: " + p_grupo,
+            title="Precios para Nov 2020 con respecto al precio de Mayo 2020 de:" + p_grupo,
             title_x=0.5,
             height=450,
             margin={'t': 100, 'b': 100, 'l': 150, 'r': 10},
@@ -521,6 +528,10 @@ def dif_prices(p_df_predicciones, p_grupo):
             titulo = list(grupo.columns)[i]
             ultimo_precio = grupo.iloc[0, i]
             futuro_precio = grupo.iloc[1, i]
+
+            # Color de barra
+            color = colores[0] if futuro_precio > ultimo_precio else (
+                colores[2] if ultimo_precio > futuro_precio else colores[1])
 
             # Añadir plots
             fig.append_trace(go.Indicator(
@@ -555,13 +566,13 @@ def dif_prices(p_df_predicciones, p_grupo):
                         'color': "white"
                     }],
                     'bar': {
-                        'color': "black"
+                        'color': color
                     }
                 }), row=i + 1, col=1)
 
         # Layout general
         fig.update_layout(
-            title="Variación en pesos de la clasificación de: " + p_grupo,
+            title="Precios para Nov 2020 con respecto al precio de Mayo 2020 de: " + p_grupo,
             title_x=0.5,
             height=450,
             margin=marg,
@@ -678,8 +689,8 @@ def treemap_prices(p_df_predicciones):
     df_porc = add_porcentual(p_df_predicciones)
     # Columnas
     path = ['Color', 'Grupo', 'Clase', 'C_Porcentual']
-    # Colores
-    color = ['rgb(245, 220, 130)', 'rgb(230, 120, 100)', 'rgb(200, 230, 150)']
+    # Colores amarillo | verde | rojo
+    color = ['rgb(245, 220, 130)', 'rgb(200, 230, 150)', 'rgb(230, 120, 100)']
     # label = df_porc['Clase']
     df_porc['C_Porcentual'] = df_porc['C_Porcentual'].apply(
         lambda x: ' Cambio Porcentual: ' + str(x))
