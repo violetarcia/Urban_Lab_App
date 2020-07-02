@@ -76,7 +76,8 @@ def map_metric(p_df_data, metric, color):
         }
     )
     fig.update_layout(
-        margin={"r": 0, "t": 0, "l": 0, "b": 0},
+        title_text=metric+ ' de la ZMG por codigo postal',
+        margin={"r": 10, "t": 30, "l": 10, "b": 10},
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
     )
@@ -107,20 +108,22 @@ def velocimeter_size(p_df_data, p_metric, p_metric_table):
                                        ent.conditions_stress, 'Estres')['metric_table']
 
     """
+    # Hacer copia
+    metric_table = p_metric_table.copy()
     # Añadir columna necesaria
-    p_metric_table['Tamaño'] = p_df_data['Tamaño']
+    metric_table['Tamaño'] = p_df_data['Tamaño']
     # Creación de tabla resumen
     pivot_size = pd.pivot_table(
-        p_metric_table,
+        metric_table,
         index=['Tamaño'],
-        values=list(p_metric_table.columns),
+        values=list(metric_table.columns),
         aggfunc=np.median
     )
     # Creacion de figura
     fig = go.Figure()
 
     # limites
-    lim = p_metric_table['Total'].max()
+    lim = metric_table['Total'].max()
     # color
     color = "darkred" if p_metric == 'Estres' else "mediumpurple"
     fig.add_trace(go.Indicator(
@@ -221,13 +224,15 @@ def bars_city(p_df_data, p_metric, p_metric_table):
                                        ent.conditions_stress, 'Estres')['metric_table']
 
     """
+    # Hacer copia
+    metric_table = p_metric_table.copy()
     # Añadir columna necesaria
-    p_metric_table['Municipio'] = p_df_data['Municipio']
+    metric_table['Municipio'] = p_df_data['Municipio']
     # Creación de tabla resumen
     pivot_mun = pd.pivot_table(
-        p_metric_table,
+        metric_table,
         index=['Municipio'],
-        values=list(p_metric_table.columns),
+        values=list(metric_table.columns),
         aggfunc=np.median
     )
     # Creacion de figura
@@ -235,12 +240,12 @@ def bars_city(p_df_data, p_metric, p_metric_table):
     # Colores
     colors = px.colors.sequential.Reds[3:9] if p_metric == 'Estres' else px.colors.sequential.Purp[1:7]
     # limites
-    lim = p_metric_table['Total'].max()
+    lim = metric_table['Total'].max()
     # figura
     fig = go.Figure(
         data=[go.Bar(
             x=pivot_mun.index,
-            y=pivot_mun['Total'],
+            y=pivot_mun['Total'].sort_values(),
             marker_color=colors
         )],
         layout={
@@ -250,7 +255,7 @@ def bars_city(p_df_data, p_metric, p_metric_table):
         }
     )
     fig.update_layout(
-        title=p_metric + " en los Municipios de la ZMG",
+        title=p_metric + " por Municipio de la ZMG",
         xaxis_title="Municipios",
         yaxis_title=p_metric,
         plot_bgcolor="#F9F9F9",
@@ -338,6 +343,8 @@ def table_giro(p_df_data, p_metric, p_metric_table):
         )
     ])
     fig.update_layout(
+        title="Datos para el cálculo de la métrica: "+p_metric,
+        margin={"r": 10, "t": 30, "l": 10, "b": 10},
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
     )
@@ -853,7 +860,8 @@ def treemap_giro(p_df_data, p_metric, p_metric_table):
         textinfo="label+value"))
         
     fig.update_layout(
-        margin={"r": 0, "t": 0, "l": 0, "b": 0},
+        title="Datos de la medina de la métrica: " + p_metric + " (por sector)",
+        margin={"r": 10, "t": 30, "l": 10, "b": 10},
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
     )
