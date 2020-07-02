@@ -29,7 +29,7 @@ output_container = html.Div([
         children=[],
         className='text-center text-justify m-auto'
     ),
-    dbc.Button(["Detalles", ], id="open-centered")
+    dbc.Button(["Descripción", ], id="open-centered")
 ], className='row dflex justify-content-center align-items-center')
 
 map_graph = dcc.Graph(id='map', figure={}, className='pb-3 pr-3 pl-3 ')

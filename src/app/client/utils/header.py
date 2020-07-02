@@ -33,7 +33,7 @@ header = html.Header(
                         dcc.Dropdown(
                             id='slct_map',
                             options=[
-                                {'label': 'Estrés Economico', 'value': 'Estres'},
+                                {'label': 'Estrés Económico', 'value': 'Estres'},
                                 {'label': 'Adaptabilidad',
                                     'value': 'Adaptabilidad'},
                                 {'label': 'Predicción de Precios', 'value': 'Precios'}
