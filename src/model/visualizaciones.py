@@ -114,7 +114,7 @@ def velocimeter_size(p_df_data, p_metric, p_metric_table):
         p_metric_table,
         index=['Tamaño'],
         values=list(p_metric_table.columns),
-        aggfunc=np.mean
+        aggfunc=np.median
     )
     # Creacion de figura
     fig = go.Figure()
@@ -228,7 +228,7 @@ def bars_city(p_df_data, p_metric, p_metric_table):
         p_metric_table,
         index=['Municipio'],
         values=list(p_metric_table.columns),
-        aggfunc=np.mean
+        aggfunc=np.median
     )
     # Creacion de figura
     fig = go.Figure()
@@ -642,6 +642,7 @@ def treemap_chart(p_df, path, color=[]):
     fig.update_traces(hovertemplate='<b>%{label}')
     # Titulo
     fig.update_layout(
+        margin={"r": 0, "t": 0, "l": 0, "b": 0},
         title_text='Cambios Porcentuales en los precios por Grupo',
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
@@ -678,7 +679,183 @@ def treemap_prices(p_df_predicciones):
     # Generar figura
     fig = treemap_chart(df_porc, path, color)
     fig.update_layout(
+        margin={"r": 0, "t": 0, "l": 0, "b": 0},
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
+    )
+    return fig
+
+
+# -- ------------------------------------------------------------------------------------ -- #
+# -- Function: info precios
+# -- ------------------------------------------------------------------------------------ -- #
+def table_prices_data(p_df_prices):
+    """
+    Función que crea la tabla de datos
+
+    Parameters
+    ---------
+    p_df: DataFrame : df que contiene los precios
+
+    Returns
+    ---------
+    fig: chart: Tabla que se solicita.
+
+    Debuggin
+    ---------
+    path = df_prices
+
+    """
+    # Tomar sólo columnas que se necesitan mostrar
+    df = p_df_prices.iloc[:, 1:4].merge(
+        p_df_prices.iloc[:, -5:], left_index=True, right_index=True)
+
+    # Sacar la mediana por producto generico
+    df_med = df.groupby('Generico').median().reset_index().round(2)
+
+    # Lista del groupby
+    list_groups = list(df.groupby('Generico'))
+
+    # Tomar las columnas de grupo y clase que hacen falta en el df de mediana
+    grup_clas = pd.DataFrame(
+        [list_groups[i][1].iloc[0, 0:2].T for i in range(len(list_groups))])
+    # Reiniciar indice para hacer merge
+    grup_clas.reset_index(drop=True, inplace=True)
+
+    # Combinar los que se tienen de medianas con las columnas faltantes
+    df_med_complet = grup_clas.merge(df_med, left_index=True, right_index=True)
+
+    # Dataframe final acomodados por grupo
+    df_final = df_med_complet.sort_values(by=['Grupo'])
+    df_final.reset_index(drop=True, inplace=True)
+
+    # Nombres de header de tabla
+    col = df_final.columns.tolist()
+    # Valores en losta del df
+    val = [df_final[c] for c in col]
+
+    # Table
+    fig = go.Figure(data=[go.Table(name='Precios',
+                                   header=dict(values=col,
+                                               fill_color='rgb(160, 160, 16)',
+                                               align='center', font_color='White', font_size=10),
+                                   cells=dict(values=val,
+                                              fill_color='rgb(245, 245, 180)',
+                                              align='center', height=40, font_size=11))])
+
+    fig.update_layout(
+        margin={"r": 0, "t": 0, "l": 0, "b": 0},
+        title_text='Datos de precios historicos',
+        plot_bgcolor="#F9F9F9",
+        paper_bgcolor="#F9F9F9"
+    )
+    return fig
+
+# -- ------------------------------------------------------------------------------------ -- #
+# -- Function: treemap de estres y adaptabilidad
+# -- ------------------------------------------------------------------------------------ -- #
+
+
+def treemap_giro(p_df_data, p_metric, p_metric_table):
+    """
+    Parameters
+    ---------
+    p_df_data: DataFrame : datos de pymes en dataframe
+    p_metric: str : nombre de la metrica
+    p_metric_table: DataFrame : matriz del calculo de la metrica
+
+    Returns
+    ---------
+    fig : plotly figure : mapa de la zmg de jalisco
+
+    Debuggin
+    ---------
+    p_df_data = df_pymes
+    p_metric = 'Estres'
+    p_metric_table = pr.metric_quantification(df_pymes,
+                                       ent.conditions_stress, 'Estres')['metric_table']
+
+
+    """
+    # Cambiar nombre de columnas
+    def change_name_columns(x): return x.replace('_', ' ').title()
+
+    # Agregar columna de giro
+    p_metric_table['Sector'] = p_df_data['Sector']
+
+    # Creación de tabla resumen 1 - sector
+    pivot_sec = pd.pivot_table(p_metric_table, index=['Sector'],
+                               values=list(p_metric_table.columns), aggfunc=np.median)
+
+    # Nuevas columnas
+    new_col_sec = list(map(change_name_columns, list(pivot_sec.columns)))[1:]
+
+    # En vez de total, nombre de metrica
+    new_col_sec.insert(0, p_metric)
+
+    # Renombrar columnas de la pivot de sector
+    pivot_sec.columns = new_col_sec
+
+    # ---------------------------------------------------------------
+
+    # Agregar Giro
+    p_metric_table['Giro'] = p_df_data['Giro']
+
+    # Creación de tabla resumen 2 - sector y giro
+    pivot_sector_giro = pd.pivot_table(p_metric_table, index=['Sector', 'Giro'],
+                                       values=list(p_metric_table.columns), aggfunc=np.median)
+
+    # Nuevas columnas
+    new_col_sg = list(
+        map(change_name_columns, list(pivot_sector_giro.columns)))[1:]
+
+    # En vez de total, nombre de metrica
+    new_col_sg.insert(0, p_metric)
+
+    # Renombrar columnas de la pivot de giro
+    pivot_sector_giro.columns = new_col_sg
+
+    # Reset index y cambios de nombre a una columna
+    pivot_sector_giro = pivot_sector_giro.reset_index()
+    pivot_sec = pivot_sec.reset_index()
+
+    pivot_sec = pivot_sec.rename(columns={'Sector': 'Giro'})
+
+    # Crear DF concatenado
+    concatenado = pd.concat([pivot_sec.loc[pivot_sec['Giro'] == "Comercio"],
+                             pivot_sector_giro.loc[pivot_sector_giro['Sector']
+                                                   == 'Comercio'],
+                             pivot_sec.loc[pivot_sec['Giro']
+                                           == "Construcción"],
+                             pivot_sector_giro.loc[pivot_sector_giro['Sector']
+                                                   == 'Construcción'],
+                             pivot_sec.loc[pivot_sec['Giro'] == "Manufactura"],
+                             pivot_sector_giro.loc[pivot_sector_giro['Sector']
+                                                   == 'Manufactura'],
+                             pivot_sec.loc[pivot_sec['Giro'] == "Servicios"],
+                             pivot_sector_giro.loc[pivot_sector_giro['Sector']
+                                                   == 'Servicios'],
+                             ], ignore_index=False, sort=False)
+
+    # Colores
+    color = 'Reds' if p_metric == 'Estres' else 'Purples'
+
+    # Creacion de figura
+    values = concatenado[p_metric]
+    labels = concatenado.Giro
+    parents = concatenado.Sector
+
+    fig = go.Figure(go.Treemap(
+        labels=labels,
+        values=values,
+        parents=parents,
+        marker_colorscale=color,
+        textinfo="label+value"))
+        
+    fig.update_layout(
+        margin={"r": 0, "t": 0, "l": 0, "b": 0},
+        plot_bgcolor="#F9F9F9",
+        paper_bgcolor="#F9F9F9",
+        color_discrete_map='#F9F9F9'
     )
     return fig

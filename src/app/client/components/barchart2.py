@@ -21,7 +21,7 @@ options = {
     ]
 }
 
-dropdown = dcc.Dropdown(id='slct_fig',
+dropdown2 = dcc.Dropdown(id='slct_fig',
                         options=[
                             {'label': 'Barras', 'value': 1},
                             {'label': 'Velocimetro', 'value': 2}
@@ -29,7 +29,7 @@ dropdown = dcc.Dropdown(id='slct_fig',
                         multi=False,
                         clearable=False,
                         value='1',
-                        className='float-right ml-auto w-25'
+                        className='float-right ml-auto w-25',
                         )
 barchart2 = dcc.Graph(id='barchart2', figure={}, className='')
 
