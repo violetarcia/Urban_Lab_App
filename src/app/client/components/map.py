@@ -29,7 +29,7 @@ output_container = html.Div([
         children=[],
         className='text-center text-justify m-auto'
     ),
-    dbc.Button(["Detalles", ], id="open-centered")
+    dbc.Button(["Descripción", ], id="open-centered")
 ], className='row dflex justify-content-center align-items-center')
 
 map_graph = dcc.Graph(id='map', figure={}, className='pb-3 pr-3 pl-3 ')
@@ -54,12 +54,11 @@ modal = dbc.Modal(
 @app.callback(
     [Output(component_id='modal-header', component_property='children'),
      Output(component_id='modal-body', component_property='children'),
-     Output(component_id='output_container', component_property='children'),
      Output(component_id='map', component_property='figure')],
     [Input(component_id='slct_map', component_property='value')]
 )
 def update_graph_bar(option_map):
-    container = 'La variable escogida por el usuario es: {}'.format(option_map)
+    #container = 'La variable escogida por el usuario es: {}'.format(option_map)
     if option_map == 'Precios':
         fig = table_prices(semaforo)
     else:
@@ -70,7 +69,7 @@ def update_graph_bar(option_map):
     header = variables[option_map]['modal-header']
     body = variables[option_map]['modal-body']
 
-    return header, body, container, fig
+    return header, body, fig
 
 
 @app.callback(

@@ -9,8 +9,8 @@ from model.datos import dict_metrics_table, df_pymes, predicciones
 groups = ['Alimentos', 'Ropa', 'Cuidado personal', 'Salud', 'Transporte público']
 options = {
     'noPrecios': [
-        {'label': 'Barras', 'value': 1},
-        {'label': 'Velocimetro', 'value': 2}
+        {'label': 'Municipio', 'value': 1},
+        {'label': 'Tamaño', 'value': 2}
     ],
     'Precios': [
         {'label': 'Alimentos', 'value': 1},

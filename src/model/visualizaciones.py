@@ -76,7 +76,8 @@ def map_metric(p_df_data, metric, color):
         }
     )
     fig.update_layout(
-        margin={"r": 0, "t": 0, "l": 0, "b": 0},
+        title_text=metric+ ' de la ZMG por codigo postal',
+        margin={"r": 10, "t": 30, "l": 10, "b": 10},
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
     )
@@ -107,20 +108,22 @@ def velocimeter_size(p_df_data, p_metric, p_metric_table):
                                        ent.conditions_stress, 'Estres')['metric_table']
 
     """
+    # Hacer copia
+    metric_table = p_metric_table.copy()
     # Añadir columna necesaria
-    p_metric_table['Tamaño'] = p_df_data['Tamaño']
+    metric_table['Tamaño'] = p_df_data['Tamaño']
     # Creación de tabla resumen
     pivot_size = pd.pivot_table(
-        p_metric_table,
+        metric_table,
         index=['Tamaño'],
-        values=list(p_metric_table.columns),
+        values=list(metric_table.columns),
         aggfunc=np.median
     )
     # Creacion de figura
     fig = go.Figure()
 
     # limites
-    lim = p_metric_table['Total'].max()
+    lim = metric_table['Total'].max()
     # color
     color = "darkred" if p_metric == 'Estres' else "mediumpurple"
     fig.add_trace(go.Indicator(
@@ -221,13 +224,15 @@ def bars_city(p_df_data, p_metric, p_metric_table):
                                        ent.conditions_stress, 'Estres')['metric_table']
 
     """
+    # Hacer copia
+    metric_table = p_metric_table.copy()
     # Añadir columna necesaria
-    p_metric_table['Municipio'] = p_df_data['Municipio']
+    metric_table['Municipio'] = p_df_data['Municipio']
     # Creación de tabla resumen
     pivot_mun = pd.pivot_table(
-        p_metric_table,
+        metric_table,
         index=['Municipio'],
-        values=list(p_metric_table.columns),
+        values=list(metric_table.columns),
         aggfunc=np.median
     )
     # Creacion de figura
@@ -235,12 +240,12 @@ def bars_city(p_df_data, p_metric, p_metric_table):
     # Colores
     colors = px.colors.sequential.Reds[3:9] if p_metric == 'Estres' else px.colors.sequential.Purp[1:7]
     # limites
-    lim = p_metric_table['Total'].max()
+    lim = metric_table['Total'].max()
     # figura
     fig = go.Figure(
         data=[go.Bar(
             x=pivot_mun.index,
-            y=pivot_mun['Total'],
+            y=pivot_mun['Total'].sort_values(),
             marker_color=colors
         )],
         layout={
@@ -250,7 +255,7 @@ def bars_city(p_df_data, p_metric, p_metric_table):
         }
     )
     fig.update_layout(
-        title=p_metric + " en los Municipios de la ZMG",
+        title=p_metric + " por Municipio de la ZMG",
         xaxis_title="Municipios",
         yaxis_title=p_metric,
         plot_bgcolor="#F9F9F9",
@@ -338,6 +343,8 @@ def table_giro(p_df_data, p_metric, p_metric_table):
         )
     ])
     fig.update_layout(
+        title="Datos para el cálculo de la métrica: "+p_metric,
+        margin={"r": 10, "t": 30, "l": 10, "b": 10},
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
     )
@@ -391,7 +398,6 @@ def table_prices(p_df_semaforo):
             fill_color='rgb(240, 225, 230)',
             align='center',
             font=dict(
-                family="Old Standard TT",
                 color='rgb(110, 90, 100)',
                 size=18
             )
@@ -400,13 +406,14 @@ def table_prices(p_df_semaforo):
             values=[list(p_df_semaforo.index), list(p_df_semaforo[1])],
             line_color=['rgb(235, 225, 245)', 'white'],
             fill_color=['white', colors_t],
-            align='center', font=dict(family="Old Standard TT", color='rgb(130, 120, 120)', size=12)
+            align='center'
         ))
     ])
 
     fig.update_layout(
         height=450,
-        margin={"r": 0, "t": 60, "l": 0, "b": 0},
+        title="Predicciones de la variación de precios para Noviembre 2020",
+        margin={"r": 10, "t": 30, "l": 10, "b": 10},
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
     )
@@ -481,19 +488,19 @@ def dif_prices(p_df_predicciones, p_grupo):
                         'value': ultimo_precio},
                     'steps': [{
                         'range': [ultimo_precio * .85, ultimo_precio],
-                        'color': "lightgray"
+                        'color': "white"
                     }],
                     'bar': {'color': "black"}
                 }
             ), row=rows[i], col=cols[i])
         # Layout de fig
         fig.update_layout(
-            title=p_grupo,
+            title="Variación en pesos de la clasificación de: " + p_grupo,
             title_x=0.5,
             height=450,
             margin={'t': 100, 'b': 100, 'l': 150, 'r': 10},
             font={
-                'color': "darkblue",
+                'color': "black",
                 'family': "Arial",
                 'size': 14
             },
@@ -545,7 +552,7 @@ def dif_prices(p_df_predicciones, p_grupo):
                     },
                     'steps': [{
                         'range': [ultimo_precio * .85, ultimo_precio],
-                        'color': "lightgray"
+                        'color': "white"
                     }],
                     'bar': {
                         'color': "black"
@@ -554,11 +561,11 @@ def dif_prices(p_df_predicciones, p_grupo):
 
         # Layout general
         fig.update_layout(
-            title=p_grupo,
+            title="Variación en pesos de la clasificación de: " + p_grupo,
             title_x=0.5,
             height=450,
             margin=marg,
-            font={'color': "darkblue", 'family': "Arial", 'size': 14},
+            font={'color': "black", 'family': "Arial", 'size': 14},
             plot_bgcolor="#F9F9F9",
             paper_bgcolor="#F9F9F9"
         )
@@ -642,7 +649,7 @@ def treemap_chart(p_df, path, color=[]):
     fig.update_traces(hovertemplate='<b>%{label}')
     # Titulo
     fig.update_layout(
-        margin={"r": 0, "t": 0, "l": 0, "b": 0},
+        margin={"r": 10, "t": 30, "l": 10, "b": 10},
         title_text='Cambios Porcentuales en los precios por Grupo',
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
@@ -679,7 +686,7 @@ def treemap_prices(p_df_predicciones):
     # Generar figura
     fig = treemap_chart(df_porc, path, color)
     fig.update_layout(
-        margin={"r": 0, "t": 0, "l": 0, "b": 0},
+        margin={"r": 10, "t": 30, "l": 10, "b": 10},
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
     )
@@ -737,14 +744,14 @@ def table_prices_data(p_df_prices):
     # Table
     fig = go.Figure(data=[go.Table(name='Precios',
                                    header=dict(values=col,
-                                               fill_color='rgb(160, 160, 16)',
+                                               fill_color='rgb(95, 95, 80)',
                                                align='center', font_color='White', font_size=10),
                                    cells=dict(values=val,
-                                              fill_color='rgb(245, 245, 180)',
+                                              fill_color='rgb(250, 245, 200)',
                                               align='center', height=40, font_size=11))])
 
     fig.update_layout(
-        margin={"r": 0, "t": 0, "l": 0, "b": 0},
+        margin={"r": 10, "t": 30, "l": 10, "b": 10},
         title_text='Datos de precios historicos',
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
@@ -754,8 +761,6 @@ def table_prices_data(p_df_prices):
 # -- ------------------------------------------------------------------------------------ -- #
 # -- Function: treemap de estres y adaptabilidad
 # -- ------------------------------------------------------------------------------------ -- #
-
-
 def treemap_giro(p_df_data, p_metric, p_metric_table):
     """
     Parameters
@@ -853,7 +858,8 @@ def treemap_giro(p_df_data, p_metric, p_metric_table):
         textinfo="label+value"))
         
     fig.update_layout(
-        margin={"r": 0, "t": 0, "l": 0, "b": 0},
+        title="Datos de la medina de la métrica: " + p_metric + " (por sector)",
+        margin={"r": 10, "t": 30, "l": 10, "b": 10},
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
     )
