@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="81ff63a4-781c-40f6-8410-4a8d11331e26" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/client/components/barchart3.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/client/components/barchart3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/client/utils/body.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/client/utils/body.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/client/components/map.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/client/components/map.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/client/utils/header.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/client/utils/header.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/visualizaciones.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/visualizaciones.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -181,7 +181,7 @@
       <workItem from="1592722784115" duration="20513000" />
       <workItem from="1593309740276" duration="713000" />
       <workItem from="1593410526836" duration="34773000" />
-      <workItem from="1593560331189" duration="14901000" />
+      <workItem from="1593560331189" duration="22478000" />
     </task>
     <servers />
   </component>
@@ -245,6 +245,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="391" y="191" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1593546659228" />
+    <state x="371" y="83" width="950" height="507" key="dock-window-1" timestamp="1593661450260">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="371" y="83" width="950" height="507" key="dock-window-1/0.0.1366.728@0.0.1366.728" timestamp="1593661450260" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1593561109882">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
