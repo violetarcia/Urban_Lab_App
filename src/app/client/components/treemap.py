@@ -24,11 +24,11 @@ dropdown3 = dcc.Dropdown(
     className='float-right ml-auto w-25'
 )
 
-barchart3 = dcc.Graph(id='barchart3', figure={}, className='')
+treemap = dcc.Graph(id='treemap', figure={}, className='')
 
 
 @app.callback(
-    Output(component_id='barchart3', component_property='figure'),
+    Output(component_id='treemap', component_property='figure'),
     [Input(component_id='slct_map', component_property='value'),
      Input(component_id='slct_data', component_property='value')]
 )

@@ -3,11 +3,8 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 
 from app.client.components.map import map_graph, output_container, modal
-from app.client.components.barchart1 import barchart1
-from app.client.components.barchart2 import barchart2, dropdown2
-from app.client.components.barchart3 import barchart3, dropdown3
-from app.client.components.piechart1 import piechart1
-from app.client.components.piechart2 import piechart2
+from app.client.components.barchart import barchart, dropdown2
+from app.client.components.treemap import treemap, dropdown3
 
 body = html.Div([
     html.Div([
@@ -26,7 +23,7 @@ body = html.Div([
         html.Div([
             dbc.Card([
                 dropdown2,
-                barchart2
+                barchart
             ],
                 body=True,
                 className='card h-100',
@@ -37,7 +34,7 @@ body = html.Div([
         html.Div([
             dbc.Card([
                 dropdown3,
-                barchart3
+                treemap
             ],
                 body=True,
                 className='card h-100',
