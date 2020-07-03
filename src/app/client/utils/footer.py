@@ -9,9 +9,8 @@ footer = html.Footer(
             html.Div([
                 html.Div([
                      html.Img(
-                         src=app.get_asset_url('logo.png'),
-                         width='100%',
-                         className='w-100 m-auto'
+                         src=app.get_asset_url('logo2.png'),
+                         className='w-100 m-auto rounded mt-3'
                      )
                      ], className='col d-flex flex-colum'),
                 html.Hr(className='clearfix w-100 d-md-none'),

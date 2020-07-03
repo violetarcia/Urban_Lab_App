@@ -504,6 +504,7 @@ def dif_prices(p_df_predicciones, p_grupo):
         fig.update_layout(
             title="Precios para Nov 2020 con respecto al precio de Mayo 2020 de:" + p_grupo,
             title_x=0.5,
+            titlefont=dict(size=15),
             height=450,
             margin={'t': 100, 'b': 100, 'l': 150, 'r': 10},
             font={
@@ -574,6 +575,7 @@ def dif_prices(p_df_predicciones, p_grupo):
         fig.update_layout(
             title="Precios para Nov 2020 con respecto al precio de Mayo 2020 de: " + p_grupo,
             title_x=0.5,
+            titlefont=dict(size=15),
             height=450,
             margin=marg,
             font={'color': "black", 'family': "Arial", 'size': 14},
