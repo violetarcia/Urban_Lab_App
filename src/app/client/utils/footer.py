@@ -10,23 +10,33 @@ footer = html.Footer(
                 html.Div([
                      html.Img(
                          src=app.get_asset_url('logo.png'),
-                         width='50%'
+                         width='100%',
+                         className='w-100 m-auto'
                      )
-                     ], className='col'),
+                     ], className='col d-flex flex-colum'),
                 html.Hr(className='clearfix w-100 d-md-none'),
                 html.Div([
-                    '“Se resaltan los efectos espaciales en los que esta econometría se centra, se exponen las formas de incorporación de estos efectos en modelos espaciales y los principales tests para detectarlos y contrastarlos...” Dr. Jorge A. Pérez Pineda'
+                    html.P(children=[
+                        'Este proyecto fue elaborado por estudiantes del PAP 4J05 de la universidad ITESO, durante el periodo de Verano 2020. Para consultar detalles dirigirse a: ',
+                        html.A(children=[html.I(className='fab fa-github'), ' Code'],
+                               href='https://github.com/IFFranciscoME/Urban_Lab_App/',
+                               target='_blank',
+                               className='text-white'
+                               )
+                    ])
+
                 ], className='col d-flex align-items-center '),
                 html.Hr(className='clearfix w-100 d-md-none'),
                 html.Div([
-                    html.H5('Referencias',className='font-weight-bold mt-3 mb-4 text-warning'),
+                    html.H5(
+                        'Referencias', className='font-weight-bold mt-3 mb-4 text-warning'),
                     html.Ul(
                         children=[
-                           html.Li(
+                            html.Li(
                                 children=[
                                     html.A(
                                         children=[
-                                            html.I(className='fa fa-paperclip'), '  Link 1'],
+                                            html.I(className='fa fa-paperclip'), '  Github'],
                                         href='https://github.com/IFFranciscoME/Urban_Lab_App/',
                                         target='_blank',
                                         className='text-white'
@@ -37,49 +47,28 @@ footer = html.Footer(
                                 children=[
                                     html.A(
                                         children=[
-                                            html.I(className='fa fa-paperclip'), '  Link 2'],
+                                            html.I(className='fa fa-paperclip'), '  Notas Tecnicas'],
                                         href='https://github.com/IFFranciscoME/Urban_Lab_App/',
                                         target='_blank',
                                         className='text-white'
                                     )
                                 ]
-                            ) ,
+                            ),
                             html.Li(
                                 children=[
                                     html.A(
                                         children=[
-                                            html.I(className='fa fa-paperclip'), '  Link 3'],
+                                            html.I(className='fa fa-paperclip'), '  Datos'],
                                         href='https://github.com/IFFranciscoME/Urban_Lab_App/',
                                         target='_blank',
                                         className='text-white'
                                     )
                                 ]
-                            )  
+                            )
                         ], className='list-unstyled'
                     )
                 ], className='col')
             ], className='row'),
-            html.Hr(className='bg-white p-0 m-0'),
-            html.Ul(
-                children=[
-                    html.Li(
-                        children=[
-                            html.A(
-                                children=[
-                                    html.I(className='fab fa-github'), '  Code'],
-                                href='https://github.com/IFFranciscoME/Urban_Lab_App/',
-                                target='_blank',
-                                className='text-white'
-                            )
-                        ]
-                    )
-                ],
-                style={
-                    'display': 'table',
-                    'list-style-type': 'none',
-                },
-                className='mt-0 mb-0 mr-auto ml-auto'
-            ),
             html.Hr(className='bg-white p-0 m-0'),
             html.P(children=[
                    'Copyright @2020 | Diseñado por Laboratorio de econometría espacial urbana'], className='text-center mt-2')
