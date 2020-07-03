@@ -1,13 +1,13 @@
 import os
 
 ## App settings
-name = "Urban Lab: Datos de ZMG"
+name = 'Urban Lab: Datos de ZMG'
 
 host ='0.0.0.0'
 
-port = int(os.environ.get("PORT", 5000))
+port = int(os.environ.get('PORT', 5000))
 
-debug = bool(os.environ.get("ENV", True))
+debug = bool(os.environ.get('ENV', True))
 
 
 fontawesome = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css'
