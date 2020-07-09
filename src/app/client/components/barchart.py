@@ -14,62 +14,43 @@ groups = [
     'Transporte público'
 ]
 
-options = {
-    'noPrecios': [
-        {'label': 'Municipio', 'value': 1},
-        {'label': 'Tamaño', 'value': 2}
-    ],
-    'Precios': [
-        {'label': 'Alimentos', 'value': 1},
-        {'label': 'Ropa', 'value': 2},
-        {'label': 'Cuidado personal', 'value': 3},
-        {'label': 'Salud', 'value': 4},
-        {'label': 'Transporte público', 'value': 5}
-    ]
-}
-
-btn_barchart = dbc.Button(
-        'Descripción',
-        id='open-modal-barchart',
-        className='float-left mr-auto d-none'
-    )
+txt_barchart = html.Div([
+    html.H5(children=['Grafica de variación de precios en pesos']),
+    html.P(children=['En esta grafica se observa una predicción en pesos de lo que variaran los precios dentro de 6 meses. El numero representado al final de la gráfica es una media de los precios futuros de todos los productos dentro de esa categoría. Por lo que es un precio representativo de lo que estarán los precios en un futuro. El numero en color verde o rojo representa cuantos pesos van a subir o bajar los productos. Ejemplo en los Alimentos en la clase de Carnes se ve el numero verde 1.42, lo que significa que en general los productos de carne estarán 1.42 pesos más caros en noviembre. La grafica representa una barra horizontal y una línea vertical, la línea vertical representa los precios actuales  y la barra horizontal representa los precios futuros.'])
+],
+id='txt_barchart',
+className='d-none')
 
 dropdown_barchart = dcc.Dropdown(
     id='slct_fig',
     options=[
-        {'label': 'Barras', 'value': 1},
-        {'label': 'Velocimetro', 'value': 2}
+        {'label': groups[0], 'value': 0},
+        {'label': groups[1], 'value': 1},
+        {'label': groups[2], 'value': 2},
+        {'label': groups[3], 'value': 3},
+        {'label': groups[4], 'value': 4}
     ],
     multi=False,
     clearable=False,
     value='1',
-    className='float-right ml-auto w-25',
+    className='d-none',
 )
+
+tabs_barchart = dcc.Tabs(id='tabs_fig', value='0', children=[
+    dcc.Tab(label='Distribución por municipio', value='0'),
+    dcc.Tab(label='Tamaño de empresas', value='1'),
+])
+
+output_barchart = html.Div([
+    dropdown_barchart,
+    tabs_barchart
+])
 
 barchart = dcc.Graph(
     id='barchart',
     figure={},
-    className=''
+    className='mt-auto mb-auto'
 )
-
-
-modal_barchart = dbc.Modal(
-    [
-        dbc.ModalHeader(children=['Grafica de variación de precios en pesos']),
-        dbc.ModalBody(
-            children=['En esta grafica se observa una predicción en pesos de lo que variaran los precios dentro de 6 meses. El numero representado al final de la gráfica es una media de los precios futuros de todos los productos dentro de esa categoría. Por lo que es un precio representativo de lo que estarán los precios en un futuro. El numero en color verde o rojo representa cuantos pesos van a subir o bajar los productos. Ejemplo en los Alimentos en la clase de Carnes se ve el numero verde 1.42, lo que significa que en general los productos de carne estarán 1.42 pesos más caros en noviembre. La grafica representa una barra horizontal y una línea vertical, la línea vertical representa los precios actuales  y la barra horizontal representa los precios futuros.'],
-            className='text-center text-justify'
-        ),
-        dbc.ModalFooter(
-            dbc.Button(
-                'Cerrar', id='close-modal-barchart', className='ml-auto'
-            )
-        ),
-    ],
-    id='modal-barchart',
-    centered=True,
-)
-
 
 # Connect the Plotly graphs with Dash Components
 @app.callback(
@@ -85,15 +66,19 @@ modal_barchart = dbc.Modal(
         Input(
             component_id='slct_fig',
             component_property='value'
+        ),
+        Input(
+            component_id='tabs_fig',
+            component_property='value'
         )
     ]
 )
-def update_graph(option_map, figura_n):
+def update_graph(option_map, figura_slct,figura_tabs ):
     # Visualizations
     if option_map == 'Precios':
-        fig = dif_prices(predicciones, groups[int(figura_n)-1])
+        fig = dif_prices(predicciones, groups[int(figura_slct)])
     else:
-        if int(figura_n) == 1:
+        if int(figura_tabs) == 0:
             fig = bars_city(
                 df_pymes,
                 option_map,
@@ -108,17 +93,19 @@ def update_graph(option_map, figura_n):
     return fig
 
 # Connect the Plotly graphs with Dash Components
-
-
 @app.callback(
     [
         Output(
-            component_id='open-modal-barchart',
+            component_id='txt_barchart',
             component_property='className'
         ),
         Output(
             component_id='slct_fig',
-            component_property='options'
+            component_property='className'
+        ),
+        Output(
+            component_id='tabs_fig',
+            component_property='className'
         )
     ]
     ,
@@ -130,21 +117,6 @@ def update_graph(option_map, figura_n):
 def update_graph(option_map):
     # Visualizations
     if option_map == 'Precios':
-        return 'float-left mr-auto d-block', options['Precios']
+        return 'd-block text-justify', 'd-block', 'd-none'
 
-    return 'd-none', options['noPrecios']
-
-
-@app.callback(
-    Output('modal-barchart', 'is_open'),
-    [
-        Input('open-modal-barchart', 'n_clicks'),
-        Input('close-modal-barchart', 'n_clicks')
-    ],
-    [State('modal-barchart', 'is_open')],
-)
-def toggle_modal_barchart(n1, n2, is_open):
-    if n1 or n2:
-        return not is_open
-
-    return is_open
+    return 'd-none', 'd-none', 'd-block'
