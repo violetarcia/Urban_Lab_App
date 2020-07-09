@@ -6,23 +6,10 @@ from app.dash import app
 from model.visualizaciones import table_giro, treemap_prices, treemap_giro, table_prices_data
 from model.datos import dict_metrics_table, df_pymes, predicciones, df_prices
 
-dropdown_treemap = dcc.Dropdown(
-    id='slct_data',
-    options=[
-        {
-            'label': 'Treemap',
-            'value': 'Treemap'
-        },
-        {
-            'label': 'Datos',
-            'value': 'Datos'
-        }
-    ],
-    multi=False,
-    clearable=False,
-    value='Treemap',
-    className='float-right ml-auto w-25'
-)
+tabs_barchart = dcc.Tabs(id='tabs_data', value='Treemap', children=[
+    dcc.Tab(label='Treemap', value='Treemap'),
+    dcc.Tab(label='Datos', value='Datos'),
+])
 
 treemap = dcc.Graph(id='treemap', figure={}, className='')
 
@@ -38,7 +25,7 @@ treemap = dcc.Graph(id='treemap', figure={}, className='')
             component_property='value'
         ),
         Input(
-            component_id='slct_data',
+            component_id='tabs_data',
             component_property='value'
         )
     ]

@@ -411,9 +411,9 @@ def table_prices(p_df_semaforo):
     ])
 
     fig.update_layout(
-        height=450,
+        height=465,
         title="Predicciones de la variación de precios para Noviembre 2020",
-        margin={"r": 10, "t": 30, "l": 10, "b": 10},
+        margin={"r": 0, "t": 30, "l": 0, "b": 0},
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
     )
