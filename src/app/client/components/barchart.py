@@ -19,7 +19,7 @@ txt_barchart = html.Div([
     html.P(children=['En esta grafica se observa una predicción en pesos de lo que variaran los precios dentro de 6 meses. El numero representado al final de la gráfica es una media de los precios futuros de todos los productos dentro de esa categoría. Por lo que es un precio representativo de lo que estarán los precios en un futuro. El numero en color verde o rojo representa cuantos pesos van a subir o bajar los productos. Ejemplo en los Alimentos en la clase de Carnes se ve el numero verde 1.42, lo que significa que en general los productos de carne estarán 1.42 pesos más caros en noviembre. La grafica representa una barra horizontal y una línea vertical, la línea vertical representa los precios actuales  y la barra horizontal representa los precios futuros.'])
 ],
 id='txt_barchart',
-className='')
+className='d-none')
 
 dropdown_barchart = dcc.Dropdown(
     id='slct_fig',
@@ -33,7 +33,7 @@ dropdown_barchart = dcc.Dropdown(
     multi=False,
     clearable=False,
     value='1',
-    className='float-right ml-auto w-25',
+    className='d-none',
 )
 
 tabs_barchart = dcc.Tabs(id='tabs_fig', value='0', children=[
