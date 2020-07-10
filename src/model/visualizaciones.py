@@ -79,7 +79,11 @@ def histogram_metric(p_data, p_metric):
     # Axis title
     fig['layout']['xaxis']['title']='Nivel de '+p_metric
     fig['layout']['yaxis']['title']='Frecuencia'
-
+    
+    fig.update_layout(
+        plot_bgcolor="#F9F9F9",
+        paper_bgcolor="#F9F9F9"
+    )
     return fig
 
 
@@ -470,6 +474,7 @@ def table_prices(p_df_semaforo):
         height=465,
         title="Predicciones de la variación de precios (Mayo a Noviembre 2020)",
         margin={"r": 0, "t": 30, "l": 0, "b": 0},
+        title_x=0.5,
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
     )

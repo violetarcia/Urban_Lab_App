@@ -14,13 +14,14 @@ groups = [
     'Transporte público'
 ]
 
+'''
 txt_barchart = html.Div([
-    html.H5(children=['Grafica de variación de precios en pesos']),
-    html.P(children=['En esta grafica se observa una predicción en pesos de lo que variaran los precios dentro de 6 meses. El numero representado al final de la gráfica es una media de los precios futuros de todos los productos dentro de esa categoría. Por lo que es un precio representativo de lo que estarán los precios en un futuro. El numero en color verde o rojo representa cuantos pesos van a subir o bajar los productos. Ejemplo en los Alimentos en la clase de Carnes se ve el numero verde 1.42, lo que significa que en general los productos de carne estarán 1.42 pesos más caros en noviembre. La grafica representa una barra horizontal y una línea vertical, la línea vertical representa los precios actuales  y la barra horizontal representa los precios futuros.'])
+    html.H5(children=['']),
+    html.P(children=[''])
 ],
 id='txt_barchart',
 className='d-none')
-
+'''
 
 dropdown_barchart = dcc.Dropdown(
     id='slct_fig',
@@ -39,14 +40,24 @@ dropdown_barchart = dcc.Dropdown(
 
 tabs_barchart = dcc.Tabs(id='tabs_fig', value='0', children=[
     dcc.Tab(label='Distribución por Municipio', value='0'),
-    dcc.Tab(label='Tamaño de Empresas', value='1'),
-dcc.Tab(label='Histograma de Métrica', value='2'),
+    dcc.Tab(label='Tamaño de Empresas ZMG', value='1'),
+    dcc.Tab(label='Histograma de Métrica', value='2'),
 ])
 
+btn_barchart = dbc.Button([
+    'Descripción ',
+    html.I(className='fas fa-search-plus')
+],
+    id='open-modal-barchart',
+    className='d-none'
+)
+
+
 output_barchart = html.Div([
+    btn_barchart,
     dropdown_barchart,
     tabs_barchart
-])
+],className='mb-1')
 
 barchart = dcc.Graph(
     id='barchart',
@@ -54,7 +65,34 @@ barchart = dcc.Graph(
     className='mt-auto mb-auto'
 )
 
+
+modal_barchart = dbc.Modal(
+    [
+        dbc.ModalHeader(
+            children=['Grafica de variación de precios en pesos'],
+            className='text-center text-justify'
+        ),
+        dbc.ModalBody(
+            children=['En esta grafica se observa una predicción en pesos de lo que variaran los precios dentro de 6 meses. El numero representado al final de la gráfica es una media de los precios futuros de todos los productos dentro de esa categoría. Por lo que es un precio representativo de lo que estarán los precios en un futuro. El numero en color verde o rojo representa cuantos pesos van a subir o bajar los productos. Ejemplo en los Alimentos en la clase de Carnes se ve el numero verde 1.42, lo que significa que en general los productos de carne estarán 1.42 pesos más caros en noviembre. La grafica representa una barra horizontal y una línea vertical, la línea vertical representa los precios actuales  y la barra horizontal representa los precios futuros.'],
+            className='text-center text-justify'
+        ),
+        dbc.ModalFooter(
+            dbc.Button([
+                'Cerrar ',
+                html.I(className='fas fa-times-circle')
+            ],
+                id='close-modal-barchart',
+                className='m-auto btn btn-danger'
+            )
+        ),
+    ],
+    id='modal-barchart',
+    centered=True,
+)
+
 # Connect the Plotly graphs with Dash Components
+
+
 @app.callback(
     Output(
         component_id='barchart',
@@ -75,7 +113,7 @@ barchart = dcc.Graph(
         )
     ]
 )
-def update_graph(option_map, figura_slct, figura_tabs ):
+def update_graph(option_map, figura_slct, figura_tabs):
     # Visualizations
     if option_map == 'Precios':
         fig = dif_prices(predicciones, groups[int(figura_slct)])
@@ -100,10 +138,12 @@ def update_graph(option_map, figura_slct, figura_tabs ):
     return fig
 
 # Connect the Plotly graphs with Dash Components
+
+
 @app.callback(
     [
         Output(
-            component_id='txt_barchart',
+            component_id='open-modal-barchart',
             component_property='className'
         ),
         Output(
@@ -114,8 +154,7 @@ def update_graph(option_map, figura_slct, figura_tabs ):
             component_id='tabs_fig',
             component_property='className'
         )
-    ]
-    ,
+    ],
     [Input(
         component_id='slct_map',
         component_property='value'
@@ -124,6 +163,21 @@ def update_graph(option_map, figura_slct, figura_tabs ):
 def update_graph(option_map):
     # Visualizations
     if option_map == 'Precios':
-        return 'd-block text-justify', 'd-block', 'd-none'
+        return 'd-block btn btn-outline-primary bg-primary text-white float-left mr-auto', 'd-block float-right ml-auto w-25', 'd-none'
 
     return 'd-none', 'd-none', 'd-block'
+
+
+@app.callback(
+    Output('modal-barchart', 'is_open'),
+    [
+        Input('open-modal-barchart', 'n_clicks'),
+        Input('close-modal-barchart', 'n_clicks')
+    ],
+    [State('modal-barchart', 'is_open')],
+)
+def toggle_modal_barchart(n1, n2, is_open):
+    if n1 or n2:
+        return not is_open
+
+    return is_open
