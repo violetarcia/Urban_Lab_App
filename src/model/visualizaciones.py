@@ -28,8 +28,6 @@ def bar_chart(df_data, metric):
 # -- ------------------------------------------------------------------------------------ -- #
 # -- Function: Mapa
 # -- ------------------------------------------------------------------------------------ -- #
-
-
 def map_metric(p_df_data, metric, color):
     """
     Visualizacion de mapa por metrica
@@ -76,7 +74,7 @@ def map_metric(p_df_data, metric, color):
         }
     )
     fig.update_layout(
-        title_text=metric+ ' de la ZMG por codigo postal',
+        title_text=metric+ ' de la ZMG por código postal',
         margin={"r": 10, "t": 30, "l": 10, "b": 10},
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
@@ -182,7 +180,7 @@ def velocimeter_size(p_df_data, p_metric, p_metric_table):
     ))
 
     fig.update_layout(
-        title=p_metric + " en los Tamaños de las empresas",
+        title=p_metric + " medio de los tamaños de empresas",
         grid={'rows': 2, 'columns': 2, 'pattern': "independent"},
         template={
             'data': {
@@ -255,7 +253,7 @@ def bars_city(p_df_data, p_metric, p_metric_table):
         }
     )
     fig.update_layout(
-        title=p_metric + " por Municipio de la ZMG",
+        title=p_metric + " medio por Municipio de la ZMG",
         xaxis_title="Municipios",
         yaxis_title=p_metric,
         plot_bgcolor="#F9F9F9",
@@ -298,7 +296,7 @@ def table_giro(p_df_data, p_metric, p_metric_table):
         index=['Giro'],
         values=list(p_metric_table.columns),
         aggfunc=np.median
-    )
+    ).round(3)
     # Cambiar nombre de columnas
     def change_name_columns(x): return x.replace('_', ' ').title()
     # Nuevas columnas
@@ -378,9 +376,9 @@ def table_prices(p_df_semaforo):
     values = list(p_df_semaforo[0])
     # colores verde | amarillo | rojo
     colores = [
-        'rgb(230, 120, 100)',
+        'rgb(200, 230, 150)',
         'rgb(245, 220, 130)',
-        'rgb(200, 230, 150)'
+        'rgb(230, 120, 100)'
     ]
     # asignar colores
     def asig_colors(x): return colores[2] if x == 'rojo' else (
@@ -412,7 +410,7 @@ def table_prices(p_df_semaforo):
 
     fig.update_layout(
         height=465,
-        title="Predicciones de la variación de precios para Noviembre 2020",
+        title="Predicciones de la variación de precios (Mayo a Noviembre 2020)",
         margin={"r": 0, "t": 30, "l": 0, "b": 0},
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
@@ -456,8 +454,8 @@ def dif_prices(p_df_predicciones, p_grupo):
     # Espacio vertical
     v_s = 0.2 if len(grupo.T) == 4 else 0.45
 
-    # colores: verde | amarillo | rojo
-    colores = ['rgb(200, 230, 150)', 'rgb(245, 220, 130)', 'rgb(230, 120, 100)']
+    # colores: rojo | amarillo | verde
+    colores = ['rgb(230, 120, 100)', 'rgb(245, 220, 130)', 'rgb(200, 230, 150)']
 
     if len(grupo.T) == 8:
         # Tipo de fig que se añadiran al subplot
@@ -481,7 +479,7 @@ def dif_prices(p_df_predicciones, p_grupo):
 
             # Añadir fig
             fig.append_trace(go.Indicator(
-                mode="number+gauge+delta", value=futuro_precio,
+                mode="number+gauge", value=futuro_precio,
                 delta={'reference': ultimo_precio},
                 title={'text': titulo, 'font': {'size': 9}},
                 gauge={
@@ -536,7 +534,7 @@ def dif_prices(p_df_predicciones, p_grupo):
 
             # Añadir plots
             fig.append_trace(go.Indicator(
-                mode="number+gauge+delta",
+                mode="number+gauge",
                 value=futuro_precio,
                 delta={
                     'reference': ultimo_precio
@@ -691,8 +689,8 @@ def treemap_prices(p_df_predicciones):
     df_porc = add_porcentual(p_df_predicciones)
     # Columnas
     path = ['Color', 'Grupo', 'Clase', 'C_Porcentual']
-    # Colores amarillo | verde | rojo
-    color = ['rgb(245, 220, 130)', 'rgb(200, 230, 150)', 'rgb(230, 120, 100)']
+    # Colores amarillo | rojo | verde
+    color = ['rgb(245, 220, 130)', 'rgb(230, 120, 100)', 'rgb(200, 230, 150)']
     # label = df_porc['Clase']
     df_porc['C_Porcentual'] = df_porc['C_Porcentual'].apply(
         lambda x: ' Cambio Porcentual: ' + str(x))
@@ -765,7 +763,7 @@ def table_prices_data(p_df_prices):
 
     fig.update_layout(
         margin={"r": 10, "t": 30, "l": 10, "b": 10},
-        title_text='Datos de precios historicos',
+        title_text='Datos de precios históricos',
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
     )
@@ -871,7 +869,7 @@ def treemap_giro(p_df_data, p_metric, p_metric_table):
         textinfo="label+value"))
         
     fig.update_layout(
-        title="Datos de la medina de la métrica: " + p_metric + " (por sector)",
+        title="Datos por mediana para la métrica de: " + p_metric + " (por sector)",
         margin={"r": 10, "t": 30, "l": 10, "b": 10},
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
