@@ -17,13 +17,71 @@ from plotly.subplots import make_subplots
 from config.config import db
 
 
-def bar_chart(df_data, metric):
-    data = df_data.groupby('Sector')[metric].sum()
-    data = data.reset_index()
+# -- ------------------------------------------------------------------------------------ -- #
+# -- Function: Histograma de metrica estres y adaptabilidad
+# -- ------------------------------------------------------------------------------------ -- #
+def histogram_metric(p_data, p_metric):
+    """
+    Histograma y estadistidicas descriptivas
 
-    fig = px.bar(data, x='Sector', y=metric)
+    Parameters
+    ---------
+    p_data: DataFrame : datos de pymes con columna de metrica
+    p_metric: str : nombre de la metrica
+
+    Returns
+    ---------
+    fig : plotly figure : mapa de la zmg de jalisco
+
+    Debuggin
+    ---------
+    p_df_data = metric_quantification(df_pymes, ent.conditions_stress,
+                                   'Estres')['df_prices']
+    p_metric = 'Estres'
+
+    """
+    data = p_data['Total']
+    fig = make_subplots(rows=2, cols=1,
+                        specs=[[{"type": "xy"}], [{"type": "domain"}]],
+                        subplot_titles=(
+                                "Histógrama",
+                                "Datos estadisticos"),
+                       vertical_spacing=0.3)
+
+    color = 'rgb(230, 120, 100)' if p_metric=='Estres' else 'rgb(200, 120, 200)'
+
+    # Histograma
+    fig.add_trace(go.Histogram(x=data,
+                               opacity=0.7,
+                               marker=dict(color=color)
+                               ),
+                  row=1, col=1)
+
+    # Tabla descriptiva de datos
+    t_descriptive = data.describe().round(2)
+
+    # Colores de head and body de tabla de acuerdo a metrica
+    color_h = 'rgb(160, 85, 70)' if p_metric=='Estres' else 'rgb(130, 20, 100)'
+    color_b = 'rgb(230, 190, 180)' if p_metric=='Estres' else 'rgb(220, 180, 200)'
+
+    fig.add_trace(go.Table(name='Descripcion',
+                header=dict(values= [' ', p_metric],
+                            fill_color=color_h,
+                            align='center',
+                            font_color = 'White',
+                            font_size = 14
+                            ),
+                cells=dict(values=[t_descriptive.index.tolist(), t_descriptive],
+                           fill_color =color_b)
+                           ),
+                  row=2, col=1)
+
+    # Axis title
+    fig['layout']['xaxis']['title']='Nivel de '+p_metric
+    fig['layout']['yaxis']['title']='Frecuencia'
 
     return fig
+
 
 # -- ------------------------------------------------------------------------------------ -- #
 # -- Function: Mapa
@@ -342,7 +400,7 @@ def table_giro(p_df_data, p_metric, p_metric_table):
     ])
     fig.update_layout(
         title="Datos para el cálculo de la métrica: "+p_metric,
-        margin={"r": 10, "t": 30, "l": 10, "b": 10},
+        margin={"r": 10, "t": 40, "l": 10, "b": 10},
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
     )

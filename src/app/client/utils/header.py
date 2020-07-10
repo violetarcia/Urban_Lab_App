@@ -41,7 +41,13 @@ header = html.Header(
                             multi=False,
                             clearable=False,
                             value='Estres',
-                            style={'width': '200px'}
+                            style={'width': '200px',
+                                'paddingBottom': '5px',
+                                'color': '#325ADC',
+                                'background-color': '#D1D8EE',
+                                'fontSize' : '21px',
+                                'fontColor': '#F1F2F5'
+                                   }
                         )],
                         style={'width': '200px'},
                         className='m-auto'
