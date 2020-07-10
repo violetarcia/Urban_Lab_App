@@ -3,7 +3,7 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
 from app.dash import app
-from model.visualizaciones import bars_city, velocimeter_size, dif_prices
+from model.visualizaciones import bars_city, velocimeter_size, dif_prices, histogram_metric
 from model.datos import dict_metrics_table, df_pymes, predicciones
 
 groups = [
@@ -21,6 +21,7 @@ txt_barchart = html.Div([
 id='txt_barchart',
 className='d-none')
 
+
 dropdown_barchart = dcc.Dropdown(
     id='slct_fig',
     options=[
@@ -37,8 +38,9 @@ dropdown_barchart = dcc.Dropdown(
 )
 
 tabs_barchart = dcc.Tabs(id='tabs_fig', value='0', children=[
-    dcc.Tab(label='Distribución por municipio', value='0'),
-    dcc.Tab(label='Tamaño de empresas', value='1'),
+    dcc.Tab(label='Distribución por Municipio', value='0'),
+    dcc.Tab(label='Tamaño de Empresas', value='1'),
+dcc.Tab(label='Histograma de Métrica', value='2'),
 ])
 
 output_barchart = html.Div([
@@ -73,7 +75,7 @@ barchart = dcc.Graph(
         )
     ]
 )
-def update_graph(option_map, figura_slct,figura_tabs ):
+def update_graph(option_map, figura_slct, figura_tabs ):
     # Visualizations
     if option_map == 'Precios':
         fig = dif_prices(predicciones, groups[int(figura_slct)])
@@ -84,11 +86,16 @@ def update_graph(option_map, figura_slct,figura_tabs ):
                 option_map,
                 dict_metrics_table[option_map]
             )
-        else:
+        elif int(figura_tabs) == 1:
             fig = velocimeter_size(
                 df_pymes,
                 option_map,
                 dict_metrics_table[option_map]
+            )
+        else:
+            fig = histogram_metric(
+                dict_metrics_table[option_map],
+                option_map
             )
     return fig
 
