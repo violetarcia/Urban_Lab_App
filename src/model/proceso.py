@@ -57,10 +57,12 @@ def metric_quantification(p_df_data, p_conditions, p_metric):
     # Condiciones (dicts)
     list_dict_conditions = list(p_conditions.values())
     # Lista de lista con resultados
-    answer = [[f_condition(
-		list_dict_conditions[k],
-        p_df_data[list_columns[k]][i]
-    )
+    answer = [[round(
+        f_condition(
+		    list_dict_conditions[k],
+            p_df_data[list_columns[k]][i]
+        ),
+    3)
         for i in range(len(p_df_data))
     ]
         for k in range(len(list_columns))
@@ -70,7 +72,7 @@ def metric_quantification(p_df_data, p_conditions, p_metric):
 
     # --------------------------
     # Columna con suma
-    metric_sum = metric.sum()
+    metric_sum = round(metric.sum(), 3)
 
     # Nombre de variables para columnas
     col = list(p_conditions.keys())
