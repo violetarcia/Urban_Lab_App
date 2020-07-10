@@ -127,5 +127,3 @@ def update_graph(option_map):
         return 'd-block text-justify', 'd-block', 'd-none'
 
     return 'd-none', 'd-none', 'd-block'
-
-

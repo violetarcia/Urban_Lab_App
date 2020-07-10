@@ -42,11 +42,9 @@ header = html.Header(
                             clearable=False,
                             value='Estres',
                             style={'width': '200px',
-                                'paddingBottom': '5px',
-                                'color': '#325ADC',
+                                'color': '#272E42',
                                 'background-color': '#D1D8EE',
-                                'fontSize' : '21px',
-                                'fontColor': '#F1F2F5'
+                                'fontSize' : '16px'
                                    }
                         )],
                         style={'width': '200px'},
