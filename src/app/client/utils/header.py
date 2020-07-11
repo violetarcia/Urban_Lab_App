@@ -48,4 +48,4 @@ header = html.Header(
         )
     ],
     className='sticky-top bg-white w-100 border-bottom',
-    style={'height':'18%'})
+    style={'height':'20%'})
