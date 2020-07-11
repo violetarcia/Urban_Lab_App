@@ -38,14 +38,14 @@ header = html.Header(
                             style={
                                 'color': '#272E42',
                                 'background-color': '#D1D8EE',
-                                'fontSize': '16px'
+                                'fontSize': '20px'
                             },
-                            className='w-100 m-auto')
+                            className='w-100 h-100 m-auto')
                     ], className='col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 m-0 p-0')
                 ], className='row w-100 m-0 p-0')
-            ], className='container-fluid'),
-            className='navbar navbar-white bg-white'
+            ], className='container-fluid d-flex align-items-center'),
+            className='navbar navbar-white bg-white m-0 p-0',
+            style={'height': '80px'}
         )
     ],
-    className='sticky-top bg-white w-100 border-bottom',
-    style={'height': '20%'})
+    className='sticky-top bg-white w-100 border-bottom')
