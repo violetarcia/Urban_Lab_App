@@ -14,11 +14,11 @@ header = html.Header(
                         html.Div([
                             html.Img(
                                 src=app.get_asset_url('logo.png'),
-                                height='40px',
+                                height='60px',
                                 className='mr-3'),
                             html.H4(
                                 name,
-                                className='m-auto text-primary font-weight-bold')
+                                className='m-auto text-primary font-weight-bold d-none d-md-block d-lg-block d-xl-block')
                         ], className='d-flex flex-row')
                     ], className='col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8'),
                     html.Div([
@@ -41,8 +41,10 @@ header = html.Header(
                                 'fontSize': '20px'
                             },
                             className='w-100 h-100 m-auto')
-                    ], className='col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 m-0 p-0')
-                ], className='row w-100 m-0 p-0')
+                    ], className='col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4')
+                ], 
+                className='row w-100 m-0 p-0',
+                style={'height':'80px'})
             ], className='container-fluid'),
             className='navbar navbar-white bg-white m-0 p-0'
         )
