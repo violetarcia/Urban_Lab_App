@@ -16,11 +16,11 @@ header = html.Header(
                                 src=app.get_asset_url('logo.png'),
                                 height='60px',
                                 className='mr-3'),
-                            html.H4(
+                            html.H2(
                                 name,
-                                className='m-auto text-primary font-weight-bold d-none d-md-block d-lg-block d-xl-block')
+                                className='m-auto text-primary font-weight-bold d-none d-md-block d-lg-block d-xl-block text-center text-justify')
                         ], className='d-flex flex-row')
-                    ], className='col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8'),
+                    ], className='col-3 col-sm-3 col-md-8 col-lg-8 col-xl-8 mx-auto'),
                     html.Div([
                         dcc.Dropdown(
                             id='slct_map',
@@ -41,11 +41,11 @@ header = html.Header(
                                 'fontSize': '20px'
                             },
                             className='w-100 h-100 m-auto')
-                    ], className='col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4')
+                    ], className='col-9 col-sm-9 col-md-4 col-lg-4 col-xl-4 mx-auto')
                 ], 
-                className='row w-100 m-0 p-0',
+                className='row w-100 m-0 p-0 d-flex justify-content-center align-items-center',
                 style={'height':'80px'})
-            ], className='container-fluid'),
+            ], className='container-fluid m-0 p-0'),
             className='navbar navbar-white bg-white m-0 p-0'
         )
     ],
