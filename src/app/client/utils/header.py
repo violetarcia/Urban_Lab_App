@@ -18,9 +18,9 @@ header = html.Header(
                                 className='mr-3'),
                             html.H4(
                                 name,
-                                className='m-auto text-primary font-weight-bold d-none d-md-block d-lg-block d-xl-block')
-                        ],className='d-flex flex-row')
-                    ], className='col-3 col-sm-6 col-md-8 col-lg-8 col-xl-8'),
+                                className='m-auto text-primary font-weight-bold')
+                        ], className='d-flex flex-row')
+                    ], className='col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8'),
                     html.Div([
                         dcc.Dropdown(
                             id='slct_map',
@@ -40,9 +40,9 @@ header = html.Header(
                                 'background-color': '#D1D8EE',
                                 'fontSize': '16px'
                             },
-                            className='w-100 ml-auto mr-0')
-                    ], className='col-9 col-sm-6 col-md-4 col-lg-4 col-xl-4')
-                ], className='row w-100 ')
+                            className='w-100 m-auto')
+                    ], className='col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 m-0 p-0')
+                ], className='row w-100 m-0 p-0')
             ], className='container-fluid'),
             className='navbar navbar-white bg-white'
         )
