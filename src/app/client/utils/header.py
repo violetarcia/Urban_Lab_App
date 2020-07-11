@@ -47,4 +47,5 @@ header = html.Header(
             className='navbar navbar-white bg-white'
         )
     ],
-    className='sticky-top bg-white w-100 border-bottom')
+    className='sticky-top bg-white w-100 border-bottom',
+    style={'height':'18%'})
