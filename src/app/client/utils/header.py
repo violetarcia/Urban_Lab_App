@@ -8,7 +8,7 @@ from config.config import name
 header = html.Header(
     children=[
         dbc.Nav(
-            className='navbar navbar-expand-lg navbar-white bg-white  d-flex ',
+            className='navbar navbar-white bg-white',
             children=[
                 # logo/home
                 dbc.NavItem([
@@ -16,20 +16,10 @@ header = html.Header(
                         src=app.get_asset_url('logo.png'),
                         height='40px'
                     )],
-                    className='ml-2'
+                    className='navbar-brand ml-2'
                 ),
                 html.H4(name, className='m-auto text-primary font-weight-bold'),
-                html.Div([
-                    dbc.NavItem([
-                        html.A(
-                            children=[
-                                html.I(className='fab fa-github'), '  Code'],
-                            href='https://github.com/IFFranciscoME/Urban_Lab_App/',
-                            target='_blank'
-                        )],
-                        className='mr-2 mt-auto mb-auto'
-                    ),
-                    dbc.NavItem([
+                dbc.NavItem([
                         dcc.Dropdown(
                             id='slct_map',
                             options=[
@@ -48,9 +38,8 @@ header = html.Header(
                                    }
                         )],
                         style={'width': '200px'},
-                        className='m-auto'
+                        className='ml-auto'
                     )
-                ], className='row ml-auto mr-2')
             ]
         )
     ], className='sticky-top bg-white w-100 border-bottom')
