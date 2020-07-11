@@ -6,6 +6,30 @@ from app.dash import app
 from model.visualizaciones import table_giro, treemap_prices, treemap_giro, table_prices_data
 from model.datos import dict_metrics_table, df_pymes, predicciones, df_prices
 
+def treemapPrices():
+    return treemap_prices(predicciones)
+
+def tablePrices():
+    return table_prices_data(df_prices)
+
+def treemapGiro(option_map):
+    return  treemap_giro(df_pymes, option_map,dict_metrics_table[option_map])
+
+def tableGiro(option_map):
+    return table_giro(df_pymes, option_map, dict_metrics_table[option_map])
+
+figures= {
+    'Precios':{
+        'Treemap' :treemapPrices,
+        'Datos': tablePrices
+    },
+    'NoPrecios' :{
+        'Treemap' :treemapGiro,
+        'Datos': tableGiro
+    }
+    
+}
+
 tabs_barchart = dcc.Tabs(id='tabs_data', value='Treemap', children=[
     dcc.Tab(label='Treemap', value='Treemap'),
     dcc.Tab(label='Datos', value='Datos'),
@@ -34,17 +58,9 @@ def update_graph(option_map, option_data):
 
     # Visualizations
     if option_map == 'Precios':
-        if option_data == 'Treemap':
-            fig = treemap_prices(predicciones)
-        else:
-            fig = table_prices_data(df_prices)
+        fig = figures['Precios'][option_data]()
     else:
-        if option_data == 'Treemap':
-            fig = treemap_giro(df_pymes, option_map,
-                               dict_metrics_table[option_map])
-        else:
-            fig = table_giro(df_pymes, option_map,
-                             dict_metrics_table[option_map])
+        fig = figures['NoPrecios'][option_data](option_map)
 
     return fig
 #'slct_data'

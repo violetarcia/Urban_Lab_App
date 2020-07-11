@@ -23,6 +23,25 @@ id='txt_barchart',
 className='d-none')
 '''
 
+
+def bars(option_map):
+    return bars_city(df_pymes, option_map, dict_metrics_table[option_map])
+
+
+def velocimeter(option_map):
+    return velocimeter_size(df_pymes, option_map, dict_metrics_table[option_map])
+
+
+def histogram(option_map):
+    return histogram_metric(dict_metrics_table[option_map], option_map)
+
+
+figures = {
+    '0': bars,
+    '1': velocimeter,
+    '2': histogram
+}
+
 dropdown_barchart = dcc.Dropdown(
     id='slct_fig',
     options=[
@@ -57,7 +76,7 @@ output_barchart = html.Div([
     btn_barchart,
     dropdown_barchart,
     tabs_barchart
-],className='mb-1')
+], className='mb-1')
 
 barchart = dcc.Graph(
     id='barchart',
@@ -88,6 +107,7 @@ modal_barchart = dbc.Modal(
     ],
     id='modal-barchart',
     centered=True,
+    autoFocus=True
 )
 
 # Connect the Plotly graphs with Dash Components
@@ -118,23 +138,8 @@ def update_graph(option_map, figura_slct, figura_tabs):
     if option_map == 'Precios':
         fig = dif_prices(predicciones, groups[int(figura_slct)])
     else:
-        if int(figura_tabs) == 0:
-            fig = bars_city(
-                df_pymes,
-                option_map,
-                dict_metrics_table[option_map]
-            )
-        elif int(figura_tabs) == 1:
-            fig = velocimeter_size(
-                df_pymes,
-                option_map,
-                dict_metrics_table[option_map]
-            )
-        else:
-            fig = histogram_metric(
-                dict_metrics_table[option_map],
-                option_map
-            )
+        fig = figures[figura_tabs](option_map)
+
     return fig
 
 # Connect the Plotly graphs with Dash Components
