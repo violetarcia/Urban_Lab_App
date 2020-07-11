@@ -14,8 +14,8 @@ footer = html.Footer(
                                 src=app.get_asset_url('logo2.png'),
                                 className='w-100 m-auto rounded'
                             )
-                        ], className='col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4  d-flex mt-3'),
-                        html.Hr(className='clearfix w-100 d-lg-none bg-white'),
+                        ], className='col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4  d-flex mt-3'),
+                        html.Hr(className='clearfix w-100 d-lg-none d-xl-none bg-white'),
                         html.Div([
                             html.P(
                                 children=[
@@ -33,8 +33,8 @@ footer = html.Footer(
                                 ],
                                 className='text-center text-justify m-auto'
                             )
-                        ], className='col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex mt-3'),
-                        html.Hr(className='clearfix w-100 d-lg-none bg-white'),
+                        ], className='col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 d-flex mt-3'),
+                        html.Hr(className='clearfix w-100 d-lg-none d-xl-none bg-white'),
                         html.Div([
                             html.Div([
                                 html.H5(
@@ -90,7 +90,7 @@ footer = html.Footer(
                                 )
                             ],
                                 className='m-auto')
-                        ], className='col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  d-flex mt-3')
+                        ], className='col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2  d-flex mt-3')
                     ],
                     className='row mt-3'),
                 html.Hr(className='bg-white p-0 m-0'),
