@@ -8,38 +8,43 @@ from config.config import name
 header = html.Header(
     children=[
         dbc.Nav(
-            className='navbar navbar-white bg-white',
-            children=[
-                # logo/home
-                dbc.NavItem([
-                    html.Img(
-                        src=app.get_asset_url('logo.png'),
-                        height='40px'
-                    )],
-                    className='navbar-brand ml-2'
-                ),
-                html.H4(name, className='m-auto text-primary font-weight-bold'),
-                dbc.NavItem([
+            html.Div([
+                html.Div([
+                    html.Div([
+                        html.Div([
+                            html.Img(
+                                src=app.get_asset_url('logo.png'),
+                                height='40px',
+                                className='mr-3'),
+                            html.H4(
+                                name,
+                                className='m-auto text-primary font-weight-bold d-none d-md-block d-lg-block d-xl-block')
+                        ],className='d-flex flex-row')
+                    ], className='col-3 col-sm-6 col-md-8 col-lg-8 col-xl-8'),
+                    html.Div([
                         dcc.Dropdown(
                             id='slct_map',
                             options=[
-                                {'label': 'Estrés Económico', 'value': 'Estres'},
+                                {'label': 'Estrés Económico',
+                                    'value': 'Estres'},
                                 {'label': 'Adaptabilidad',
                                     'value': 'Adaptabilidad'},
-                                {'label': 'Predicción de Precios', 'value': 'Precios'}
+                                {'label': 'Predicción de Precios',
+                                    'value': 'Precios'}
                             ],
                             multi=False,
                             clearable=False,
                             value='Estres',
-                            style={'width': '200px',
+                            style={
                                 'color': '#272E42',
                                 'background-color': '#D1D8EE',
-                                'fontSize' : '16px'
-                                   }
-                        )],
-                        style={'width': '200px'},
-                        className='ml-auto'
-                    )
-            ]
+                                'fontSize': '16px'
+                            },
+                            className='w-100 ml-auto mr-0')
+                    ], className='col-9 col-sm-6 col-md-4 col-lg-4 col-xl-4')
+                ], className='row w-100 ')
+            ], className='container-fluid'),
+            className='navbar navbar-white bg-white'
         )
-    ], className='sticky-top bg-white w-100 border-bottom')
+    ],
+    className='sticky-top bg-white w-100 border-bottom')

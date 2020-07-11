@@ -92,7 +92,7 @@ footer = html.Footer(
                                 className='m-auto')
                         ], className='col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2  d-flex mt-3')
                     ],
-                    className='row mt-3'),
+                    className='row'),
                 html.Hr(className='bg-white p-0 m-0'),
                 html.P(
                     children=[
