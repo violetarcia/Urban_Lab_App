@@ -92,13 +92,13 @@ footer = html.Footer(
                                 className='m-auto')
                         ], className='col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2  d-flex mt-3')
                     ],
-                    className='row'),
+                    className='row mb-3'),
                 html.Hr(className='bg-white p-0 m-0'),
                 html.P(
                     children=[
                         'Copyright @2020 | Diseñado por Laboratorio de econometría espacial urbana'
                     ],
-                    className='mt-2'
+                    className='mt-3 mb-3'
                 )
             ],
             className='container text-center text-white'
