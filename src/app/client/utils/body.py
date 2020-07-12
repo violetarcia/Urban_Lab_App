@@ -56,4 +56,4 @@ body = html.Div([
         ], className='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12  mt-3 mb-3')
     ], className='row'),
     modal_barchart
-], className='container-fluid mr-1 ml-1 mb-auto', style={'backgroundColor': '#F2F2F2'})
+], className='container-fluid mb-auto', style={'backgroundColor': '#F2F2F2'})
