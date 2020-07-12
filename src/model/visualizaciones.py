@@ -113,7 +113,7 @@ def map_metric(p_df_data, p_metric, color):
     color = "Reds"
 
     """
-    with open(db + 'CP.json') as f:
+    with open(db + 'CP_2.json') as f:
         j_file = geojson.load(f)
     fig = px.choropleth_mapbox(
         p_df_data,
@@ -684,8 +684,8 @@ def add_porcentual(p_df_predicciones):
     p_df = p_df_predicciones.copy()
 
     # Agregar columna de cambio porcentual
-    p_df['C_Porcentual'] = round(
-        p_df['Precio para Nov 2020'] / p_df['Ultimo precio'] - 1, 4)
+    p_df['C_Porcentual'] = round((
+        p_df['Precio para Nov 2020'] / p_df['Ultimo precio'] - 1)*100, 4)
 
     # Reiniciar indices, sin multi-index
     p_df.reset_index(level=1, inplace=True)
@@ -695,10 +695,10 @@ def add_porcentual(p_df_predicciones):
     p_df = p_df.rename(columns={'index': 'Grupo', 'level_1': 'Clase'})
 
     # Calcular para colorear
-    color = ['Precios que bajaran más de 1%' if p_df['C_Porcentual'][i] <= -.01 else (
+    color = ['Precios que bajaran más de 1%' if p_df['C_Porcentual'][i] <= -1 else (
         'Precios que se mantendrán con una variación menor a 1%' if p_df[
-            'C_Porcentual'][i] <= .01 and p_df[
-                'C_Porcentual'][i] > -.01 else 'Precios que aumentarán más de 1%'
+            'C_Porcentual'][i] <= 1 and p_df[
+                'C_Porcentual'][i] > -1 else 'Precios que aumentarán más de 1%'
     ) for i in range(len(p_df))]
 
     # Añadir columna de colores
