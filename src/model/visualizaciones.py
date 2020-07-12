@@ -392,6 +392,9 @@ def table_giro(p_df_data, p_metric, p_metric_table):
     color_h = 'rgb(160, 85, 70)' if p_metric == 'Estres' else 'rgb(80, 10, 90)'
     color_b = 'rgb(230, 190, 180)' if p_metric == 'Estres' else 'rgb(220, 180, 200)'
 
+    # Titulo con tilde
+    titulo = 'Estrés' if p_metric == 'Estres' else 'Adaptabilidad'
+
     fig = go.Figure(data=[
         go.Table(
             name=p_metric,
@@ -411,7 +414,7 @@ def table_giro(p_df_data, p_metric, p_metric_table):
             )
         )
     ])
-    titulo = 'Estrés' if p_metric == 'Estres' else 'Adaptabilidad'
+
     fig.update_layout(
         title="Datos para el cálculo de la métrica: "+titulo,
         margin={"r": 10, "t": 40, "l": 10, "b": 10},
